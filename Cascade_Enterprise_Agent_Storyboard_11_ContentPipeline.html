@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cascade Enterprise Agent · Storyboard 11 · Content Pipeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Storyboard 11 — Content Pipeline vertical. Cascade platform. Same token layer as 01–10. */
+:root{
+  --grad-main:linear-gradient(135deg,#625FED 0%,#5DB9DB 100%);
+  --grad-hero:linear-gradient(110deg,#5BF7CF 0%,#5DB9DB 50%,#625FED 100%);
+  --grad-aurora:linear-gradient(135deg,#5BF7CF 0%,#5B49BA 100%);
+  --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;--r:12px;
+}
+:root,[data-theme="dark"]{
+  --bg-grad:radial-gradient(1200px 600px at 15% -5%,rgba(98,95,237,.16),transparent 60%),radial-gradient(1000px 500px at 100% 0,rgba(93,185,219,.12),transparent 55%),#0B223A;
+  --surface:#0F3259;--surface-2:#0C2846;--inset:#081A2E;--topbar:rgba(8,26,46,.72);
+  --border:rgba(143,163,177,.16);--border-2:rgba(143,163,177,.30);--hover:rgba(255,255,255,.04);
+  --text:rgba(255,255,255,.85);--text-strong:#fff;--muted:#8FA3B1;
+  --accent:#5BF7CF;--link:#5DB9DB;--gold:#F5B455;--purple:#625FED;
+  --critical:#FF6B7A;--warn:#F5B455;--ok:#5BF7CF;--info:#5DB9DB;
+  --critical-bg:rgba(255,107,122,.12);--warn-bg:rgba(245,180,85,.13);--ok-bg:rgba(91,247,207,.12);--info-bg:rgba(93,185,219,.12);
+  --note-bg:rgba(8,26,46,.55);--codebg:rgba(8,26,46,.7);
+}
+[data-theme="light"]{
+  --bg-grad:radial-gradient(1200px 600px at 12% -8%,rgba(98,95,237,.10),transparent 60%),radial-gradient(1000px 500px at 100% 0,rgba(93,185,219,.10),transparent 55%),#EAF0F6;
+  --surface:#fff;--surface-2:#F5F8FB;--inset:#F0F4F8;--topbar:rgba(255,255,255,.82);
+  --border:rgba(11,34,58,.12);--border-2:rgba(11,34,58,.20);--hover:rgba(11,34,58,.035);
+  --text:rgba(11,34,58,.86);--text-strong:#0B223A;--muted:#5C6B7A;
+  --accent:#0F8F79;--link:#2C6FB0;--gold:#B8791E;--purple:#5049C9;
+  --critical:#C24338;--warn:#B8791E;--ok:#0F8F79;--info:#2C6FB0;
+  --critical-bg:rgba(194,67,56,.10);--warn-bg:rgba(184,121,30,.12);--ok-bg:rgba(15,143,121,.10);--info-bg:rgba(44,111,176,.10);
+  --note-bg:rgba(255,255,255,.7);--codebg:#F0F4F8;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg-grad);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{color:var(--text-strong);margin:0;line-height:1.15;font-weight:700;letter-spacing:-.01em}
+.mono{font-family:var(--mono);font-variant-numeric:lining-nums tabular-nums}
+.eyebrow{font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+svg.mark{width:26px;height:26px;display:block}
+svg.ico{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.board{max-width:1200px;margin:0 auto;padding:38px 26px 90px}
+.cover{display:flex;flex-wrap:wrap;gap:26px;align-items:flex-end;justify-content:space-between;padding-bottom:26px;border-bottom:1px solid var(--border);margin-bottom:30px}
+.brandline{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.brandline .wm{font-weight:600;font-size:15px;color:var(--text-strong);line-height:1.05}
+.brandline .wm small{display:block;font-weight:500;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.tenant-tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;padding:5px 13px 5px 11px;border-radius:999px;border:1px solid var(--border-2);background:var(--note-bg);margin-bottom:16px}
+.tenant-tag .dot{width:9px;height:9px;border-radius:50%;flex:none}
+.tenant-tag .sub{color:var(--muted);font-weight:500;letter-spacing:.03em;text-transform:none;font-size:11px}
+.tt-cascade{border-color:rgba(91,247,207,.5)}.tt-cascade .dot{background:linear-gradient(135deg,#625FED,#5DB9DB 55%,#5BF7CF)}
+.cover h1{font-size:37px;letter-spacing:-.025em}
+.cover .grad{background:var(--grad-hero);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cover .sub{margin-top:10px;font-size:15.5px;max-width:660px}
+.metabox{border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r);padding:16px 18px;min-width:230px}
+.metabox div{display:flex;justify-content:space-between;gap:18px;font-size:12.5px;padding:3px 0}
+.metabox div span:first-child{color:var(--muted)}
+.metabox div span:last-child{color:var(--text-strong);font-weight:500}
+.toggle{position:fixed;top:18px;right:20px;z-index:50;display:flex;gap:4px;padding:4px;border:1px solid var(--border-2);border-radius:999px;background:var(--surface)}
+.toggle button{border:0;background:transparent;color:var(--muted);font-family:var(--font);font-size:12px;font-weight:600;padding:5px 13px;border-radius:999px;cursor:pointer}
+.toggle button.on{background:var(--grad-main);color:#fff}
+.lead{max-width:840px;margin:0 0 30px;font-size:15.5px}
+.lead b{color:var(--text-strong)}
+.shead{display:flex;align-items:baseline;gap:14px;margin:46px 0 16px}
+.shead .n{font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:600}
+.shead h2{font-size:20px}
+.shead .h-sub{color:var(--muted);font-size:13px;margin-left:auto}
+.flow{border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r);padding:20px 18px;overflow-x:auto}
+.flowrow{display:flex;align-items:center;gap:8px;min-width:max-content}
+.node{display:flex;align-items:center;gap:8px;padding:9px 13px;border-radius:999px;border:1px solid var(--border-2);background:var(--surface);font-size:12.5px;font-weight:600;color:var(--text-strong);white-space:nowrap}
+.node .num{font-family:var(--mono);font-size:11px;color:var(--accent)}
+.node.start{background:var(--grad-main);color:#fff;border:0}.node.start .num{color:rgba(255,255,255,.8)}
+.arr{color:var(--muted);font-size:15px;flex:none}
+.flowrow.err{margin-top:12px}
+.node.errnode{border-color:var(--critical);color:var(--critical);background:var(--critical-bg)}
+.node.errnode .num{color:var(--critical)}
+.branchlbl{font-size:11px;color:var(--critical);font-weight:600;display:inline-flex;align-items:center;gap:6px}
+.frame{margin-top:40px}
+.frame-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.frame-head .fn{font-family:var(--mono);font-size:12px;font-weight:600;color:#fff;background:var(--grad-main);padding:4px 10px;border-radius:6px}
+.frame-head h3{font-size:18px}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin-left:auto}
+.tag{font-size:10.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid var(--border-2);color:var(--muted)}
+.tag.happy{color:var(--ok);border-color:var(--ok);background:var(--ok-bg)}
+.tag.err{color:var(--critical);border-color:var(--critical);background:var(--critical-bg)}
+.tag.gate{color:var(--gold);border-color:var(--gold);background:var(--warn-bg)}
+.frame-body{display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start}
+.note{border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r);padding:16px 17px;position:sticky;top:20px}
+.note .eyebrow{margin-bottom:8px}
+.note p{margin:0 0 10px;font-size:13px}
+.note ul{margin:0;padding-left:16px;font-size:12.5px}
+.note li{margin-bottom:6px}.note li b,.note p b{color:var(--text-strong)}
+.win{border:1px solid var(--border-2);border-radius:var(--r);overflow:hidden;background:var(--surface-2);box-shadow:0 24px 60px -30px rgba(0,0,0,.55)}
+.win-bar{display:flex;align-items:center;gap:8px;padding:9px 13px;background:var(--inset);border-bottom:1px solid var(--border)}
+.win-bar .lights{display:flex;gap:6px}
+.win-bar .lights i{width:10px;height:10px;border-radius:50%;display:block}
+.win-bar .url{flex:1;text-align:center;font-family:var(--mono);font-size:11px;color:var(--muted);background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:3px 10px;max-width:380px;margin:0 auto}
+.app{display:grid;grid-template-columns:200px 1fr;min-height:500px;background:var(--surface-2)}
+.nav{background:var(--inset);border-right:1px solid var(--border);padding:14px 12px;display:flex;flex-direction:column;gap:3px}
+.nav .navbrand{display:flex;align-items:center;gap:9px;padding:4px 6px 14px;margin-bottom:6px;border-bottom:1px solid var(--border)}
+.nav .navbrand b{font-size:13px;color:var(--text-strong);font-weight:600;line-height:1.05}
+.nav .navbrand b small{display:block;font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.nav .ng{font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding:12px 8px 5px}
+.nav-item{display:flex;align-items:center;gap:9px;padding:7px 9px;border-radius:8px;font-size:12.5px;font-weight:500;color:var(--text)}
+.nav-item .ico{width:16px;height:16px;color:var(--muted)}
+.nav-item.active{background:rgba(98,95,237,.18);color:var(--text-strong);font-weight:600}
+.nav-item.active .ico{color:var(--accent)}
+.nav-item .badge{margin-left:auto;font-family:var(--mono);font-size:10px;font-weight:600;color:#0B223A;background:var(--gold);border-radius:999px;padding:1px 6px}
+.tenantflag{margin:10px 6px 0;padding:8px 9px;border:1px dashed var(--border-2);border-radius:8px;font-size:10px;color:var(--muted);line-height:1.4}
+.tenantflag b{color:var(--accent);display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px}
+.navfoot{margin-top:auto;display:flex;align-items:center;gap:9px;padding:9px 6px 2px;border-top:1px solid var(--border)}
+.avatar{width:26px;height:26px;border-radius:50%;background:var(--grad-main);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}
+.navfoot .who{font-size:11.5px;line-height:1.1}.navfoot .who b{color:var(--text-strong);font-size:12px;display:block}
+.navfoot .who span{color:var(--muted);font-size:10.5px}
+.appmain{display:flex;flex-direction:column;min-width:0}
+.topbar{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--border);background:var(--topbar)}
+.topbar h4{font-size:14.5px}
+.env{font-family:var(--mono);font-size:10.5px;color:var(--ok);border:1px solid var(--ok);background:var(--ok-bg);border-radius:999px;padding:2px 9px;display:inline-flex;align-items:center;gap:6px}
+.env i{width:6px;height:6px;border-radius:50%;background:var(--ok);display:block}
+.topbar .right{margin-left:auto;display:flex;align-items:center;gap:10px;color:var(--muted)}
+.content{padding:18px;flex:1}
+.subtle{color:var(--muted);font-size:12px}
+.grid{display:grid;gap:12px}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:13px 14px}
+.card h5{font-size:12.5px;color:var(--text-strong);margin-bottom:11px;display:flex;align-items:center;gap:8px}
+.card h5 .r{margin-left:auto;font-size:10px;color:var(--muted);font-weight:500}
+.stat .lbl{font-size:9.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+.stat .v{font-size:22px;font-weight:700;color:var(--text-strong);margin-top:4px;font-variant-numeric:lining-nums tabular-nums}
+.stat .d{font-size:10.5px;color:var(--muted);margin-top:2px}
+.stat.flag{border-color:var(--gold);background:var(--warn-bg)}.stat.flag .v,.stat.flag .lbl{color:var(--gold)}
+.stat.good{border-color:var(--ok);background:var(--ok-bg)}.stat.good .v,.stat.good .lbl{color:var(--ok)}
+.pill{font-size:10px;font-weight:600;padding:2px 9px;border-radius:999px;text-transform:uppercase;white-space:nowrap}
+.pill.ok{color:var(--ok);background:var(--ok-bg);border:1px solid var(--ok)}
+.pill.warn{color:var(--gold);background:var(--warn-bg);border:1px solid var(--gold)}
+.pill.crit{color:var(--critical);background:var(--critical-bg);border:1px solid var(--critical)}
+.pill.info{color:var(--info);background:var(--info-bg);border:1px solid var(--info)}
+.pill.muted{color:var(--muted);border:1px solid var(--border-2)}
+.btn{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;border-radius:8px;padding:8px 14px;border:1px solid transparent}
+.btn.p{background:var(--grad-main);color:#fff}
+.btn.g{background:transparent;border-color:var(--border-2);color:var(--text-strong)}
+.btn.crit{background:transparent;border-color:var(--critical);color:var(--critical)}
+.btn.sm{padding:5px 11px;font-size:11px}
+table.tb{width:100%;border-collapse:collapse;font-size:12px}
+table.tb th{text-align:left;font-size:9px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);padding:8px 10px;background:var(--inset);border-bottom:1px solid var(--border)}
+table.tb td{padding:9px 10px;border-bottom:1px solid var(--border)}
+table.tb tr:last-child td{border-bottom:0}
+table.tb td b{color:var(--text-strong)}
+table.tb .m{font-family:var(--mono);font-size:11px}
+.rowsel{background:rgba(98,95,237,.10)}
+.q{display:flex;align-items:center;gap:12px;padding:11px 13px;border:1px solid var(--border);border-radius:9px;background:var(--surface);margin-bottom:9px}
+.q .qi{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex:none;color:#fff}
+.q .qt{flex:1;min-width:0}.q .qt b{color:var(--text-strong);font-size:12.5px;font-weight:600;display:block}
+.q .qt span{color:var(--muted);font-size:11px}
+/* draft compose */
+.compose{display:grid;grid-template-columns:1fr 240px;gap:14px}
+.draftbox{border:1px solid var(--border);border-radius:10px;background:var(--surface);padding:14px 15px;font-size:12.5px;line-height:1.55}
+.draftbox .hl{color:var(--accent);font-weight:600}
+.draftbox .tagline{color:var(--muted);font-family:var(--mono);font-size:11px;margin-top:10px}
+.sidegrade{border:1px solid var(--border);border-radius:10px;background:var(--inset);padding:13px 14px}
+.sidegrade h6{font-size:9px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+.gr{display:flex;align-items:center;gap:8px;font-size:11.5px;margin-bottom:8px}
+.gr .dotc{width:8px;height:8px;border-radius:50%;flex:none}
+.gr b{color:var(--text-strong)}
+/* branded asset preview (always brand colors) */
+.asset{border-radius:14px;overflow:hidden;border:1px solid rgba(143,163,177,.28);background:
+  radial-gradient(420px 220px at 80% 0%,rgba(98,95,237,.35),transparent 60%),
+  radial-gradient(360px 200px at 0% 100%,rgba(91,247,207,.18),transparent 60%),#0B223A;
+  padding:22px;color:#fff;min-height:230px;display:flex;flex-direction:column;justify-content:space-between}
+.asset .abrand{display:flex;align-items:center;gap:9px;margin-bottom:14px}
+.asset .abrand b{font-size:12px;font-weight:600;color:#fff}
+.asset .ahead{font-size:23px;font-weight:700;letter-spacing:-.02em;line-height:1.15;max-width:340px}
+.asset .ahead .k{background:linear-gradient(110deg,#5BF7CF,#5DB9DB 55%,#625FED);-webkit-background-clip:text;background-clip:text;color:transparent}
+.asset .afoot{display:flex;align-items:center;justify-content:space-between;margin-top:16px}
+.asset .clara{display:flex;align-items:center;gap:9px}
+.asset .clara .cav{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#5BF7CF,#5B49BA);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#0B223A;flex:none}
+.asset .clara span{font-size:11px;color:rgba(255,255,255,.8)}
+.asset .htags{font-family:var(--mono);font-size:11px;color:#5BF7CF}
+.checkline{display:flex;align-items:center;gap:9px;font-size:12px;padding:6px 0;border-bottom:1px solid var(--border)}
+.checkline:last-child{border-bottom:0}
+.checkline .ci{width:18px;height:18px;border-radius:5px;display:flex;align-items:center;justify-content:center;flex:none}
+.checkline .ci.ok{background:var(--ok-bg);color:var(--ok)}
+.checkline .ci.no{background:var(--critical-bg);color:var(--critical)}
+.checkline b{color:var(--text-strong)}
+.err-msg{display:flex;gap:9px;align-items:flex-start;background:var(--critical-bg);border:1px solid var(--critical);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--critical)}
+.err-msg b{color:var(--critical)}
+.gate{border:1px solid var(--gold);border-radius:10px;overflow:hidden;background:var(--surface)}
+.gate .grule{height:3px;background:linear-gradient(90deg,var(--gold),transparent)}
+.gate .gbody{padding:14px 15px}
+.gate h5{color:var(--text-strong);font-size:13px;margin-bottom:4px}
+.gate p{font-size:12px;color:var(--text);margin:0 0 12px}
+.gate .acts{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.gate .audit{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--muted)}
+.chan{display:flex;align-items:center;gap:11px;padding:10px 13px;border:1px solid var(--border);border-radius:9px;background:var(--surface);margin-bottom:8px}
+.chan .clogo{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex:none;font-weight:700;font-size:11px;color:#fff;font-family:var(--mono)}
+.chan .ct{flex:1}.chan .ct b{color:var(--text-strong);font-size:12.5px;display:block}.chan .ct span{color:var(--muted);font-size:11px}
+.sw{width:34px;height:19px;border-radius:999px;background:var(--grad-main);position:relative;flex:none}
+.sw::after{content:"";position:absolute;width:14px;height:14px;border-radius:50%;background:#fff;top:2.5px;right:2.5px}
+.sw.off{background:var(--border-2)}.sw.off::after{right:auto;left:2.5px}
+.closing{margin-top:52px;border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r);padding:22px 24px}
+.closing h2{font-size:19px;margin-bottom:10px}
+.closing p{max-width:840px;font-size:14px}
+.closing .cols{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:16px}
+.closing h4{font-size:13px;margin-bottom:7px}
+.closing ul{margin:0;padding-left:17px;font-size:13px}.closing li{margin-bottom:6px}
+.footer{margin-top:34px;text-align:center;color:var(--muted);font-size:11.5px;font-family:var(--mono)}
+@media(max-width:880px){.frame-body{grid-template-columns:1fr}.note{position:static}.app{grid-template-columns:1fr}.nav{display:none}.compose{grid-template-columns:1fr}.cover h1{font-size:29px}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ccmark" viewBox="-0.7 -0.3 49.4 49.5">
+    <defs><linearGradient id="ccg" x1="0" y1="-0.3" x2="0" y2="49.2" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#625FED"/><stop offset=".62" stop-color="#5DB9DB"/><stop offset="1" stop-color="#5BF7CF"/></linearGradient></defs>
+    <path fill="url(#ccg)" d="M2.06789 18.0362c-2.75719-1.7103-2.75719-5.3619 0-7.0722l19.19821-10.19893c1.6445-1.02009 3.8231-1.02009 5.4677-0.00007l19.1982 10.199c2.6709 1.6568 2.7547 5.1352 0.2509 6.9059l-0.2509 0.1663-19.1982 10.199c-1.5932 0.9882-3.6874 1.0186-5.3119 0.0921l-0.1558-0.0921-19.19821-10.199z m2.27852-4.1256c-0.45954 0.285-0.45954 0.894 0 1.1791l19.19809 10.1989c0.274 0.1698 0.6368 0.1698 0.9108 0l19.1982-10.1989c0.4595-0.2851 0.4595-0.8941 0-1.1791l-19.1982-10.19895c-0.274-0.16981-0.6368-0.16981-0.9108 0l-19.19809 10.19895z"/>
+    <path fill="url(#ccg)" d="M42.874 22.1494c0.3206-0.5537 1.1641-0.8331 1.8926-0.5185 1.7915 0.7738 2.6814 2.2245 2.7314 3.6572 0.05 1.4315-0.7352 2.9218-2.4648 3.7851l-17.5098 8.7383c-1.8336 0.9151-4.1001 0.9177-5.9365 0.0069l-18.81542-9.3321c-1.61862-0.8029-2.33402-2.1958-2.26757-3.5215 0.06669-1.3274 0.92218-2.6678 2.62207-3.3496 0.74139-0.2971 1.5717 0.0055 1.87109 0.5625 0.27157 0.5057 0.05504 1.1693-0.66016 1.4561-0.65157 0.2615-1.04373 0.814-1.07421 1.4219-0.03043 0.6098 0.30751 1.1972 0.9375 1.5097l18.8144 9.3321h0.001c0.9545 0.4732 2.1206 0.4715 3.0733-0.0039l17.5088-8.7383c0.7601-0.3794 1.1649-1.079 1.1396-1.8037-0.0253-0.7235-0.4765-1.3955-1.2568-1.7325-0.6999-0.3024-0.8964-0.968-0.6065-1.4697z"/>
+    <path fill="url(#ccg)" transform="translate(0,10.04)" d="M42.874 22.1494c0.3206-0.5537 1.1641-0.8331 1.8926-0.5185 1.7915 0.7738 2.6814 2.2245 2.7314 3.6572 0.05 1.4315-0.7352 2.9218-2.4648 3.7851l-17.5098 8.7383c-1.8336 0.9151-4.1001 0.9177-5.9365 0.0069l-18.81542-9.3321c-1.61862-0.8029-2.33402-2.1958-2.26757-3.5215 0.06669-1.3274 0.92218-2.6678 2.62207-3.3496 0.74139-0.2971 1.5717 0.0055 1.87109 0.5625 0.27157 0.5057 0.05504 1.1693-0.66016 1.4561-0.65157 0.2615-1.04373 0.814-1.07421 1.4219-0.03043 0.6098 0.30751 1.1972 0.9375 1.5097l18.8144 9.3321h0.001c0.9545 0.4732 2.1206 0.4715 3.0733-0.0039l17.5088-8.7383c0.7601-0.3794 1.1649-1.079 1.1396-1.8037-0.0253-0.7235-0.4765-1.3955-1.2568-1.7325-0.6999-0.3024-0.8964-0.968-0.6065-1.4697z"/>
+  </symbol>
+  <symbol id="i-dash" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="i-signal" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20V8"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.8"/><path d="M4 18l5-5 4 4 3-3 4 4"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12h16M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-4 4V5z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 8v5M12 16.5v.5"/><path d="M12 3l9 16H3z"/></symbol>
+</svg>
+
+<div class="toggle">
+  <button id="tDark" class="on" onclick="setTheme('dark')">Dark</button>
+  <button id="tLight" onclick="setTheme('light')">Light</button>
+</div>
+
+<div class="board">
+
+  <header class="cover">
+    <div>
+      <div class="brandline">
+        <svg class="mark" style="width:30px;height:30px"><use href="#ccmark"/></svg>
+        <div class="wm">Cascade Clarity<small>Enterprise AI Integrators</small></div>
+      </div>
+      <div class="tenant-tag tt-cascade"><span class="dot"></span>Cascade · Content Pipeline<span class="sub">· vertical demo</span></div>
+      <h1>Storyboard 11 —<br><span class="grad">Content Pipeline</span></h1>
+      <p class="sub">Another vertical, and the one Cascade runs on itself. The agent watches for content signals — a post that landed, a theme from a call — drafts in the brand voice, designs a branded asset straight from the brand manual, and pushes approved pieces to Slack, the newsletter and the blog. A brand-and-voice check stands between draft and publish.</p>
+    </div>
+    <div class="metabox">
+      <div><span>Prepared by</span><span>David De los Reyes</span></div>
+      <div><span>For</span><span>John Cuellar</span></div>
+      <div><span>Date</span><span>Jul 17, 2026</span></div>
+      <div><span>User</span><span>Content lead</span></div>
+      <div><span>Vertical</span><span>Content Pipeline</span></div>
+      <div><span>Data</span><span>demo · Cascade's own</span></div>
+    </div>
+  </header>
+
+  <p class="lead">The Content Pipeline captures signals from LinkedIn, email and the web, <b>designs branded assets via Pencil straight from the brand manual</b>, and auto-pushes approved pieces to Slack, the newsletter and the blog. It is the clearest demo of a hard idea: an agent can be creative <b>and</b> stay on-brand, because the brand is encoded — the palette, the type, the voice rules, Clara — and a <b>Voice &amp; Brand check</b> gates every piece. As with every other board, the agent <b>drafts and designs; a human approves</b> before anything is published.</p>
+
+  <div class="shead"><span class="n">A</span><h2>The route</h2><span class="h-sub">content lead · signal to published</span></div>
+  <div class="flow">
+    <div class="flowrow">
+      <span class="node start"><span class="num">01</span>Signals captured</span><span class="arr">→</span>
+      <span class="node"><span class="num">02</span>Draft in brand voice</span><span class="arr">→</span>
+      <span class="node"><span class="num">03</span>Design the asset</span><span class="arr">→</span>
+      <span class="node"><span class="num">04</span>Brand &amp; voice check</span><span class="arr">→</span>
+      <span class="node"><span class="num">05</span>Publish on approval</span>
+    </div>
+    <div class="flowrow err">
+      <span class="branchlbl"><svg class="ico" style="width:14px;height:14px;color:var(--critical)"><use href="#i-alert"/></svg>Branch</span>
+      <span class="arr">↳</span>
+      <span class="node errnode"><span class="num">04b</span>Off-brand claim or voice miss → held, sent back to redraft</span>
+    </div>
+  </div>
+
+  <!-- FRAME 01 -->
+  <article class="frame" id="f01">
+    <div class="frame-head"><span class="fn">01</span><h3>Signals — the raw material the agent watches for</h3>
+      <div class="tags"><span class="tag happy">Happy path</span><span class="tag">Capture</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">content.cascade.app/signals</div></div>
+        <div class="app">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Cascade<small>Content</small></b></div>
+            <a class="nav-item active"><svg class="ico"><use href="#i-signal"/></svg>Signals<span class="badge">5</span></a>
+            <a class="nav-item"><svg class="ico"><use href="#i-pen"/></svg>Drafts</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-image"/></svg>Assets</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-send"/></svg>Channels</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Ask Cascade</a>
+            <div class="tenantflag"><b>Content Pipeline</b>Same shell, a creative job. Signals in, branded pieces out — with a brand/voice gate and human approval before publish.</div>
+            <div class="navfoot"><div class="avatar">DR</div><div class="who"><b>David R.</b><span>Content lead</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Content signals</h4><span class="env"><i></i>Listening</span>
+              <div class="right"><span class="subtle">LinkedIn · email · web · transcripts</span></div></div>
+            <div class="content">
+              <div class="grid g4" style="margin-bottom:12px">
+                <div class="card stat"><div class="lbl">Signals this week</div><div class="v">37</div><div class="d">across 4 sources</div></div>
+                <div class="card stat good"><div class="lbl">Worth acting on</div><div class="v">5</div><div class="d">ranked by reach</div></div>
+                <div class="card stat"><div class="lbl">Drafts pending</div><div class="v">2</div><div class="d">awaiting your review</div></div>
+                <div class="card stat"><div class="lbl">Published (mo)</div><div class="v">14</div><div class="d">3 channels</div></div>
+              </div>
+              <div class="q"><div class="qi" style="background:var(--purple)"><svg class="ico" style="width:15px;height:15px"><use href="#i-signal"/></svg></div>
+                <div class="qt"><b>John's golf post is outperforming — CTOs are commenting</b><span>LinkedIn · 4.1× your median engagement · a theme worth amplifying</span></div><span class="pill ok">High reach</span></div>
+              <div class="q"><div class="qi" style="background:var(--info)"><svg class="ico" style="width:15px;height:15px"><use href="#i-chat"/></svg></div>
+                <div class="qt"><b>"Agents propose, humans approve" recurred in 3 client calls</b><span>transcripts · a message that keeps landing · turn into a post</span></div><span class="pill info">Theme</span></div>
+              <div class="q"><div class="qi" style="background:var(--gold)"><svg class="ico" style="width:15px;height:15px"><use href="#i-signal"/></svg></div>
+                <div class="qt"><b>A reconciliation demo question came up twice by email</b><span>email · prospects asking "how is the math exact?" · FAQ candidate</span></div><span class="pill warn">Answer it</span></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>Content usually dies at "what do we post?" This board starts from <b>signals the business already generated</b> — a post that worked, a line that keeps landing on calls.</p>
+        <ul>
+          <li>Signals are <b>ranked by reach</b>, not volume — 5 worth acting on out of 37.</li>
+          <li>Sources are the ones Cascade actually runs on: <b>LinkedIn, email, web, meeting transcripts.</b></li>
+          <li>The golf-post signal is real — it's exactly the kind of traction David tracks. The agent notices and proposes amplifying it.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- FRAME 02 -->
+  <article class="frame" id="f02">
+    <div class="frame-head"><span class="fn">02</span><h3>Draft in brand voice — with the voice graded</h3>
+      <div class="tags"><span class="tag happy">Happy path</span><span class="tag">Voice model</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">content.cascade.app/drafts/agents-propose</div></div>
+        <div class="app">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Cascade<small>Content</small></b></div>
+            <a class="nav-item"><svg class="ico"><use href="#i-signal"/></svg>Signals</a>
+            <a class="nav-item active"><svg class="ico"><use href="#i-pen"/></svg>Drafts<span class="badge">2</span></a>
+            <a class="nav-item"><svg class="ico"><use href="#i-image"/></svg>Assets</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-send"/></svg>Channels</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Ask Cascade</a>
+            <div class="navfoot"><div class="avatar">DR</div><div class="who"><b>David R.</b><span>Content lead</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Draft · "Agents propose, humans approve"</h4><span class="pill info">From transcript theme</span>
+              <div class="right"><span class="subtle">LinkedIn post</span></div></div>
+            <div class="content">
+              <div class="compose">
+                <div class="draftbox">
+                  <p style="margin:0 0 10px">Everyone asks what stops an AI agent from doing something reckless.</p>
+                  <p style="margin:0 0 10px">Our answer is boring on purpose: <span class="hl">the agent proposes, a human approves.</span> Nothing that touches your systems — a CRM update, an invoice, a message to a customer — happens until a person signs off.</p>
+                  <p style="margin:0 0 10px">That one rule is why teams trust it with real work. Not magic. A gate.</p>
+                  <p class="tagline">#EnterpriseAI #Clarity</p>
+                </div>
+                <div class="sidegrade">
+                  <h6>Voice &amp; brand grade</h6>
+                  <div class="gr"><span class="dotc" style="background:var(--ok)"></span><b>Clear</b> · short sentences ✓</div>
+                  <div class="gr"><span class="dotc" style="background:var(--ok)"></span><b>Confident</b> · states a claim ✓</div>
+                  <div class="gr"><span class="dotc" style="background:var(--ok)"></span><b>Practical</b> · concrete examples ✓</div>
+                  <div class="gr"><span class="dotc" style="background:var(--ok)"></span>No em dashes ✓</div>
+                  <div class="gr"><span class="dotc" style="background:var(--ok)"></span>Two hashtags max ✓</div>
+                  <div style="margin-top:11px;padding-top:10px;border-top:1px solid var(--border);font-size:11px;color:var(--muted)">
+                    source · transcripts (3 calls)<br>voice · david+john corpus</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:9px;align-items:center;margin-top:12px">
+                <span class="btn p"><svg class="ico" style="width:14px;height:14px;stroke:#fff"><use href="#i-check"/></svg>Looks right → design the asset</span>
+                <span class="btn g">Edit the copy</span>
+                <span class="subtle" style="margin-left:auto">nothing posts yet</span>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>The draft is written from a <b>voice model</b> — David and John's own corpus — and the agent <b>grades itself against the brand's voice rules</b> before a human reads it.</p>
+        <ul>
+          <li>The grade is concrete: Clear, Confident, Practical, Forward — the brand's named voice principles.</li>
+          <li>It self-checks the hard rules: <b>no em dashes</b>, two hashtags max. The linter is on David's actual brand agent.</li>
+          <li>Cites its source signal and its voice corpus — creativity, but auditable.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- FRAME 03 -->
+  <article class="frame" id="f03">
+    <div class="frame-head"><span class="fn">03</span><h3>Design the asset — from the brand manual, via Pencil</h3>
+      <div class="tags"><span class="tag happy">Happy path</span><span class="tag">Brand tokens</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">content.cascade.app/assets/agents-propose</div></div>
+        <div class="app">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Cascade<small>Content</small></b></div>
+            <a class="nav-item"><svg class="ico"><use href="#i-signal"/></svg>Signals</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-pen"/></svg>Drafts</a>
+            <a class="nav-item active"><svg class="ico"><use href="#i-image"/></svg>Assets</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-send"/></svg>Channels</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Ask Cascade</a>
+            <div class="navfoot"><div class="avatar">DR</div><div class="who"><b>David R.</b><span>Content lead</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Asset · LinkedIn card</h4><span class="pill info">Generated in Pencil</span>
+              <div class="right"><span class="subtle">from brand manual tokens</span></div></div>
+            <div class="content">
+              <div class="compose">
+                <div class="asset">
+                  <div class="abrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Cascade Clarity</b></div>
+                  <div class="ahead">Agents propose. <span class="k">A human approves.</span></div>
+                  <div class="afoot">
+                    <div class="clara"><div class="cav">C</div><span>Clara · your guide</span></div>
+                    <div class="htags">#EnterpriseAI #Clarity</div>
+                  </div>
+                </div>
+                <div class="sidegrade">
+                  <h6>Brand compliance</h6>
+                  <div class="checkline"><span class="ci ok"><svg class="ico" style="width:12px;height:12px"><use href="#i-check"/></svg></span><div>Navy canvas <b>#0B223A</b></div></div>
+                  <div class="checkline"><span class="ci ok"><svg class="ico" style="width:12px;height:12px"><use href="#i-check"/></svg></span><div>One gradient headline hit</div></div>
+                  <div class="checkline"><span class="ci ok"><svg class="ico" style="width:12px;height:12px"><use href="#i-check"/></svg></span><div>Inter · headline weight 700</div></div>
+                  <div class="checkline"><span class="ci ok"><svg class="ico" style="width:12px;height:12px"><use href="#i-check"/></svg></span><div>Clara in a light tile</div></div>
+                  <div class="checkline"><span class="ci ok"><svg class="ico" style="width:12px;height:12px"><use href="#i-check"/></svg></span><div>Logo clearspace kept</div></div>
+                </div>
+              </div>
+              <div style="display:flex;gap:9px;align-items:center;margin-top:12px">
+                <span class="btn p"><svg class="ico" style="width:14px;height:14px;stroke:#fff"><use href="#i-check"/></svg>Run brand &amp; voice check</span>
+                <span class="btn g">Try another layout</span>
+                <span class="subtle mono" style="margin-left:auto">pencil · brand-manual.pen</span>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>The asset isn't a stock template — it's generated <b>from the brand manual's own tokens</b> in Pencil, so it's on-brand by construction, not by luck.</p>
+        <ul>
+          <li>Navy canvas, <b>one</b> gradient headline hit, Inter, Clara in a light tile, two hashtags — the manual's rules, applied.</li>
+          <li>The preview here is drawn in the actual brand colors, so it reads the same in light or dark mode.</li>
+          <li>The compliance checklist is the machine-readable version of the brand manual — it's what makes Frame 04 possible.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- FRAME 04 -->
+  <article class="frame" id="f04">
+    <div class="frame-head"><span class="fn">04</span><h3>Brand &amp; voice check — the gate that catches an off-brand claim</h3>
+      <div class="tags"><span class="tag err">Unhappy path</span><span class="tag">Held, sent back</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">content.cascade.app/assets/agents-propose/check</div></div>
+        <div class="app">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Cascade<small>Content</small></b></div>
+            <a class="nav-item"><svg class="ico"><use href="#i-signal"/></svg>Signals</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-pen"/></svg>Drafts</a>
+            <a class="nav-item active"><svg class="ico"><use href="#i-image"/></svg>Assets</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-send"/></svg>Channels</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Ask Cascade</a>
+            <div class="navfoot"><div class="avatar">DR</div><div class="who"><b>David R.</b><span>Content lead</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Voice &amp; Brand check</h4><span class="pill crit">1 issue · held</span>
+              <div class="right"><span class="subtle">a second draft variant</span></div></div>
+            <div class="content">
+              <div class="err-msg" style="margin-bottom:13px"><svg class="ico" style="width:15px;height:15px;color:var(--critical)"><use href="#i-alert"/></svg>
+                <div><b>One claim can't be published as written.</b> A variant of this post said "the only platform with exact, auditable AI." That's a superlative we can't back. Held before publish — the rest passes.</div></div>
+              <div class="card" style="padding:0;margin-bottom:12px">
+                <table class="tb">
+                  <thead><tr><th>Check</th><th>Result</th><th>Detail</th></tr></thead>
+                  <tbody>
+                    <tr><td><b>Voice principles</b></td><td><span class="pill ok">Pass</span></td><td>Clear · Confident · Practical</td></tr>
+                    <tr><td><b>Brand tokens</b></td><td><span class="pill ok">Pass</span></td><td>palette, type, Clara, clearspace</td></tr>
+                    <tr><td><b>Style rules</b></td><td><span class="pill ok">Pass</span></td><td>no em dashes · 2 hashtags</td></tr>
+                    <tr><td><b>Claim safety</b></td><td><span class="pill crit">Hold</span></td><td>"only platform" — unverifiable superlative</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="card" style="border-color:var(--gold)">
+                <h5 style="color:var(--gold)">Suggested fix</h5>
+                <p style="margin:0 0 11px;font-size:12px">Replace "the only platform with exact, auditable AI" with <b style="color:var(--text-strong)">"exact, auditable AI — reproducible to the cent."</b> Same strength, no claim we can't defend.</p>
+                <div style="display:flex;gap:9px;align-items:center">
+                  <span class="btn p"><svg class="ico" style="width:14px;height:14px;stroke:#fff"><use href="#i-check"/></svg>Apply fix &amp; re-check</span>
+                  <span class="btn g">Edit myself</span>
+                  <span class="subtle" style="margin-left:auto">stays held until it passes</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>The keystone of the vertical, and the reason a client trusts an agent with their brand: <b>a gate that can say no to your own content.</b></p>
+        <ul>
+          <li>It passes voice, tokens and style — then <b>holds on an unverifiable claim</b>, which is the failure mode that actually embarrasses a brand.</li>
+          <li>It doesn't just block; it <b>proposes a defensible rewrite</b> of equal strength.</li>
+          <li>This is David's real Voice &amp; Brand agent doing the job it was built for — the linter as a publish gate.</li>
+          <li>Nothing moves to Frame 05 until this passes.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- FRAME 05 -->
+  <article class="frame" id="f05">
+    <div class="frame-head"><span class="fn">05</span><h3>Publish on approval — Slack, newsletter, blog</h3>
+      <div class="tags"><span class="tag gate">Approval gate</span><span class="tag">Multi-channel</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">content.cascade.app/assets/agents-propose/publish</div></div>
+        <div class="app">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Cascade<small>Content</small></b></div>
+            <a class="nav-item"><svg class="ico"><use href="#i-signal"/></svg>Signals</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-pen"/></svg>Drafts</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-image"/></svg>Assets</a>
+            <a class="nav-item active"><svg class="ico"><use href="#i-send"/></svg>Channels</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Ask Cascade</a>
+            <div class="navfoot"><div class="avatar">DR</div><div class="who"><b>David R.</b><span>Content lead</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Publish · "Agents propose, humans approve"</h4><span class="pill ok">Passed brand &amp; voice</span>
+              <div class="right"><span class="subtle mono">run:content:0471</span></div></div>
+            <div class="content">
+              <div class="chan"><div class="clogo" style="background:#611f69">Sl</div>
+                <div class="ct"><b>Slack · #marketing</b><span>share for team amplification</span></div><span class="sw"></span></div>
+              <div class="chan"><div class="clogo" style="background:var(--grad-main)">NL</div>
+                <div class="ct"><b>Newsletter · This week in Clarity</b><span>queued for Thursday send</span></div><span class="sw"></span></div>
+              <div class="chan"><div class="clogo" style="background:#24292F">Bl</div>
+                <div class="ct"><b>Blog · cascadeclarity.ai</b><span>publish as short post</span></div><span class="sw"></span></div>
+              <div class="chan"><div class="clogo" style="background:#0A66C2">Li</div>
+                <div class="ct"><b>LinkedIn · company page</b><span>needs a person to post · draft copied</span></div><span class="sw off"></span></div>
+              <div class="gate" style="margin-top:12px">
+                <div class="grule"></div>
+                <div class="gbody">
+                  <h5>Publish to the 3 selected channels?</h5>
+                  <p>The agent will post to Slack now, queue the newsletter for Thursday, and publish the blog post. LinkedIn stays off — company-page posts get copied for a person to publish. Reversible on Slack and blog; newsletter can be pulled before send.</p>
+                  <div class="acts">
+                    <span class="btn p"><svg class="ico" style="width:14px;height:14px;stroke:#fff"><use href="#i-send"/></svg>Approve &amp; publish</span>
+                    <span class="btn g">Schedule for later</span>
+                    <span class="audit">signed by David R. · logged</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>Publishing is the outward action, so it's an <b>approval gate</b> like every other write in the platform. The agent got the piece ready; a person releases it.</p>
+        <ul>
+          <li><b>Channel by channel</b>: Slack now, newsletter queued, blog published — each with its own reversibility stated.</li>
+          <li>LinkedIn company page is <b>deliberately manual</b> — some channels want a human hand, and the board respects that.</li>
+          <li>Same run-and-audit pattern as every board: signal → draft → design → check → approve → publish, all logged.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <div class="closing">
+    <h2>What this board proves</h2>
+    <p>Reconciliation showed the platform can do exact, auditable work. This vertical shows it can do <b>creative</b> work without going off the rails — because the brand is encoded, not hoped for. Signals the business already generates become on-brand drafts and assets, a <b>Voice &amp; Brand gate</b> catches the off-brand claim before anyone sees it, and a person approves the publish. It's the vertical Cascade runs on itself, which makes it the most honest demo in the set: <b>the agent that markets Cascade is held to the same "propose, then a human approves" rule as the agent that reconciles a client's ledger.</b></p>
+    <div class="cols">
+      <div><h4>Components this adds</h4>
+        <ul><li>Signals capture + ranking</li><li>Brand-voice draft with self-grade</li><li>Branded asset preview (from brand tokens)</li><li>Voice &amp; Brand check gate (claim safety)</li><li>Multi-channel publish gate</li></ul></div>
+      <div><h4>Open questions for John</h4>
+        <ul><li>Does the agent ever auto-publish low-risk pieces, or is every post gated?</li><li>Who owns claim-safety rules — the brand agent, or a person's sign-off list?</li><li>Do we show the voice grade to clients, or keep it internal?</li></ul></div>
+    </div>
+  </div>
+
+  <div class="footer">Cascade Clarity · Enterprise Agent · Storyboard 11 · Content Pipeline vertical · v0.1 · built on Brand System Vol. 2</div>
+</div>
+
+<script>
+function setTheme(t){
+  document.documentElement.dataset.theme=t;
+  document.getElementById('tDark').classList.toggle('on',t==='dark');
+  document.getElementById('tLight').classList.toggle('on',t==='light');
+}
+</script>
+</body>
+</html>

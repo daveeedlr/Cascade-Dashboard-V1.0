@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cascade Enterprise Agent · Storyboard 10 · Huffmaster Billing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Storyboard 10 — Huffmaster / Sword · Deploy-to-invoice (billing). Same token layer as 01–09. */
+:root{
+  --grad-main:linear-gradient(135deg,#625FED 0%,#5DB9DB 100%);
+  --grad-hero:linear-gradient(110deg,#5BF7CF 0%,#5DB9DB 50%,#625FED 100%);
+  --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;--r:12px;
+}
+:root,[data-theme="dark"]{
+  --bg-grad:radial-gradient(1200px 600px at 15% -5%,rgba(98,95,237,.16),transparent 60%),radial-gradient(1000px 500px at 100% 0,rgba(93,185,219,.12),transparent 55%),#0B223A;
+  --surface:#0F3259;--surface-2:#0C2846;--inset:#081A2E;--topbar:rgba(8,26,46,.72);
+  --border:rgba(143,163,177,.16);--border-2:rgba(143,163,177,.30);--hover:rgba(255,255,255,.04);
+  --text:rgba(255,255,255,.85);--text-strong:#fff;--muted:#8FA3B1;
+  --accent:#5BF7CF;--link:#5DB9DB;--gold:#F5B455;--purple:#625FED;
+  --critical:#FF6B7A;--warn:#F5B455;--ok:#5BF7CF;--info:#5DB9DB;
+  --critical-bg:rgba(255,107,122,.12);--warn-bg:rgba(245,180,85,.13);--ok-bg:rgba(91,247,207,.12);--info-bg:rgba(93,185,219,.12);
+  --note-bg:rgba(8,26,46,.55);--codebg:rgba(8,26,46,.7);
+}
+[data-theme="light"]{
+  --bg-grad:radial-gradient(1200px 600px at 12% -8%,rgba(98,95,237,.10),transparent 60%),radial-gradient(1000px 500px at 100% 0,rgba(93,185,219,.10),transparent 55%),#EAF0F6;
+  --surface:#fff;--surface-2:#F5F8FB;--inset:#F0F4F8;--topbar:rgba(255,255,255,.82);
+  --border:rgba(11,34,58,.12);--border-2:rgba(11,34,58,.20);--hover:rgba(11,34,58,.035);
+  --text:rgba(11,34,58,.86);--text-strong:#0B223A;--muted:#5C6B7A;
+  --accent:#0F8F79;--link:#2C6FB0;--gold:#B8791E;--purple:#5049C9;
+  --critical:#C24338;--warn:#B8791E;--ok:#0F8F79;--info:#2C6FB0;
+  --critical-bg:rgba(194,67,56,.10);--warn-bg:rgba(184,121,30,.12);--ok-bg:rgba(15,143,121,.10);--info-bg:rgba(44,111,176,.10);
+  --note-bg:rgba(255,255,255,.7);--codebg:#F0F4F8;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg-grad);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{color:var(--text-strong);margin:0;line-height:1.15;font-weight:700;letter-spacing:-.01em}
+.mono{font-family:var(--mono);font-variant-numeric:lining-nums tabular-nums}
+.eyebrow{font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+svg.mark{width:26px;height:26px;display:block}
+svg.ico{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.board{max-width:1200px;margin:0 auto;padding:38px 26px 90px}
+.cover{display:flex;flex-wrap:wrap;gap:26px;align-items:flex-end;justify-content:space-between;padding-bottom:26px;border-bottom:1px solid var(--border);margin-bottom:30px}
+.brandline{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.brandline .wm{font-weight:600;font-size:15px;color:var(--text-strong);line-height:1.05}
+.brandline .wm small{display:block;font-weight:500;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.tenant-tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;padding:5px 13px 5px 11px;border-radius:999px;border:1px solid var(--border-2);background:var(--note-bg);margin-bottom:16px}
+.tenant-tag .dot{width:9px;height:9px;border-radius:50%;flex:none}
+.tenant-tag .sub{color:var(--muted);font-weight:500;letter-spacing:.03em;text-transform:none;font-size:11px}
+.tt-huffmaster{border-color:rgba(122,107,224,.6)}.tt-huffmaster .dot{background:#8A86F0}
+.cover h1{font-size:37px;letter-spacing:-.025em}
+.cover .grad{background:var(--grad-hero);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cover .sub{margin-top:10px;font-size:15.5px;max-width:660px}
+.metabox{border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r);padding:16px 18px;min-width:230px}
+.metabox div{display:flex;justify-content:space-between;gap:18px;font-size:12.5px;padding:3px 0}
+.metabox div span:first-child{color:var(--muted)}
+.metabox div span:last-child{color:var(--text-strong);font-weight:500}
+.toggle{position:fixed;top:18px;right:20px;z-index:50;display:flex;gap:4px;padding:4px;border:1px solid var(--border-2);border-radius:999px;background:var(--surface)}
+.toggle button{border:0;background:transparent;color:var(--muted);font-family:var(--font);font-size:12px;font-weight:600;padding:5px 13px;border-radius:999px;cursor:pointer}
+.toggle button.on{background:var(--grad-main);color:#fff}
+.lead{max-width:840px;margin:0 0 30px;font-size:15.5px}
+.lead b{color:var(--text-strong)}
+.shead{display:flex;align-items:baseline;gap:14px;margin:46px 0 16px}
+.shead .n{font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:600}
+.shead h2{font-size:20px}
+.shead .h-sub{color:var(--muted);font-size:13px;margin-left:auto}
+.flow{border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r);padding:20px 18px;overflow-x:auto}
+.flowrow{display:flex;align-items:center;gap:8px;min-width:max-content}
+.node{display:flex;align-items:center;gap:8px;padding:9px 13px;border-radius:999px;border:1px solid var(--border-2);background:var(--surface);font-size:12.5px;font-weight:600;color:var(--text-strong);white-space:nowrap}
+.node .num{font-family:var(--mono);font-size:11px;color:var(--accent)}
+.node.start{background:var(--grad-main);color:#fff;border:0}.node.start .num{color:rgba(255,255,255,.8)}
+.arr{color:var(--muted);font-size:15px;flex:none}
+.flowrow.err{margin-top:12px}
+.node.errnode{border-color:var(--critical);color:var(--critical);background:var(--critical-bg)}
+.node.errnode .num{color:var(--critical)}
+.branchlbl{font-size:11px;color:var(--critical);font-weight:600;display:inline-flex;align-items:center;gap:6px}
+.frame{margin-top:40px}
+.frame-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.frame-head .fn{font-family:var(--mono);font-size:12px;font-weight:600;color:#fff;background:var(--grad-main);padding:4px 10px;border-radius:6px}
+.frame-head h3{font-size:18px}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin-left:auto}
+.tag{font-size:10.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid var(--border-2);color:var(--muted)}
+.tag.happy{color:var(--ok);border-color:var(--ok);background:var(--ok-bg)}
+.tag.err{color:var(--critical);border-color:var(--critical);background:var(--critical-bg)}
+.tag.gate{color:var(--gold);border-color:var(--gold);background:var(--warn-bg)}
+.frame-body{display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start}
+.note{border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r);padding:16px 17px;position:sticky;top:20px}
+.note .eyebrow{margin-bottom:8px}
+.note p{margin:0 0 10px;font-size:13px}
+.note ul{margin:0;padding-left:16px;font-size:12.5px}
+.note li{margin-bottom:6px}.note li b,.note p b{color:var(--text-strong)}
+.win{border:1px solid var(--border-2);border-radius:var(--r);overflow:hidden;background:var(--surface-2);box-shadow:0 24px 60px -30px rgba(0,0,0,.55)}
+.win-bar{display:flex;align-items:center;gap:8px;padding:9px 13px;background:var(--inset);border-bottom:1px solid var(--border)}
+.win-bar .lights{display:flex;gap:6px}
+.win-bar .lights i{width:10px;height:10px;border-radius:50%;display:block}
+.win-bar .url{flex:1;text-align:center;font-family:var(--mono);font-size:11px;color:var(--muted);background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:3px 10px;max-width:380px;margin:0 auto}
+.app{display:grid;grid-template-columns:200px 1fr;min-height:500px;background:var(--surface-2)}
+.nav{background:var(--inset);border-right:1px solid var(--border);padding:14px 12px;display:flex;flex-direction:column;gap:3px}
+.nav .navbrand{display:flex;align-items:center;gap:9px;padding:4px 6px 14px;margin-bottom:6px;border-bottom:1px solid var(--border)}
+.nav .navbrand b{font-size:13px;color:var(--text-strong);font-weight:600;line-height:1.05}
+.nav .navbrand b small{display:block;font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.nav .ng{font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding:12px 8px 5px}
+.nav-item{display:flex;align-items:center;gap:9px;padding:7px 9px;border-radius:8px;font-size:12.5px;font-weight:500;color:var(--text)}
+.nav-item .ico{width:16px;height:16px;color:var(--muted)}
+.nav-item.active{background:rgba(98,95,237,.18);color:var(--text-strong);font-weight:600}
+.nav-item.active .ico{color:var(--accent)}
+.nav-item .badge{margin-left:auto;font-family:var(--mono);font-size:10px;font-weight:600;color:#0B223A;background:var(--gold);border-radius:999px;padding:1px 6px}
+.tenantflag{margin:10px 6px 0;padding:8px 9px;border:1px dashed var(--border-2);border-radius:8px;font-size:10px;color:var(--muted);line-height:1.4}
+.tenantflag b{color:var(--accent);display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px}
+.navfoot{margin-top:auto;display:flex;align-items:center;gap:9px;padding:9px 6px 2px;border-top:1px solid var(--border)}
+.avatar{width:26px;height:26px;border-radius:50%;background:var(--grad-main);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}
+.navfoot .who{font-size:11.5px;line-height:1.1}.navfoot .who b{color:var(--text-strong);font-size:12px;display:block}
+.navfoot .who span{color:var(--muted);font-size:10.5px}
+.appmain{display:flex;flex-direction:column;min-width:0}
+.topbar{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--border);background:var(--topbar)}
+.topbar h4{font-size:14.5px}
+.env{font-family:var(--mono);font-size:10.5px;color:var(--ok);border:1px solid var(--ok);background:var(--ok-bg);border-radius:999px;padding:2px 9px;display:inline-flex;align-items:center;gap:6px}
+.env i{width:6px;height:6px;border-radius:50%;background:var(--ok);display:block}
+.topbar .right{margin-left:auto;display:flex;align-items:center;gap:10px;color:var(--muted)}
+.content{padding:18px;flex:1}
+.subtle{color:var(--muted);font-size:12px}
+.grid{display:grid;gap:12px}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:13px 14px}
+.card h5{font-size:12.5px;color:var(--text-strong);margin-bottom:11px;display:flex;align-items:center;gap:8px}
+.card h5 .r{margin-left:auto;font-size:10px;color:var(--muted);font-weight:500}
+.stat .lbl{font-size:9.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+.stat .v{font-size:22px;font-weight:700;color:var(--text-strong);margin-top:4px;font-variant-numeric:lining-nums tabular-nums}
+.stat .d{font-size:10.5px;color:var(--muted);margin-top:2px}
+.stat.flag{border-color:var(--gold);background:var(--warn-bg)}.stat.flag .v,.stat.flag .lbl{color:var(--gold)}
+.stat.good{border-color:var(--ok);background:var(--ok-bg)}.stat.good .v,.stat.good .lbl{color:var(--ok)}
+.stat.bad{border-color:var(--critical);background:var(--critical-bg)}.stat.bad .v,.stat.bad .lbl{color:var(--critical)}
+.pill{font-size:10px;font-weight:600;padding:2px 9px;border-radius:999px;text-transform:uppercase;white-space:nowrap}
+.pill.ok{color:var(--ok);background:var(--ok-bg);border:1px solid var(--ok)}
+.pill.warn{color:var(--gold);background:var(--warn-bg);border:1px solid var(--gold)}
+.pill.crit{color:var(--critical);background:var(--critical-bg);border:1px solid var(--critical)}
+.pill.info{color:var(--info);background:var(--info-bg);border:1px solid var(--info)}
+.pill.muted{color:var(--muted);border:1px solid var(--border-2)}
+.btn{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;border-radius:8px;padding:8px 14px;border:1px solid transparent}
+.btn.p{background:var(--grad-main);color:#fff}
+.btn.g{background:transparent;border-color:var(--border-2);color:var(--text-strong)}
+.btn.crit{background:transparent;border-color:var(--critical);color:var(--critical)}
+.btn.sm{padding:5px 11px;font-size:11px}
+table.tb{width:100%;border-collapse:collapse;font-size:12px}
+table.tb th{text-align:left;font-size:9px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);padding:8px 10px;background:var(--inset);border-bottom:1px solid var(--border)}
+table.tb td{padding:9px 10px;border-bottom:1px solid var(--border)}
+table.tb tr:last-child td{border-bottom:0}
+table.tb td b{color:var(--text-strong)}
+table.tb .m{font-family:var(--mono);font-size:11px}
+table.tb td.num{font-family:var(--mono);text-align:right;font-variant-numeric:lining-nums tabular-nums}
+table.tb tr.total td{border-top:2px solid var(--border-2);font-weight:700;color:var(--text-strong)}
+.rowsel{background:rgba(98,95,237,.10)}
+.pipe{position:relative;padding-left:26px}
+.pipe::before{content:"";position:absolute;left:9px;top:10px;bottom:10px;width:2px;background:var(--border-2)}
+.step{position:relative;margin-bottom:11px;border:1px solid var(--border);border-radius:9px;background:var(--surface);padding:11px 13px;display:flex;align-items:center;gap:12px}
+.step::before{content:"";position:absolute;left:-22px;top:18px;width:12px;height:12px;border-radius:50%;background:var(--surface-2);border:2px solid var(--border-2)}
+.step.done::before{background:var(--ok);border-color:var(--ok)}
+.step.hold::before{background:var(--gold);border-color:var(--gold)}
+.step .sysb{font-family:var(--mono);font-size:9px;font-weight:700;padding:3px 7px;border-radius:4px;flex:none;color:#fff}
+.step .stx{flex:1;min-width:0}.step .stx b{color:var(--text-strong);font-size:12.5px;display:block}.step .stx span{color:var(--muted);font-size:11px}
+.step.hold{border-color:var(--gold);background:var(--warn-bg)}
+.err-msg{display:flex;gap:9px;align-items:flex-start;background:var(--critical-bg);border:1px solid var(--critical);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--critical)}
+.err-msg b{color:var(--critical)}
+.gate{border:1px solid var(--gold);border-radius:10px;overflow:hidden;background:var(--surface)}
+.gate .grule{height:3px;background:linear-gradient(90deg,var(--gold),transparent)}
+.gate .gbody{padding:14px 15px}
+.gate h5{color:var(--text-strong);font-size:13px;margin-bottom:4px}
+.gate p{font-size:12px;color:var(--text);margin:0 0 12px}
+.gate .acts{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.gate .audit{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--muted)}
+.codeln{font-family:var(--mono);font-size:11px;background:var(--codebg);border:1px solid var(--border);border-radius:6px;padding:8px 11px;color:var(--muted);line-height:1.7;margin-top:10px}
+.codeln b{color:var(--accent)}
+.closing{margin-top:52px;border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r);padding:22px 24px}
+.closing h2{font-size:19px;margin-bottom:10px}
+.closing p{max-width:840px;font-size:14px}
+.closing .cols{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:16px}
+.closing h4{font-size:13px;margin-bottom:7px}
+.closing ul{margin:0;padding-left:17px;font-size:13px}.closing li{margin-bottom:6px}
+.footer{margin-top:34px;text-align:center;color:var(--muted);font-size:11.5px;font-family:var(--mono)}
+@media(max-width:880px){.frame-body{grid-template-columns:1fr}.note{position:static}.app{grid-template-columns:1fr}.nav{display:none}.cover h1{font-size:29px}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ccmark" viewBox="-0.7 -0.3 49.4 49.5">
+    <defs><linearGradient id="ccg" x1="0" y1="-0.3" x2="0" y2="49.2" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#625FED"/><stop offset=".62" stop-color="#5DB9DB"/><stop offset="1" stop-color="#5BF7CF"/></linearGradient></defs>
+    <path fill="url(#ccg)" d="M2.06789 18.0362c-2.75719-1.7103-2.75719-5.3619 0-7.0722l19.19821-10.19893c1.6445-1.02009 3.8231-1.02009 5.4677-0.00007l19.1982 10.199c2.6709 1.6568 2.7547 5.1352 0.2509 6.9059l-0.2509 0.1663-19.1982 10.199c-1.5932 0.9882-3.6874 1.0186-5.3119 0.0921l-0.1558-0.0921-19.19821-10.199z m2.27852-4.1256c-0.45954 0.285-0.45954 0.894 0 1.1791l19.19809 10.1989c0.274 0.1698 0.6368 0.1698 0.9108 0l19.1982-10.1989c0.4595-0.2851 0.4595-0.8941 0-1.1791l-19.1982-10.19895c-0.274-0.16981-0.6368-0.16981-0.9108 0l-19.19809 10.19895z"/>
+    <path fill="url(#ccg)" d="M42.874 22.1494c0.3206-0.5537 1.1641-0.8331 1.8926-0.5185 1.7915 0.7738 2.6814 2.2245 2.7314 3.6572 0.05 1.4315-0.7352 2.9218-2.4648 3.7851l-17.5098 8.7383c-1.8336 0.9151-4.1001 0.9177-5.9365 0.0069l-18.81542-9.3321c-1.61862-0.8029-2.33402-2.1958-2.26757-3.5215 0.06669-1.3274 0.92218-2.6678 2.62207-3.3496 0.74139-0.2971 1.5717 0.0055 1.87109 0.5625 0.27157 0.5057 0.05504 1.1693-0.66016 1.4561-0.65157 0.2615-1.04373 0.814-1.07421 1.4219-0.03043 0.6098 0.30751 1.1972 0.9375 1.5097l18.8144 9.3321h0.001c0.9545 0.4732 2.1206 0.4715 3.0733-0.0039l17.5088-8.7383c0.7601-0.3794 1.1649-1.079 1.1396-1.8037-0.0253-0.7235-0.4765-1.3955-1.2568-1.7325-0.6999-0.3024-0.8964-0.968-0.6065-1.4697z"/>
+    <path fill="url(#ccg)" transform="translate(0,10.04)" d="M42.874 22.1494c0.3206-0.5537 1.1641-0.8331 1.8926-0.5185 1.7915 0.7738 2.6814 2.2245 2.7314 3.6572 0.05 1.4315-0.7352 2.9218-2.4648 3.7851l-17.5098 8.7383c-1.8336 0.9151-4.1001 0.9177-5.9365 0.0069l-18.81542-9.3321c-1.61862-0.8029-2.33402-2.1958-2.26757-3.5215 0.06669-1.3274 0.92218-2.6678 2.62207-3.3496 0.74139-0.2971 1.5717 0.0055 1.87109 0.5625 0.27157 0.5057 0.05504 1.1693-0.66016 1.4561-0.65157 0.2615-1.04373 0.814-1.07421 1.4219-0.03043 0.6098 0.30751 1.1972 0.9375 1.5097l18.8144 9.3321h0.001c0.9545 0.4732 2.1206 0.4715 3.0733-0.0039l17.5088-8.7383c0.7601-0.3794 1.1649-1.079 1.1396-1.8037-0.0253-0.7235-0.4765-1.3955-1.2568-1.7325-0.6999-0.3024-0.8964-0.968-0.6065-1.4697z"/>
+  </symbol>
+  <symbol id="i-deploy" viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9"/></symbol>
+  <symbol id="i-invoice" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6M9 16h3"/></symbol>
+  <symbol id="i-runs" viewBox="0 0 24 24"><path d="M3 12h4l3 7 4-16 3 9h4"/></symbol>
+  <symbol id="i-people" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M16 5.4a3.2 3.2 0 0 1 0 5.4"/><path d="M20.5 20a5.5 5.5 0 0 0-4-5.3"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-4 4V5z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 8v5M12 16.5v.5"/><path d="M12 3l9 16H3z"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+</svg>
+
+<div class="toggle">
+  <button id="tDark" class="on" onclick="setTheme('dark')">Dark</button>
+  <button id="tLight" onclick="setTheme('light')">Light</button>
+</div>
+
+<div class="board">
+
+  <header class="cover">
+    <div>
+      <div class="brandline">
+        <svg class="mark" style="width:30px;height:30px"><use href="#ccmark"/></svg>
+        <div class="wm">Cascade Clarity<small>Enterprise AI Integrators</small></div>
+      </div>
+      <div class="tenant-tag tt-huffmaster"><span class="dot"></span>Huffmaster<span class="sub">· client tenant</span></div>
+      <h1>Storyboard 10 —<br><span class="grad">Billing · deploy to invoice</span></h1>
+      <p class="sub">The last stretch of a deployment: turning a finished job into an invoice. Sword pulls the hours from UKG, adds the contract-driven billables — hotels, rental cars via Corpay — applies the bill rates, and hands a finance coordinator a ready-to-review invoice instead of a spreadsheet stitched from four systems.</p>
+    </div>
+    <div class="metabox">
+      <div><span>Prepared by</span><span>David De los Reyes</span></div>
+      <div><span>For</span><span>John Cuellar</span></div>
+      <div><span>Date</span><span>Jul 17, 2026</span></div>
+      <div><span>User</span><span>Dana · Billing</span></div>
+      <div><span>Scope</span><span>Phase 3 · deploy-to-invoice</span></div>
+      <div><span>Product name</span><span>Sword</span></div>
+    </div>
+  </header>
+
+  <p class="lead">Invoice assembly is where the money is actually made, and today it is manual: someone reads UKG time, chases the hotel folios, exports the Corpay car charges, and matches each line to a contract rate. The custom UKG time bridge is <b>already built</b>; this board adds the contract-driven billables beside it and assembles the whole invoice in NetSuite. Two things make this board matter. It <b>catches the charges that should not bill</b> — the terminated worker whose hotel kept running — before they reach the customer. And it keeps a human on the invoice, because <b>the number that goes to a client is not something to guess.</b></p>
+
+  <div class="shead"><span class="n">A</span><h2>The route</h2><span class="h-sub">billing · finished job to posted invoice</span></div>
+  <div class="flow">
+    <div class="flowrow">
+      <span class="node start"><span class="num">01</span>Ready to bill</span><span class="arr">→</span>
+      <span class="node"><span class="num">02</span>Assemble the invoice</span><span class="arr">→</span>
+      <span class="node"><span class="num">03</span>Off-contract charge</span><span class="arr">→</span>
+      <span class="node"><span class="num">04</span>Approve &amp; post</span><span class="arr">→</span>
+      <span class="node"><span class="num">05</span>Margin &amp; audit</span>
+    </div>
+    <div class="flowrow err">
+      <span class="branchlbl"><svg class="ico" style="width:14px;height:14px;color:var(--critical)"><use href="#i-alert"/></svg>Branch</span>
+      <span class="arr">↳</span>
+      <span class="node errnode"><span class="num">03b</span>Charge for a terminated worker → pulled before it bills</span>
+    </div>
+  </div>
+
+  <!-- FRAME 01 -->
+  <article class="frame" id="f01">
+    <div class="frame-head"><span class="fn">01</span><h3>Ready to bill — jobs and what they'll invoice</h3>
+      <div class="tags"><span class="tag happy">Happy path</span><span class="tag">Four systems, one view</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">huffmaster.sword.app/billing</div></div>
+        <div class="app">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Sword<small>Huffmaster</small></b></div>
+            <a class="nav-item"><svg class="ico"><use href="#i-deploy"/></svg>Deployments</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-people"/></svg>People</a>
+            <a class="nav-item active"><svg class="ico"><use href="#i-invoice"/></svg>Billing<span class="badge">3</span></a>
+            <a class="nav-item"><svg class="ico"><use href="#i-runs"/></svg>Runs</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Ask Sword</a>
+            <div class="tenantflag"><b>Billing</b>Dana sees jobs ready to invoice and the runs that build them — not recruiting, travel booking or compliance overrides.</div>
+            <div class="navfoot"><div class="avatar">DP</div><div class="who"><b>Dana P.</b><span>Billing coordinator</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Ready to bill</h4><span class="env"><i></i>Period Jul 1–15</span>
+              <div class="right"><span class="subtle">3 jobs · $312k assembled</span></div></div>
+            <div class="content">
+              <div class="grid g4" style="margin-bottom:12px">
+                <div class="card stat good"><div class="lbl">Assembled</div><div class="v">$312k</div><div class="d">3 jobs, auto-built</div></div>
+                <div class="card stat"><div class="lbl">UKG hours</div><div class="v">6,140</div><div class="d">pulled via bridge</div></div>
+                <div class="card stat"><div class="lbl">Billables added</div><div class="v">$41k</div><div class="d">hotels + cars</div></div>
+                <div class="card stat flag"><div class="lbl">Needs review</div><div class="v">2</div><div class="d">off-contract lines</div></div>
+              </div>
+              <div class="card" style="padding:0">
+                <table class="tb">
+                  <thead><tr><th>Job</th><th>Client</th><th>UKG time</th><th>Billables</th><th class="num">Invoice</th><th>Status</th></tr></thead>
+                  <tbody>
+                    <tr class="rowsel"><td><b>Regional Health</b></td><td class="m">45 RN</td><td class="m">3,420 h</td><td class="m">hotel + car</td><td class="num">$198,240</td><td><span class="pill warn">Review</span></td></tr>
+                    <tr><td><b>Mercy Systems</b></td><td class="m">25 RN</td><td class="m">1,880 h</td><td class="m">hotel</td><td class="num">$71,410</td><td><span class="pill ok">Clean</span></td></tr>
+                    <tr><td><b>Valley Clinic</b></td><td class="m">18 LPN</td><td class="m">840 h</td><td class="m">car</td><td class="num">$42,180</td><td><span class="pill warn">Review</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>The one screen that replaces the spreadsheet: every finished job, its assembled invoice, and whether it needs a human's eyes.</p>
+        <ul>
+          <li>Each invoice is built from <b>UKG time + Corpay/hotel billables + contract rates</b> — the four sources, joined automatically.</li>
+          <li>"Clean" jobs can move fast; the <b>2 with off-contract lines</b> are flagged for review, not silently billed.</li>
+          <li>Same stat cards and list-detail as every board — an invoice queue and a stock list render identically.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- FRAME 02 -->
+  <article class="frame" id="f02">
+    <div class="frame-head"><span class="fn">02</span><h3>Assemble the invoice — every line, with its source</h3>
+      <div class="tags"><span class="tag happy">Happy path</span><span class="tag">Contract rates applied</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">huffmaster.sword.app/billing/regional-health</div></div>
+        <div class="app">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Sword<small>Huffmaster</small></b></div>
+            <a class="nav-item"><svg class="ico"><use href="#i-deploy"/></svg>Deployments</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-people"/></svg>People</a>
+            <a class="nav-item active"><svg class="ico"><use href="#i-invoice"/></svg>Billing<span class="badge">3</span></a>
+            <a class="nav-item"><svg class="ico"><use href="#i-runs"/></svg>Runs</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Ask Sword</a>
+            <div class="navfoot"><div class="avatar">DP</div><div class="who"><b>Dana P.</b><span>Billing coordinator</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Invoice · Regional Health</h4><span class="pill warn">Draft · 1 line to review</span>
+              <div class="right"><span class="subtle mono">inv:RH-2026-07-01</span></div></div>
+            <div class="content">
+              <div class="card" style="padding:0;margin-bottom:12px">
+                <table class="tb">
+                  <thead><tr><th>Line</th><th>Source</th><th>Qty</th><th>Rate</th><th class="num">Amount</th></tr></thead>
+                  <tbody>
+                    <tr><td><b>RN regular hours</b></td><td class="m">UKG bridge</td><td class="m">3,010 h</td><td class="m">$52.00</td><td class="num">$156,520.00</td></tr>
+                    <tr><td><b>RN overtime</b></td><td class="m">UKG bridge</td><td class="m">410 h</td><td class="m">$62.40</td><td class="num">$25,584.00</td></tr>
+                    <tr><td><b>Lodging — hotel block</b></td><td class="m">folio import</td><td class="m">220 nts</td><td class="m">$121.00</td><td class="num">$26,620.00</td></tr>
+                    <tr><td><b>Rental vehicles</b></td><td class="m">Corpay</td><td class="m">6 cars</td><td class="m">contract</td><td class="num">$4,940.00</td></tr>
+                    <tr><td><b>Per-diem pass-through</b></td><td class="m">contract</td><td class="m">45 pax</td><td class="m">$12/day</td><td class="num">$8,100.00</td></tr>
+                    <tr><td style="color:var(--critical)"><b>Hotel — extended stay</b></td><td class="m">folio import</td><td class="m">14 nts</td><td class="m">$121.00</td><td class="num" style="color:var(--critical)">$1,694.00</td></tr>
+                    <tr class="total"><td colspan="4">Assembled total</td><td class="num">$223,458.00</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="err-msg" style="background:var(--warn-bg);border-color:var(--gold);color:var(--gold)">
+                <svg class="ico" style="width:15px;height:15px;color:var(--gold)"><use href="#i-alert"/></svg>
+                <div><b style="color:var(--text-strong)">One line is flagged.</b> The extended-stay hotel ($1,694) belongs to a worker who was terminated on Jul 9 — it may not be billable to the client. Open the exception before posting. <span style="color:var(--gold);text-decoration:underline">Review →</span></div></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>The invoice is <b>itemized with the system each line came from</b> — a billing coordinator can defend every number to the client.</p>
+        <ul>
+          <li>UKG hours, Corpay cars, hotel folios and contract per-diems, <b>assembled and rate-applied automatically.</b></li>
+          <li>Figures are <b>mono, right-aligned, with a ruled total</b> — it reads like an invoice, not a dashboard.</li>
+          <li>The agent has already <b>flagged the suspect line</b> in red rather than quietly including it. That's Frame 03.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- FRAME 03 -->
+  <article class="frame" id="f03">
+    <div class="frame-head"><span class="fn">03</span><h3>Off-contract charge — the hotel that shouldn't bill</h3>
+      <div class="tags"><span class="tag err">Exception</span><span class="tag">Caught before the client sees it</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">huffmaster.sword.app/billing/regional-health/exception</div></div>
+        <div class="app">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Sword<small>Huffmaster</small></b></div>
+            <a class="nav-item"><svg class="ico"><use href="#i-deploy"/></svg>Deployments</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-people"/></svg>People</a>
+            <a class="nav-item active"><svg class="ico"><use href="#i-invoice"/></svg>Billing<span class="badge">3</span></a>
+            <a class="nav-item"><svg class="ico"><use href="#i-runs"/></svg>Runs</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Ask Sword</a>
+            <div class="navfoot"><div class="avatar">DP</div><div class="who"><b>Dana P.</b><span>Billing coordinator</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Exception · extended-stay hotel</h4><span class="pill crit">Do not bill?</span>
+              <div class="right"><span class="subtle mono">D. Harper · terminated Jul 9</span></div></div>
+            <div class="content">
+              <div class="card" style="border-color:var(--critical);margin-bottom:12px">
+                <h5 style="color:var(--critical)"><svg class="ico" style="width:14px;height:14px"><use href="#i-alert"/></svg>This charge belongs to a terminated worker</h5>
+                <p style="margin:0;font-size:12.5px">D. Harper was terminated <b>Jul 9</b> (Storyboard 06 closed his travel). The hotel folio still shows <b>14 nights after that date</b> — $1,694. Under this contract, lodging is billable only while a worker is deployed. Sword pulled it out of the invoice total and is asking before it goes near the client.</p>
+              </div>
+              <div class="card" style="margin-bottom:12px;padding:0">
+                <table class="tb">
+                  <thead><tr><th>Night range</th><th>Status of worker</th><th>Nights</th><th class="num">Amount</th><th>Bill?</th></tr></thead>
+                  <tbody>
+                    <tr><td class="m">Jun 24 – Jul 9</td><td>Deployed</td><td class="m">15</td><td class="num">$1,815.00</td><td><span class="pill ok">Billable</span></td></tr>
+                    <tr><td class="m">Jul 10 – Jul 23</td><td style="color:var(--critical)">Terminated</td><td class="m">14</td><td class="num" style="color:var(--critical)">$1,694.00</td><td><span class="pill crit">Exclude</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div style="display:flex;gap:9px;align-items:center;flex-wrap:wrap">
+                <span class="btn p"><svg class="ico" style="width:14px;height:14px;stroke:#fff"><use href="#i-check"/></svg>Exclude $1,694 &amp; flag to travel desk</span>
+                <span class="btn g">Bill it — contract allows wind-down</span>
+                <span class="subtle" style="margin-left:auto">every choice is logged</span>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>This is the three-month-hotel failure caught on the <b>billing side</b> — even if travel wasn't closed in time, the charge doesn't reach the customer.</p>
+        <ul>
+          <li>It splits the folio <b>by the worker's employment status</b>, so the billable and non-billable nights are obvious.</li>
+          <li>The default is to <b>exclude and flag</b>, but "bill it — contract allows wind-down" exists, because sometimes the contract does. The human knows which.</li>
+          <li>Cross-references Storyboard 06 by name and date — the two boards describe the same worker from two desks.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- FRAME 04 -->
+  <article class="frame" id="f04">
+    <div class="frame-head"><span class="fn">04</span><h3>Approve &amp; post — a human signs the number</h3>
+      <div class="tags"><span class="tag gate">Approval gate</span><span class="tag">Writes to NetSuite</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">huffmaster.sword.app/billing/regional-health/post</div></div>
+        <div class="app">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Sword<small>Huffmaster</small></b></div>
+            <a class="nav-item"><svg class="ico"><use href="#i-deploy"/></svg>Deployments</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-people"/></svg>People</a>
+            <a class="nav-item active"><svg class="ico"><use href="#i-invoice"/></svg>Billing</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-runs"/></svg>Runs</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Ask Sword</a>
+            <div class="navfoot"><div class="avatar">DP</div><div class="who"><b>Dana P.</b><span>Billing coordinator</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Post invoice · Regional Health</h4><span class="pill warn">Needs approval</span>
+              <div class="right"><span class="subtle mono">inv:RH-2026-07-01</span></div></div>
+            <div class="content">
+              <div class="grid g3" style="margin-bottom:12px">
+                <div class="card stat"><div class="lbl">Assembled</div><div class="v">$223,458</div><div class="d">before exception</div></div>
+                <div class="card stat bad"><div class="lbl">Excluded</div><div class="v">−$1,694</div><div class="d">terminated stay</div></div>
+                <div class="card stat good"><div class="lbl">Invoice total</div><div class="v">$221,764</div><div class="d">to Regional Health</div></div>
+              </div>
+              <div class="gate">
+                <div class="grule"></div>
+                <div class="gbody">
+                  <h5>Post this invoice to NetSuite?</h5>
+                  <p>The agent will create the invoice in NetSuite at <span class="mono">$221,764.00</span>, with the excluded hotel line flagged to the travel desk. It will <b>not</b> send to the client — that stays a person's action inside NetSuite. Reversible until sent.</p>
+                  <div class="acts">
+                    <span class="btn p"><svg class="ico" style="width:14px;height:14px;stroke:#fff"><use href="#i-check"/></svg>Approve &amp; post to NetSuite</span>
+                    <span class="btn crit">Reject with reason</span>
+                    <span class="audit">signed by Dana P. · logged</span>
+                  </div>
+                </div>
+              </div>
+              <div class="codeln">
+                <div>source · <b>ukg:time:regional-health:2026-07</b> · 3,420 h</div>
+                <div>source · corpay:vehicles · 6 · folio:hotel-block · 220 nts</div>
+                <div>excluded · <b>D. Harper · 14 nts after termination</b> · −$1,694.00</div>
+                <div>target · netsuite:invoice · draft · not sent</div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>The same approval gate as every board, on the number that reaches a customer. It <b>stops one step short of sending</b> — posting a draft is reversible, sending an invoice is not.</p>
+        <ul>
+          <li>The exclusion is shown as a <b>line in the math</b>, so the approver sees exactly what changed and why.</li>
+          <li>"Not sent to the client" is the deliberate boundary — the agent assembles and posts, a person releases.</li>
+          <li>The source trace makes the invoice <b>auditable to its four systems</b>, same discipline as the reconciliation board.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- FRAME 05 -->
+  <article class="frame" id="f05">
+    <div class="frame-head"><span class="fn">05</span><h3>Margin &amp; audit — the whole job on one screen</h3>
+      <div class="tags"><span class="tag happy">Happy path</span><span class="tag">Posted &amp; traceable</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">huffmaster.sword.app/billing/regional-health/summary</div></div>
+        <div class="app">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Sword<small>Huffmaster</small></b></div>
+            <a class="nav-item"><svg class="ico"><use href="#i-deploy"/></svg>Deployments</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-people"/></svg>People</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-invoice"/></svg>Billing</a>
+            <a class="nav-item active"><svg class="ico"><use href="#i-runs"/></svg>Runs</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Ask Sword</a>
+            <div class="navfoot"><div class="avatar">DP</div><div class="who"><b>Dana P.</b><span>Billing coordinator</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Regional Health · billed</h4><span class="pill ok">Posted to NetSuite</span>
+              <div class="right"><span class="subtle mono">NS-INV-2026-07-0188</span></div></div>
+            <div class="content">
+              <div class="grid g4" style="margin-bottom:12px">
+                <div class="card stat good"><div class="lbl">Invoiced</div><div class="v">$221,764</div><div class="d">to client</div></div>
+                <div class="card stat"><div class="lbl">Pay cost</div><div class="v">$171,900</div><div class="d">UKG + travel</div></div>
+                <div class="card stat good"><div class="lbl">Gross margin</div><div class="v">22.5%</div><div class="d">$49,864</div></div>
+                <div class="card stat"><div class="lbl">Time to invoice</div><div class="v">1 day</div><div class="d">was ~2 weeks</div></div>
+              </div>
+              <div class="card" style="padding:0">
+                <table class="tb">
+                  <thead><tr><th>When</th><th>Actor</th><th>Event</th><th>Reference</th></tr></thead>
+                  <tbody>
+                    <tr><td class="m">Jul 16 02:00</td><td class="m">sword-billing</td><td>Assembled from 4 sources</td><td class="m">inv:RH-2026-07-01</td></tr>
+                    <tr><td class="m">Jul 16 02:00</td><td class="m">sword-billing</td><td>Flagged terminated-stay $1,694</td><td class="m">D. Harper</td></tr>
+                    <tr><td class="m">Jul 16 09:41</td><td class="m">Dana P.</td><td><b>Excluded line, approved</b></td><td class="m">signed</td></tr>
+                    <tr><td class="m">Jul 16 09:41</td><td class="m">system</td><td>Posted to NetSuite (draft)</td><td class="m">NS-INV-2026-07-0188</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>"One screen showing the whole pilot job" — extended to billing. Invoice, cost, margin and the full trail, in one place.</p>
+        <ul>
+          <li><b>Margin on the same screen as the invoice</b> gives the account owner something they never had at close: the answer to "did we make money on this job?"</li>
+          <li><b>1 day vs ~2 weeks</b> is the measured win against the manual baseline.</li>
+          <li>The audit trail separates <b>machine assembly</b> from <b>human approval</b> — the same accountability model as reconciliation and the deploy run.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <div class="closing">
+    <h2>What this board adds</h2>
+    <p>This closes the Huffmaster arc: order (08) → deploy (06) → <b>invoice (10)</b>, one continuous flow across a recruiter, an operations lead, and a billing coordinator, all inside one Sword. It also lands the failure mode the whole engagement was pitched on, from the money side — the terminated worker's hotel is <b>caught before it bills the client</b>, not three months later. And it keeps the discipline the reconciliation board established: assembled by machine from named sources, <b>approved by a person</b>, posted with an audit trail, and never sent to a customer without a human releasing it.</p>
+    <div class="cols">
+      <div><h4>Components this adds</h4>
+        <ul><li>Ready-to-bill queue</li><li>Itemized invoice with per-line source</li><li>Off-contract exception (folio by employment status)</li><li>Post-to-NetSuite approval gate</li><li>Margin + audit summary</li></ul></div>
+      <div><h4>Open questions for John</h4>
+        <ul><li>Does Sword post a draft only, or can it send once a threshold is met?</li><li>Who owns the "bill the wind-down" decision — billing or the account owner?</li><li>Do we show margin to the billing role, or only to the account owner?</li></ul></div>
+    </div>
+  </div>
+
+  <div class="footer">Cascade Clarity · Enterprise Agent · Storyboard 10 · Huffmaster billing · v0.1 · built on Brand System Vol. 2</div>
+</div>
+
+<script>
+function setTheme(t){
+  document.documentElement.dataset.theme=t;
+  document.getElementById('tDark').classList.toggle('on',t==='dark');
+  document.getElementById('tLight').classList.toggle('on',t==='light');
+}
+</script>
+</body>
+</html>

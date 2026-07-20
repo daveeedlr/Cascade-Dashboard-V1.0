@@ -2,7 +2,7 @@
 
 UI/UX storyboards for the **Cascade Enterprise Agent** — the browser-based, single-tenant agent workspace built by [Cascade Clarity](https://cascadeclarity.ai).
 
-Nine user journeys and one system diagram, drawn on the Cowork interaction pattern, in the Cascade Clarity brand (Brand System Vol. 2), across two client tenants and two verticals. Every board is **tagged by the account it references** and shows the happy path **and** the error states beside it.
+Eleven user journeys and one system diagram, drawn on the Cowork interaction pattern, in the Cascade Clarity brand (Brand System Vol. 2), across two client tenants and two platform verticals. Every board is **tagged by the account it references** and shows the happy path **and** the error states beside it.
 
 **▶ [View the storyboards](https://daveeedlr.github.io/Cascade-Dashboard-V1.0/)**
 
@@ -29,7 +29,9 @@ Every board carries a tag so it is clear which account it references:
 | 06 | [Huffmaster — Project Sword](Cascade_Enterprise_Agent_Storyboard_06_Huffmaster.html) | Huffmaster | Trevor, Operations | Deployment view, hire-to-deploy orchestration, compliance gate, termination closing open spend, a different connector stack |
 | 07 | [Sales manager — the team](Cascade_Enterprise_Agent_Storyboard_07_SalesManager.html) | Construgypsum | Andrea, Gerente Comercial | Team roster, coaching escalation from board 05, pipeline approval, collections, overruling an unfair flag |
 | 08 | [Recruiter — order to recruit](Cascade_Enterprise_Agent_Storyboard_08_Recruiter.html) | Huffmaster | Marcus, Recruiter | Zoho→Bullhorn auto-fire, openings board, candidate kanban, 700-person surge projection, hand-off to hire-to-deploy |
-| 09 | [Enterprise Reconciliation](Cascade_Enterprise_Agent_Storyboard_09_Reconciliation.html) | Cascade · Platform | Controller (new vertical) | Reconciliation dashboard, amount-mismatch with deterministic compute, missing-record, correcting-journal approval, audit trail |
+| 09 | [Enterprise Reconciliation](Cascade_Enterprise_Agent_Storyboard_09_Reconciliation.html) | Cascade · Platform | Controller (reconciliation vertical) | Reconciliation dashboard, amount-mismatch with deterministic compute, missing-record, correcting-journal approval, audit trail |
+| 10 | [Billing — deploy to invoice](Cascade_Enterprise_Agent_Storyboard_10_Billing.html) | Huffmaster | Dana, Billing | UKG time + Corpay/hotel billables assembled in NetSuite, off-contract charge caught before billing, post approval, margin + audit |
+| 11 | [Content Pipeline](Cascade_Enterprise_Agent_Storyboard_11_ContentPipeline.html) | Cascade · Platform | Content lead (content vertical) | Signal capture, brand-voice draft, branded asset from the brand manual, Voice & Brand claim-safety gate, multi-channel publish |
 
 Background reading: [Storyboard & Storybook primer](Storyboard_and_Storybook_Primer.md).
 
