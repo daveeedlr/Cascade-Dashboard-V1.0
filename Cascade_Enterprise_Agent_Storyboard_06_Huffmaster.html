@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cascade Enterprise Agent · Storyboard 06 · Huffmaster (Sword)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Storyboard 06 — Huffmaster / Project Sword tenant. Same components as 01–05, new tenant. */
+:root{
+  --grad-main:linear-gradient(135deg,#625FED 0%,#5DB9DB 100%);
+  --grad-hero:linear-gradient(110deg,#5BF7CF 0%,#5DB9DB 50%,#625FED 100%);
+  --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;--r:12px;
+}
+:root,[data-theme="dark"]{
+  --bg-grad:radial-gradient(1200px 600px at 15% -5%,rgba(98,95,237,.16),transparent 60%),radial-gradient(1000px 500px at 100% 0,rgba(93,185,219,.12),transparent 55%),#0B223A;
+  --surface:#0F3259;--surface-2:#0C2846;--inset:#081A2E;--topbar:rgba(8,26,46,.72);
+  --border:rgba(143,163,177,.16);--border-2:rgba(143,163,177,.30);--hover:rgba(255,255,255,.04);
+  --text:rgba(255,255,255,.85);--text-strong:#fff;--muted:#8FA3B1;
+  --accent:#5BF7CF;--link:#5DB9DB;--gold:#F5B455;--purple:#625FED;
+  --critical:#FF6B7A;--warn:#F5B455;--ok:#5BF7CF;--info:#5DB9DB;
+  --critical-bg:rgba(255,107,122,.12);--warn-bg:rgba(245,180,85,.13);--ok-bg:rgba(91,247,207,.12);--info-bg:rgba(93,185,219,.12);
+  --note-bg:rgba(8,26,46,.55);
+}
+[data-theme="light"]{
+  --bg-grad:radial-gradient(1200px 600px at 12% -8%,rgba(98,95,237,.10),transparent 60%),radial-gradient(1000px 500px at 100% 0,rgba(93,185,219,.10),transparent 55%),#EAF0F6;
+  --surface:#fff;--surface-2:#F5F8FB;--inset:#F0F4F8;--topbar:rgba(255,255,255,.82);
+  --border:rgba(11,34,58,.12);--border-2:rgba(11,34,58,.20);--hover:rgba(11,34,58,.035);
+  --text:rgba(11,34,58,.86);--text-strong:#0B223A;--muted:#5C6B7A;
+  --accent:#0F8F79;--link:#2C6FB0;--gold:#B8791E;--purple:#5049C9;
+  --critical:#C24338;--warn:#B8791E;--ok:#0F8F79;--info:#2C6FB0;
+  --critical-bg:rgba(194,67,56,.10);--warn-bg:rgba(184,121,30,.12);--ok-bg:rgba(15,143,121,.10);--info-bg:rgba(44,111,176,.10);
+  --note-bg:rgba(255,255,255,.7);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg-grad);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{color:var(--text-strong);margin:0;line-height:1.15;font-weight:700;letter-spacing:-.01em}
+.mono{font-family:var(--mono);font-variant-numeric:lining-nums tabular-nums}
+.eyebrow{font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+svg.mark{width:26px;height:26px;display:block}
+svg.ico{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.board{max-width:1200px;margin:0 auto;padding:38px 26px 90px}
+.cover{display:flex;flex-wrap:wrap;gap:26px;align-items:flex-end;justify-content:space-between;padding-bottom:26px;border-bottom:1px solid var(--border);margin-bottom:30px}
+.brandline{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.brandline .wm{font-weight:600;font-size:15px;color:var(--text-strong);line-height:1.05}
+.brandline .wm small{display:block;font-weight:500;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.cover h1{font-size:37px;letter-spacing:-.025em}
+.cover .grad{background:var(--grad-hero);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cover .sub{margin-top:10px;font-size:15.5px;max-width:660px}
+.metabox{border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r);padding:16px 18px;min-width:230px}
+.metabox div{display:flex;justify-content:space-between;gap:18px;font-size:12.5px;padding:3px 0}
+.metabox div span:first-child{color:var(--muted)}
+.metabox div span:last-child{color:var(--text-strong);font-weight:500}
+.toggle{position:fixed;top:18px;right:20px;z-index:50;display:flex;gap:4px;padding:4px;border:1px solid var(--border-2);border-radius:999px;background:var(--surface)}
+.toggle button{border:0;background:transparent;color:var(--muted);font-family:var(--font);font-size:12px;font-weight:600;padding:5px 13px;border-radius:999px;cursor:pointer}
+.toggle button.on{background:var(--grad-main);color:#fff}
+.lead{max-width:840px;margin:0 0 30px;font-size:15.5px}
+.lead b{color:var(--text-strong)}
+.shead{display:flex;align-items:baseline;gap:14px;margin:46px 0 16px}
+.shead .n{font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:600}
+.shead h2{font-size:20px}
+.shead .h-sub{color:var(--muted);font-size:13px;margin-left:auto}
+.flow{border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r);padding:20px 18px;overflow-x:auto}
+.flowrow{display:flex;align-items:center;gap:8px;min-width:max-content}
+.node{display:flex;align-items:center;gap:8px;padding:9px 13px;border-radius:999px;border:1px solid var(--border-2);background:var(--surface);font-size:12.5px;font-weight:600;color:var(--text-strong);white-space:nowrap}
+.node .num{font-family:var(--mono);font-size:11px;color:var(--accent)}
+.node.start{background:var(--grad-main);color:#fff;border:0}.node.start .num{color:rgba(255,255,255,.8)}
+.arr{color:var(--muted);font-size:15px;flex:none}
+.flowrow.err{margin-top:12px}
+.node.errnode{border-color:var(--critical);color:var(--critical);background:var(--critical-bg)}
+.node.errnode .num{color:var(--critical)}
+.branchlbl{font-size:11px;color:var(--critical);font-weight:600;display:inline-flex;align-items:center;gap:6px}
+.frame{margin-top:40px}
+.frame-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.frame-head .fn{font-family:var(--mono);font-size:12px;font-weight:600;color:#fff;background:var(--grad-main);padding:4px 10px;border-radius:6px}
+.frame-head h3{font-size:18px}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin-left:auto}
+.tag{font-size:10.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid var(--border-2);color:var(--muted)}
+.tag.happy{color:var(--ok);border-color:var(--ok);background:var(--ok-bg)}
+.tag.err{color:var(--critical);border-color:var(--critical);background:var(--critical-bg)}
+.tag.gate{color:var(--gold);border-color:var(--gold);background:var(--warn-bg)}
+.frame-body{display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start}
+.note{border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r);padding:16px 17px;position:sticky;top:20px}
+.note .eyebrow{margin-bottom:8px}
+.note p{margin:0 0 10px;font-size:13px}
+.note ul{margin:0;padding-left:16px;font-size:12.5px}
+.note li{margin-bottom:6px}.note li b,.note p b{color:var(--text-strong)}
+.win{border:1px solid var(--border-2);border-radius:var(--r);overflow:hidden;background:var(--surface-2);box-shadow:0 24px 60px -30px rgba(0,0,0,.55)}
+.win-bar{display:flex;align-items:center;gap:8px;padding:9px 13px;background:var(--inset);border-bottom:1px solid var(--border)}
+.win-bar .lights{display:flex;gap:6px}
+.win-bar .lights i{width:10px;height:10px;border-radius:50%;display:block}
+.win-bar .url{flex:1;text-align:center;font-family:var(--mono);font-size:11px;color:var(--muted);background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:3px 10px;max-width:380px;margin:0 auto}
+.app{display:grid;grid-template-columns:200px 1fr;min-height:500px;background:var(--surface-2)}
+.nav{background:var(--inset);border-right:1px solid var(--border);padding:14px 12px;display:flex;flex-direction:column;gap:3px}
+.nav .navbrand{display:flex;align-items:center;gap:9px;padding:4px 6px 14px;margin-bottom:6px;border-bottom:1px solid var(--border)}
+.nav .navbrand b{font-size:13px;color:var(--text-strong);font-weight:600;line-height:1.05}
+.nav .navbrand b small{display:block;font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.nav .ng{font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding:12px 8px 5px}
+.nav-item{display:flex;align-items:center;gap:9px;padding:7px 9px;border-radius:8px;font-size:12.5px;font-weight:500;color:var(--text)}
+.nav-item .ico{width:16px;height:16px;color:var(--muted)}
+.nav-item.active{background:rgba(98,95,237,.18);color:var(--text-strong);font-weight:600}
+.nav-item.active .ico{color:var(--accent)}
+.nav-item .badge{margin-left:auto;font-family:var(--mono);font-size:10px;font-weight:600;color:#0B223A;background:var(--gold);border-radius:999px;padding:1px 6px}
+.navfoot{margin-top:auto;display:flex;align-items:center;gap:9px;padding:9px 6px 2px;border-top:1px solid var(--border)}
+.avatar{width:26px;height:26px;border-radius:50%;background:var(--grad-main);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}
+.navfoot .who{font-size:11.5px;line-height:1.1}.navfoot .who b{color:var(--text-strong);font-size:12px;display:block}
+.navfoot .who span{color:var(--muted);font-size:10.5px}
+.tenantflag{margin:10px 6px 0;padding:8px 9px;border:1px dashed var(--border-2);border-radius:8px;font-size:10px;color:var(--muted);line-height:1.4}
+.tenantflag b{color:var(--accent);display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px}
+.appmain{display:flex;flex-direction:column;min-width:0}
+.topbar{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--border);background:var(--topbar)}
+.topbar h4{font-size:14.5px}
+.env{font-family:var(--mono);font-size:10.5px;color:var(--ok);border:1px solid var(--ok);background:var(--ok-bg);border-radius:999px;padding:2px 9px;display:inline-flex;align-items:center;gap:6px}
+.env i{width:6px;height:6px;border-radius:50%;background:var(--ok);display:block}
+.topbar .right{margin-left:auto;display:flex;align-items:center;gap:10px;color:var(--muted)}
+.content{padding:18px;flex:1}
+.subtle{color:var(--muted);font-size:12px}
+.grid{display:grid;gap:12px}.g5{grid-template-columns:repeat(5,1fr)}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:13px 14px}
+.card h5{font-size:12.5px;color:var(--text-strong);margin-bottom:11px;display:flex;align-items:center;gap:8px}
+.card h5 .r{margin-left:auto;font-size:10px;color:var(--muted);font-weight:500}
+.stat .lbl{font-size:9.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+.stat .v{font-size:22px;font-weight:700;color:var(--text-strong);margin-top:4px;font-variant-numeric:lining-nums tabular-nums}
+.stat .d{font-size:10.5px;color:var(--muted);margin-top:2px}
+.stat.flag{border-color:var(--gold);background:var(--warn-bg)}.stat.flag .v,.stat.flag .lbl{color:var(--gold)}
+.stat.bad{border-color:var(--critical);background:var(--critical-bg)}.stat.bad .v,.stat.bad .lbl{color:var(--critical)}
+.stat.good{border-color:var(--ok);background:var(--ok-bg)}.stat.good .v,.stat.good .lbl{color:var(--ok)}
+.pill{font-size:10px;font-weight:600;padding:2px 9px;border-radius:999px;text-transform:uppercase;white-space:nowrap}
+.pill.ok{color:var(--ok);background:var(--ok-bg);border:1px solid var(--ok)}
+.pill.warn{color:var(--gold);background:var(--warn-bg);border:1px solid var(--gold)}
+.pill.crit{color:var(--critical);background:var(--critical-bg);border:1px solid var(--critical)}
+.pill.info{color:var(--info);background:var(--info-bg);border:1px solid var(--info)}
+.pill.muted{color:var(--muted);border:1px solid var(--border-2)}
+.btn{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;border-radius:8px;padding:8px 14px;border:1px solid transparent}
+.btn.p{background:var(--grad-main);color:#fff}
+.btn.g{background:transparent;border-color:var(--border-2);color:var(--text-strong)}
+.btn.crit{background:transparent;border-color:var(--critical);color:var(--critical)}
+.btn.sm{padding:5px 11px;font-size:11px}
+table.tb{width:100%;border-collapse:collapse;font-size:12px}
+table.tb th{text-align:left;font-size:9px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);padding:8px 10px;background:var(--inset);border-bottom:1px solid var(--border)}
+table.tb td{padding:9px 10px;border-bottom:1px solid var(--border)}
+table.tb tr:last-child td{border-bottom:0}
+table.tb td b{color:var(--text-strong)}
+table.tb .m{font-family:var(--mono);font-size:11px}
+/* orchestration pipeline */
+.pipe{position:relative;padding-left:26px}
+.pipe::before{content:"";position:absolute;left:9px;top:10px;bottom:10px;width:2px;background:var(--border-2)}
+.step{position:relative;margin-bottom:11px;border:1px solid var(--border);border-radius:9px;background:var(--surface);padding:11px 13px;display:flex;align-items:center;gap:12px}
+.step::before{content:"";position:absolute;left:-22px;top:18px;width:12px;height:12px;border-radius:50%;background:var(--surface-2);border:2px solid var(--border-2)}
+.step.done::before{background:var(--ok);border-color:var(--ok)}
+.step.hold::before{background:var(--gold);border-color:var(--gold)}
+.step.wait::before{background:var(--surface-2);border-color:var(--border-2)}
+.step .sysb{font-family:var(--mono);font-size:9px;font-weight:700;padding:3px 7px;border-radius:4px;flex:none;color:#fff}
+.step .stx{flex:1;min-width:0}
+.step .stx b{color:var(--text-strong);font-size:12.5px;display:block}
+.step .stx span{color:var(--muted);font-size:11px}
+.step.hold{border-color:var(--gold);background:var(--warn-bg)}
+/* connector cards */
+.conn{display:flex;align-items:center;gap:12px;padding:12px 13px;border:1px solid var(--border);border-radius:10px;background:var(--surface)}
+.conn .logo{width:32px;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;flex:none;font-weight:700;font-size:11px;color:#fff;font-family:var(--mono)}
+.conn .ct{flex:1;min-width:0}.conn .ct b{color:var(--text-strong);font-size:12.5px;display:block}
+.conn .ct span{color:var(--muted);font-size:10.5px;font-family:var(--mono)}
+.conn.rpa{border-color:var(--info);border-style:dashed}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:20px}
+.ccol{border:1px solid var(--border);border-radius:10px;padding:16px 17px;background:var(--surface)}
+.ccol.old{border-color:var(--critical)}
+.ccol.new{border-color:var(--ok)}
+.ccol h4{font-size:13px;margin-bottom:10px}
+.ccol.old h4{color:var(--critical)}.ccol.new h4{color:var(--ok)}
+.ccol ul{margin:0;padding-left:17px;font-size:12.5px}
+.ccol li{margin-bottom:7px}
+.ccol .big{font-size:26px;font-weight:700;color:var(--text-strong);font-variant-numeric:lining-nums tabular-nums;margin-bottom:4px}
+.closing{margin-top:52px;border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r);padding:22px 24px}
+.closing h2{font-size:19px;margin-bottom:10px}
+.closing p{max-width:860px;font-size:14px}
+.closing .cols{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:16px}
+.closing h4{font-size:13px;margin-bottom:7px}
+.closing ul{margin:0;padding-left:17px;font-size:13px}.closing li{margin-bottom:6px}
+.footer{margin-top:34px;text-align:center;color:var(--muted);font-size:11.5px;font-family:var(--mono)}
+@media(max-width:880px){.frame-body{grid-template-columns:1fr}.note{position:static}.app{grid-template-columns:1fr}.nav{display:none}.compare,.g5,.g4{grid-template-columns:1fr}.cover h1{font-size:29px}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ccmark" viewBox="-0.7 -0.3 49.4 49.5">
+    <defs><linearGradient id="ccg" x1="0" y1="-0.3" x2="0" y2="49.2" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#625FED"/><stop offset=".62" stop-color="#5DB9DB"/><stop offset="1" stop-color="#5BF7CF"/></linearGradient></defs>
+    <path fill="url(#ccg)" d="M2.06789 18.0362c-2.75719-1.7103-2.75719-5.3619 0-7.0722l19.19821-10.19893c1.6445-1.02009 3.8231-1.02009 5.4677-0.00007l19.1982 10.199c2.6709 1.6568 2.7547 5.1352 0.2509 6.9059l-0.2509 0.1663-19.1982 10.199c-1.5932 0.9882-3.6874 1.0186-5.3119 0.0921l-0.1558-0.0921-19.19821-10.199z m2.27852-4.1256c-0.45954 0.285-0.45954 0.894 0 1.1791l19.19809 10.1989c0.274 0.1698 0.6368 0.1698 0.9108 0l19.1982-10.1989c0.4595-0.2851 0.4595-0.8941 0-1.1791l-19.1982-10.19895c-0.274-0.16981-0.6368-0.16981-0.9108 0l-19.19809 10.19895z"/>
+    <path fill="url(#ccg)" d="M42.874 22.1494c0.3206-0.5537 1.1641-0.8331 1.8926-0.5185 1.7915 0.7738 2.6814 2.2245 2.7314 3.6572 0.05 1.4315-0.7352 2.9218-2.4648 3.7851l-17.5098 8.7383c-1.8336 0.9151-4.1001 0.9177-5.9365 0.0069l-18.81542-9.3321c-1.61862-0.8029-2.33402-2.1958-2.26757-3.5215 0.06669-1.3274 0.92218-2.6678 2.62207-3.3496 0.74139-0.2971 1.5717 0.0055 1.87109 0.5625 0.27157 0.5057 0.05504 1.1693-0.66016 1.4561-0.65157 0.2615-1.04373 0.814-1.07421 1.4219-0.03043 0.6098 0.30751 1.1972 0.9375 1.5097l18.8144 9.3321h0.001c0.9545 0.4732 2.1206 0.4715 3.0733-0.0039l17.5088-8.7383c0.7601-0.3794 1.1649-1.079 1.1396-1.8037-0.0253-0.7235-0.4765-1.3955-1.2568-1.7325-0.6999-0.3024-0.8964-0.968-0.6065-1.4697z"/>
+    <path fill="url(#ccg)" transform="translate(0,10.04)" d="M42.874 22.1494c0.3206-0.5537 1.1641-0.8331 1.8926-0.5185 1.7915 0.7738 2.6814 2.2245 2.7314 3.6572 0.05 1.4315-0.7352 2.9218-2.4648 3.7851l-17.5098 8.7383c-1.8336 0.9151-4.1001 0.9177-5.9365 0.0069l-18.81542-9.3321c-1.61862-0.8029-2.33402-2.1958-2.26757-3.5215 0.06669-1.3274 0.92218-2.6678 2.62207-3.3496 0.74139-0.2971 1.5717 0.0055 1.87109 0.5625 0.27157 0.5057 0.05504 1.1693-0.66016 1.4561-0.65157 0.2615-1.04373 0.814-1.07421 1.4219-0.03043 0.6098 0.30751 1.1972 0.9375 1.5097l18.8144 9.3321h0.001c0.9545 0.4732 2.1206 0.4715 3.0733-0.0039l17.5088-8.7383c0.7601-0.3794 1.1649-1.079 1.1396-1.8037-0.0253-0.7235-0.4765-1.3955-1.2568-1.7325-0.6999-0.3024-0.8964-0.968-0.6065-1.4697z"/>
+  </symbol>
+  <symbol id="i-dash" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="i-deploy" viewBox="0 0 24 24"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5l8 4.5 8-4.5M12 12v9"/></symbol>
+  <symbol id="i-people" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M16 5.4a3.2 3.2 0 0 1 0 5.4"/><path d="M20.5 20a5.5 5.5 0 0 0-4-5.3"/></symbol>
+  <symbol id="i-runs" viewBox="0 0 24 24"><path d="M3 12h4l3 7 4-16 3 9h4"/></symbol>
+  <symbol id="i-conn" viewBox="0 0 24 24"><path d="M9 3v5M15 3v5M7 8h10v3a5 5 0 0 1-10 0V8zM12 16v5"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-4 4V5z"/></symbol>
+  <symbol id="i-listen" viewBox="0 0 24 24"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6zM10 20a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 8v5M12 16.5v.5"/><path d="M12 3l9 16H3z"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+</svg>
+
+<div class="toggle">
+  <button id="tDark" class="on" onclick="setTheme('dark')">Dark</button>
+  <button id="tLight" onclick="setTheme('light')">Light</button>
+</div>
+
+<div class="board">
+
+  <header class="cover">
+    <div>
+      <div class="brandline">
+        <svg class="mark" style="width:30px;height:30px"><use href="#ccmark"/></svg>
+        <div class="wm">Cascade Clarity<small>Enterprise AI Integrators</small></div>
+      </div>
+      <h1>Storyboard 06 —<br><span class="grad">Huffmaster · Project Sword</span></h1>
+      <p class="sub">A different client, a different industry, a completely different set of systems — and the same components you have already seen five times. This board exists to prove one claim: that Cascade Agents is a platform with tenants, not a bespoke build per customer.</p>
+    </div>
+    <div class="metabox">
+      <div><span>Prepared by</span><span>David De los Reyes</span></div>
+      <div><span>For</span><span>John Cuellar</span></div>
+      <div><span>Date</span><span>Jul 17, 2026</span></div>
+      <div><span>Tenant</span><span>Huffmaster</span></div>
+      <div><span>Product name</span><span>Sword</span></div>
+      <div><span>Scope</span><span>Phase 1 POC</span></div>
+    </div>
+  </header>
+
+  <p class="lead">Huffmaster runs strike staffing and workforce continuity: jobs of 25 to 50 people, a 600 to 700 person healthcare deal in pricing, surges near 1,000, sometimes with ten days notice. Their systems each work — <b>nothing hands off to the next one without a human retyping, re-notifying, or remembering.</b> Sword is the orchestration layer across that gap. Read this board next to Storyboard 01 and notice how little is new: same shell, same nav, same run list, same approval gate. <b>The connectors changed and the words changed. The product did not get rebuilt.</b></p>
+
+  <div class="shead"><span class="n">A</span><h2>The route</h2><span class="h-sub">Phase 1 POC · hire-to-deploy</span></div>
+  <div class="flow">
+    <div class="flowrow">
+      <span class="node start"><span class="num">01</span>Deployment view</span><span class="arr">→</span>
+      <span class="node"><span class="num">02</span>"Hire Now" fires</span><span class="arr">→</span>
+      <span class="node"><span class="num">03</span>Compliance gate</span><span class="arr">→</span>
+      <span class="node"><span class="num">04</span>Termination closes the loop</span><span class="arr">→</span>
+      <span class="node"><span class="num">05</span>Connectors</span>
+    </div>
+    <div class="flowrow err">
+      <span class="branchlbl"><svg class="ico" style="width:14px;height:14px;color:var(--critical)"><use href="#i-alert"/></svg>Branches</span>
+      <span class="arr">↳</span>
+      <span class="node errnode"><span class="num">03b</span>Stale I-9 on rehire → deployment held</span>
+      <span class="node errnode"><span class="num">05b</span>No API → RPA fallback</span>
+    </div>
+  </div>
+
+  <!-- FRAME 01 -->
+  <article class="frame" id="f01">
+    <div class="frame-head"><span class="fn">01</span><h3>One live view of a deployment</h3>
+      <div class="tags"><span class="tag happy">Happy path</span><span class="tag">"Nobody has this today"</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">huffmaster.sword.app/deployments/4471</div></div>
+        <div class="app">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Sword<small>Huffmaster</small></b></div>
+            <a class="nav-item active"><svg class="ico"><use href="#i-deploy"/></svg>Deployments</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-people"/></svg>People</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-runs"/></svg>Runs<span class="badge">2</span></a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Ask Sword</a>
+            <div class="ng">Admin</div>
+            <a class="nav-item"><svg class="ico"><use href="#i-conn"/></svg>Connectors</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-listen"/></svg>Triggers</a>
+            <div class="tenantflag"><b>Same shell</b>Identical nav, cards, tables and gates as the Construgypsum tenant. Only the domain language differs.</div>
+            <div class="navfoot"><div class="avatar">TA</div><div class="who"><b>Trevor A.</b><span>Operations</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Job 4471 · Regional Health — 45 nurses</h4><span class="env"><i></i>Deploy Aug 3</span>
+              <div class="right"><span class="subtle mono">17 days out</span></div></div>
+            <div class="content">
+              <div class="grid g5" style="margin-bottom:12px">
+                <div class="card stat good"><div class="lbl">Offers accepted</div><div class="v">38<span style="font-size:13px;color:var(--muted)">/45</span></div><div class="d">7 open</div></div>
+                <div class="card stat"><div class="lbl">In-processing</div><div class="v">21</div><div class="d">I-9 · license</div></div>
+                <div class="card stat"><div class="lbl">Travel booked</div><div class="v">33</div><div class="d">auto-notified</div></div>
+                <div class="card stat flag"><div class="lbl">Needs approval</div><div class="v">2</div><div class="d">compliance holds</div></div>
+                <div class="card stat"><div class="lbl">On site</div><div class="v">0</div><div class="d">starts Aug 3</div></div>
+              </div>
+              <div class="card" style="padding:0;margin-bottom:12px">
+                <table class="tb">
+                  <thead><tr><th>Worker</th><th>Bullhorn</th><th>UKG record</th><th>In-processing</th><th>Travel</th><th>Status</th></tr></thead>
+                  <tbody>
+                    <tr><td><b>M. Alvarez</b></td><td class="m">hired</td><td class="m">created ✓</td><td class="m">complete ✓</td><td class="m">booked ✓</td><td><span class="pill ok">Ready</span></td></tr>
+                    <tr><td><b>J. Whitfield</b></td><td class="m">hired</td><td class="m">created ✓</td><td class="m">I-9 pending</td><td class="m">booked ✓</td><td><span class="pill warn">In progress</span></td></tr>
+                    <tr><td><b>R. Okafor</b> <span class="subtle">rehire</span></td><td class="m">hired</td><td class="m">created ✓</td><td class="m">I-9 expired</td><td class="m">held</td><td><span class="pill crit">Needs approval</span></td></tr>
+                    <tr><td><b>S. Delgado</b></td><td class="m">hired</td><td class="m">created ✓</td><td class="m">license check</td><td class="m">booked ✓</td><td><span class="pill warn">In progress</span></td></tr>
+                    <tr><td><b>7 open roles</b></td><td class="m">recruiting</td><td class="m">—</td><td class="m">—</td><td class="m">—</td><td><span class="pill muted">Sourcing</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="subtle" style="margin:0">Same view renders for a 45-nurse job and a 700-person surge. <b style="color:var(--text-strong)">Triggers and queues, not humans in the loop.</b></p>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>Straight from the discovery session: <b>"nobody has one live view of a deployment."</b> This is that screen, and it is the POC's fourth success criterion.</p>
+        <ul>
+          <li>Columns <b>are</b> the systems — Bullhorn, UKG, in-processing, travel. The handoffs everyone retypes are now visible as state.</li>
+          <li>Same stat cards and table components as Construgypsum. <b>Nothing was rebuilt.</b></li>
+          <li>The rehire with the expired I-9 is deliberately in row three. That's Frame 03.</li>
+          <li>The scale line answers the question Trevor will ask: does this hold at 700?</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- FRAME 02 -->
+  <article class="frame" id="f02">
+    <div class="frame-head"><span class="fn">02</span><h3>"Hire Now" fires — the thread that used to be retyping</h3>
+      <div class="tags"><span class="tag happy">Happy path</span><span class="tag">Phase 1 POC</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">huffmaster.sword.app/runs/hire-to-deploy/8812</div></div>
+        <div class="app">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Sword<small>Huffmaster</small></b></div>
+            <a class="nav-item"><svg class="ico"><use href="#i-deploy"/></svg>Deployments</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-people"/></svg>People</a>
+            <a class="nav-item active"><svg class="ico"><use href="#i-runs"/></svg>Runs<span class="badge">2</span></a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Ask Sword</a>
+            <div class="ng">Admin</div>
+            <a class="nav-item"><svg class="ico"><use href="#i-conn"/></svg>Connectors</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-listen"/></svg>Triggers</a>
+            <div class="navfoot"><div class="avatar">TA</div><div class="who"><b>Trevor A.</b><span>Operations</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Hire-to-deploy · J. Whitfield</h4><span class="pill info">Triggered by Bullhorn</span>
+              <div class="right"><span class="subtle mono">run:h2d:8812 · 4m 12s ago</span></div></div>
+            <div class="content">
+              <div class="pipe">
+                <div class="step done"><span class="sysb" style="background:#0C2E5A">BH</span>
+                  <div class="stx"><b>"Hire Now" pressed in Bullhorn</b><span>recruiter action · 14:02:11</span></div><span class="pill ok">Trigger</span></div>
+                <div class="step done"><span class="sysb" style="background:#1B7A3D">UKG</span>
+                  <div class="stx"><b>UKG employee record created</b><span>18 fields mapped from Bullhorn · no retyping</span></div><span class="pill ok">Done · 6s</span></div>
+                <div class="step done"><span class="sysb" style="background:#8A4FBF">TRV</span>
+                  <div class="stx"><b>Travel notified with deploy packet</b><span>airport CLT · report 06:00 Aug 3 · hotel 5 nights</span></div><span class="pill ok">Done · 11s</span></div>
+                <div class="step done"><span class="sysb" style="background:#B8791E">ESS</span>
+                  <div class="stx"><b>In-processing checklist opened</b><span>I-9, license verification, site badge · assigned to field team</span></div><span class="pill ok">Done · 9s</span></div>
+                <div class="step hold"><span class="sysb" style="background:#B8791E">ESS</span>
+                  <div class="stx"><b>I-9 verification</b><span>awaiting field team confirmation · compliance gate</span></div><span class="pill warn">Waiting</span></div>
+                <div class="step wait"><span class="sysb" style="background:#555">NS</span>
+                  <div class="stx"><b>Billing profile staged in NetSuite</b><span>runs after deployment starts</span></div><span class="pill muted">Queued</span></div>
+              </div>
+              <div class="compare" style="padding:14px 0 0">
+                <div class="ccol old"><h4>Before</h4><div class="big">~40 min</div>
+                  <ul><li>Recruiter retypes 18 fields into UKG</li><li>Someone remembers to email travel</li><li>Checklist lives in a person's head</li><li>Errors surface on deploy day</li></ul></div>
+                <div class="ccol new"><h4>With Sword</h4><div class="big">26 sec</div>
+                  <ul><li>Zero manual retyping</li><li>Travel notified automatically, with the packet</li><li>Checklist system-confirmed, step by step</li><li>Compliance holds surface 17 days early</li></ul></div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>This is the Phase 1 POC drawn as a screen. It is the most painful, most repeated failure in their own walkthrough — which is exactly why it's the demo.</p>
+        <ul>
+          <li>The <b>pipeline component</b> is new here, but it's the run-detail pattern from Storyboard 01 with steps instead of rows.</li>
+          <li>Each step names <b>which system</b> it touched. That's the audit trail Trevor needs.</li>
+          <li>The before/after block is the <b>POC success criteria</b> made visual — measured against the manual baseline.</li>
+          <li>Note the run <b>stops itself</b> at the compliance gate rather than pushing through.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- FRAME 03 -->
+  <article class="frame" id="f03">
+    <div class="frame-head"><span class="fn">03</span><h3>Compliance gate — the rehire I-9 exposure</h3>
+      <div class="tags"><span class="tag gate">Approval gate</span><span class="tag err">Deployment held</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">huffmaster.sword.app/runs/compliance/8814</div></div>
+        <div class="app">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Sword<small>Huffmaster</small></b></div>
+            <a class="nav-item"><svg class="ico"><use href="#i-deploy"/></svg>Deployments</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-people"/></svg>People</a>
+            <a class="nav-item active"><svg class="ico"><use href="#i-runs"/></svg>Runs<span class="badge">2</span></a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Ask Sword</a>
+            <div class="ng">Admin</div>
+            <a class="nav-item"><svg class="ico"><use href="#i-conn"/></svg>Connectors</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-listen"/></svg>Triggers</a>
+            <div class="navfoot"><div class="avatar">TA</div><div class="who"><b>Trevor A.</b><span>Operations</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Compliance hold · R. Okafor</h4><span class="pill crit">Deployment blocked</span>
+              <div class="right"><span class="subtle mono">run:comp:8814</span></div></div>
+            <div class="content">
+              <div class="card" style="border-color:var(--critical);margin-bottom:12px">
+                <h5 style="color:var(--critical)"><svg class="ico" style="width:14px;height:14px"><use href="#i-alert"/></svg>Stale I-9 on a rehire</h5>
+                <p style="margin:0;font-size:12.5px">R. Okafor last worked a Huffmaster job in <b>March 2023</b>. The I-9 on file is <b class="mono">3 years and 4 months old</b>. Under the three-year rule this cannot be reused, so a new I-9 is required before deployment. <b>Travel has been held rather than booked</b> — booking first is how the money gets wasted.</p>
+              </div>
+              <div class="card" style="margin-bottom:12px;padding:0">
+                <table class="tb">
+                  <thead><tr><th>Check</th><th>On file</th><th>Required</th><th>Status</th></tr></thead>
+                  <tbody>
+                    <tr><td><b>I-9 employment eligibility</b></td><td class="m">12 Mar 2023</td><td class="m">re-verify</td><td><span class="pill crit">Expired</span></td></tr>
+                    <tr><td><b>RN license — NC</b></td><td class="m">valid to 2027</td><td class="m">active</td><td><span class="pill ok">Pass</span></td></tr>
+                    <tr><td><b>Background check</b></td><td class="m">08 Jul 2026</td><td class="m">&lt; 12 mo</td><td><span class="pill ok">Pass</span></td></tr>
+                    <tr><td><b>Site-specific badge</b></td><td class="m">—</td><td class="m">on arrival</td><td><span class="pill muted">On site</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="card" style="border-color:var(--gold)">
+                <h5 style="color:var(--gold)">How do you want to proceed?</h5>
+                <p style="margin:0 0 12px;font-size:12px">Sword will not release travel or mark this worker deploy-ready until a person decides. Compliance gates are the one place the agent never proceeds on its own.</p>
+                <div style="display:flex;gap:9px;align-items:center;flex-wrap:wrap">
+                  <span class="btn p"><svg class="ico" style="width:14px;height:14px;stroke:#fff"><use href="#i-check"/></svg>Send new I-9 request</span>
+                  <span class="btn g">Replace with another worker</span>
+                  <span class="btn crit">Override &amp; accept risk</span>
+                  <span class="subtle mono" style="margin-left:auto">every choice logged &amp; attributed</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>The proposal lists rehire I-9 logic as an <b>open question</b> — "who owns this rule inside Sword?" This frame answers it: the system owns detection, a named human owns the decision.</p>
+        <ul>
+          <li>Same approval-gate component as Construgypsum, but the constraint is <b>compliance rather than spend</b>. The gate generalizes.</li>
+          <li><b>Travel held, not booked</b> — the design directly prevents a known money leak.</li>
+          <li><b>Override exists</b>, is clearly labelled as accepting risk, and is attributed. Removing the option would just push people off-system.</li>
+          <li>Caught 17 days out instead of at the airport. That's the whole value.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- FRAME 04 -->
+  <article class="frame" id="f04">
+    <div class="frame-head"><span class="fn">04</span><h3>Termination closes the loop — the three-month hotel</h3>
+      <div class="tags"><span class="tag gate">Approval gate</span><span class="tag">Known failure mode</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">huffmaster.sword.app/runs/offboard/8907</div></div>
+        <div class="app">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Sword<small>Huffmaster</small></b></div>
+            <a class="nav-item"><svg class="ico"><use href="#i-deploy"/></svg>Deployments</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-people"/></svg>People</a>
+            <a class="nav-item active"><svg class="ico"><use href="#i-runs"/></svg>Runs<span class="badge">2</span></a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Ask Sword</a>
+            <div class="ng">Admin</div>
+            <a class="nav-item"><svg class="ico"><use href="#i-conn"/></svg>Connectors</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-listen"/></svg>Triggers</a>
+            <div class="navfoot"><div class="avatar">TA</div><div class="who"><b>Trevor A.</b><span>Operations</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Offboarding · D. Harper</h4><span class="pill warn">Needs approval</span>
+              <div class="right"><span class="subtle mono">triggered 3 min after UKG termination</span></div></div>
+            <div class="content">
+              <div class="card" style="margin-bottom:12px">
+                <h5>What triggered this <span class="r">UKG · termination</span></h5>
+                <p style="margin:0;font-size:12.5px">D. Harper was terminated in UKG at <b class="mono">09:14 today</b>. Under the old process, nobody told travel. Sword found <b>three active spend items</b> still running against this worker.</p>
+              </div>
+              <div class="card" style="margin-bottom:12px;padding:0">
+                <table class="tb">
+                  <thead><tr><th>Item</th><th>Vendor</th><th>Running since</th><th>If left open</th><th>Action</th></tr></thead>
+                  <tbody>
+                    <tr><td><b>Hotel — Charlotte</b></td><td class="m">direct bill</td><td class="m">Jun 2</td><td class="m" style="color:var(--critical)"><b>$121/night</b></td><td class="m">cancel from tonight</td></tr>
+                    <tr><td><b>Rental car</b></td><td class="m">Corpay</td><td class="m">Jun 2</td><td class="m" style="color:var(--critical)"><b>$47/day</b></td><td class="m">close contract</td></tr>
+                    <tr><td><b>Return flight</b></td><td class="m">travel desk</td><td class="m">booked Aug 9</td><td class="m">unused</td><td class="m">rebook to tomorrow</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="card" style="border-color:var(--gold)">
+                <h5 style="color:var(--gold)">Close all three?</h5>
+                <p style="margin:0 0 12px;font-size:12px">Cancels the hotel from tonight, closes the Corpay car contract, and moves the return flight to tomorrow. <b style="color:var(--text-strong)">Left open for 90 days, these three would bill roughly $15,100.</b></p>
+                <div style="display:flex;gap:9px;align-items:center">
+                  <span class="btn p"><svg class="ico" style="width:14px;height:14px;stroke:#fff"><use href="#i-check"/></svg>Close all three</span>
+                  <span class="btn g">Review each</span>
+                  <span class="subtle mono" style="margin-left:auto">signed by Trevor A. · logged</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>Their own story, made into a screen: <b>a terminated worker whose hotel kept billing for three months.</b> If one frame sells this engagement, it is this one.</p>
+        <ul>
+          <li>The trigger is an <b>event in UKG</b>, not a person remembering. That's the entire architectural argument in one row.</li>
+          <li>It <b>prices the inaction</b> — ~$15,100 over 90 days. Puts a number on a story they already tell.</li>
+          <li>Still an approval gate: the agent proposes cancellations, a human confirms. Cancelling a booking is a real-world write.</li>
+          <li>Same component as the Construgypsum replenishment approval. Different domain, identical machinery.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- FRAME 05 -->
+  <article class="frame" id="f05">
+    <div class="frame-head"><span class="fn">05</span><h3>Connectors — a completely different stack, same panel</h3>
+      <div class="tags"><span class="tag happy">Happy path</span><span class="tag err">RPA fallback</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">huffmaster.sword.app/connectors</div></div>
+        <div class="app">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Sword<small>Huffmaster</small></b></div>
+            <a class="nav-item"><svg class="ico"><use href="#i-deploy"/></svg>Deployments</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-people"/></svg>People</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-runs"/></svg>Runs<span class="badge">2</span></a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Ask Sword</a>
+            <div class="ng">Admin</div>
+            <a class="nav-item active"><svg class="ico"><use href="#i-conn"/></svg>Connectors</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-listen"/></svg>Triggers</a>
+            <div class="navfoot"><div class="avatar">TA</div><div class="who"><b>Trevor A.</b><span>Operations</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Connectors</h4><span class="env"><i></i>Okta SSO active</span>
+              <div class="right"><span class="subtle">7 systems</span></div></div>
+            <div class="content">
+              <div class="grid g2" style="margin-bottom:13px">
+                <div class="conn"><div class="logo" style="background:#0C2E5A">BH</div>
+                  <div class="ct"><b>Bullhorn</b><span>jobs · candidates · hire events</span></div><span class="pill ok">API</span></div>
+                <div class="conn"><div class="logo" style="background:#1B7A3D">UKG</div>
+                  <div class="ct"><b>UKG</b><span>employee records · time</span></div><span class="pill ok">API</span></div>
+                <div class="conn"><div class="logo" style="background:#C8442A">ZO</div>
+                  <div class="ct"><b>Zoho Projects</b><span>staffing orders · proforma</span></div><span class="pill ok">API</span></div>
+                <div class="conn"><div class="logo" style="background:#2B6CB0">NS</div>
+                  <div class="ct"><b>NetSuite</b><span>invoice assembly</span></div><span class="pill ok">API</span></div>
+                <div class="conn rpa"><div class="logo" style="background:#B8791E">ESS</div>
+                  <div class="ct"><b>Essium — onboarding</b><span>no public API · Playwright RPA</span></div><span class="pill info">RPA</span></div>
+                <div class="conn"><div class="logo" style="background:#4A5568">CP</div>
+                  <div class="ct"><b>Corpay</b><span>vehicle contracts</span></div><span class="pill ok">API</span></div>
+              </div>
+              <div class="card" style="border-color:var(--info)">
+                <h5 style="color:var(--info)"><svg class="ico" style="width:14px;height:14px"><use href="#i-shield"/></svg>When a system has no API</h5>
+                <p style="margin:0;font-size:12.5px">Essium has no public API, so Sword drives it the way a person does — a scripted browser session behind the same connector interface. <b style="color:var(--text-strong)">The rest of the platform cannot tell the difference</b>: same MCP contract, same scopes, same approval gates. It is slower and more brittle, so it is marked, monitored, and first in line to be replaced if a vendor API appears.</p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>Put this beside the Construgypsum connectors screen. <b>Seven completely different systems, pixel-identical panel.</b> That is the platform claim, demonstrated rather than asserted.</p>
+        <ul>
+          <li>The <b>RPA fallback</b> is shown honestly — dashed border, marked, with its trade-offs stated.</li>
+          <li><b>Okta SSO in the top bar</b> is what makes the embedded-surface model realistic on day one.</li>
+          <li>"New system = new connector, nothing rewired" is the answer to the maintenance fear that killed the $500K–$2M point-to-point quotes.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <div class="closing">
+    <h2>What this board proves</h2>
+    <p>Nothing in Sword is a new product. The nav, the stat cards, the run list, the approval gate, the connector panel and the scope model are the same components serving Construgypsum — a building-materials distributor in Ecuador — and Huffmaster, a US strike-staffing operation. <b>What changed is the connector set and the vocabulary.</b> That is the difference between selling a platform with tenants and quoting a bespoke integration project, and it is precisely the difference that made the $500K–$2M quotes unsellable. A full visual re-skin to Huffmaster's own brand is a token swap on one stylesheet, the same exercise already proven on the Lean Payroll Labs rebuild.</p>
+    <div class="cols">
+      <div><h4>Components reused, unchanged</h4>
+        <ul><li>App shell, nav, top bar</li><li>Stat cards, list-detail tables</li><li>Approval gate (spend → compliance)</li><li>Connector panel + status pills</li><li>Run detail (rows → pipeline steps)</li></ul></div>
+      <div><h4>Open questions for John</h4>
+        <ul><li>Does Trevor see Sword as its own brand, or visibly Cascade-powered?</li><li>Is the pipeline view the POC demo screen for Thursday, or the deployment table?</li><li>Do we show the $15,100 number to Huffmaster, or is it too pointed about a past failure?</li></ul></div>
+    </div>
+  </div>
+
+  <div class="footer">Cascade Clarity · Enterprise Agent · Storyboard 06 · Huffmaster / Sword · v0.1 · built on Brand System Vol. 2</div>
+</div>
+
+<script>
+function setTheme(t){
+  document.documentElement.dataset.theme=t;
+  document.getElementById('tDark').classList.toggle('on',t==='dark');
+  document.getElementById('tLight').classList.toggle('on',t==='light');
+}
+</script>
+</body>
+</html>

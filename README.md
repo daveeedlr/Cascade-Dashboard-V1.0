@@ -17,6 +17,8 @@ Four user journeys and one system diagram, drawn on the Cowork interaction patte
 | 02 | [Admin — onboarding](Cascade_Enterprise_Agent_Storyboard_02_Onboarding.html) | Administrator, day one | Empty workspace, connecting Odoo, failed connection, permission scopes, roles, first run |
 | 03 | [Operator — inventory](Cascade_Enterprise_Agent_Storyboard_03_Operator.html) | Panchito, Chayabamba | WhatsApp digest entry point, stock-out to approved replenishment, weekly accuracy correction |
 | 04 | [Executive — the business](Cascade_Enterprise_Agent_Storyboard_04_Executive.html) | Francisco, Gerente General | Business dashboard, account 360, natural-language questions, weekly narrative, scope guard |
+| 05 | [Field rep — WhatsApp only](Cascade_Enterprise_Agent_Storyboard_05_FieldRep.html) | Luis, Vendedor | Visit prompt, free text parsed into a CRM record, no-reply branch, coaching nudge, privacy boundary |
+| 06 | [Huffmaster — Project Sword](Cascade_Enterprise_Agent_Storyboard_06_Huffmaster.html) | Second tenant | Deployment view, hire-to-deploy orchestration, compliance gate, termination closing open spend, a different connector stack |
 
 Background reading: [Storyboard & Storybook primer](Storyboard_and_Storybook_Primer.md).
 
