@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cascade Enterprise Agent · Storyboard 09 · Enterprise Reconciliation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Storyboard 09 — Enterprise Reconciliation vertical. Cascade platform demo. Same token layer. */
+:root{
+  --grad-main:linear-gradient(135deg,#625FED 0%,#5DB9DB 100%);
+  --grad-hero:linear-gradient(110deg,#5BF7CF 0%,#5DB9DB 50%,#625FED 100%);
+  --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;--r:12px;
+}
+:root,[data-theme="dark"]{
+  --bg-grad:radial-gradient(1200px 600px at 15% -5%,rgba(98,95,237,.16),transparent 60%),radial-gradient(1000px 500px at 100% 0,rgba(93,185,219,.12),transparent 55%),#0B223A;
+  --surface:#0F3259;--surface-2:#0C2846;--inset:#081A2E;--topbar:rgba(8,26,46,.72);
+  --border:rgba(143,163,177,.16);--border-2:rgba(143,163,177,.30);--hover:rgba(255,255,255,.04);
+  --text:rgba(255,255,255,.85);--text-strong:#fff;--muted:#8FA3B1;
+  --accent:#5BF7CF;--link:#5DB9DB;--gold:#F5B455;--purple:#625FED;
+  --critical:#FF6B7A;--warn:#F5B455;--ok:#5BF7CF;--info:#5DB9DB;
+  --critical-bg:rgba(255,107,122,.12);--warn-bg:rgba(245,180,85,.13);--ok-bg:rgba(91,247,207,.12);--info-bg:rgba(93,185,219,.12);
+  --note-bg:rgba(8,26,46,.55);--codebg:rgba(8,26,46,.7);
+}
+[data-theme="light"]{
+  --bg-grad:radial-gradient(1200px 600px at 12% -8%,rgba(98,95,237,.10),transparent 60%),radial-gradient(1000px 500px at 100% 0,rgba(93,185,219,.10),transparent 55%),#EAF0F6;
+  --surface:#fff;--surface-2:#F5F8FB;--inset:#F0F4F8;--topbar:rgba(255,255,255,.82);
+  --border:rgba(11,34,58,.12);--border-2:rgba(11,34,58,.20);--hover:rgba(11,34,58,.035);
+  --text:rgba(11,34,58,.86);--text-strong:#0B223A;--muted:#5C6B7A;
+  --accent:#0F8F79;--link:#2C6FB0;--gold:#B8791E;--purple:#5049C9;
+  --critical:#C24338;--warn:#B8791E;--ok:#0F8F79;--info:#2C6FB0;
+  --critical-bg:rgba(194,67,56,.10);--warn-bg:rgba(184,121,30,.12);--ok-bg:rgba(15,143,121,.10);--info-bg:rgba(44,111,176,.10);
+  --note-bg:rgba(255,255,255,.7);--codebg:#F0F4F8;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg-grad);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{color:var(--text-strong);margin:0;line-height:1.15;font-weight:700;letter-spacing:-.01em}
+.mono{font-family:var(--mono);font-variant-numeric:lining-nums tabular-nums}
+.eyebrow{font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+svg.mark{width:26px;height:26px;display:block}
+svg.ico{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.board{max-width:1200px;margin:0 auto;padding:38px 26px 90px}
+.cover{display:flex;flex-wrap:wrap;gap:26px;align-items:flex-end;justify-content:space-between;padding-bottom:26px;border-bottom:1px solid var(--border);margin-bottom:30px}
+.brandline{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.brandline .wm{font-weight:600;font-size:15px;color:var(--text-strong);line-height:1.05}
+.brandline .wm small{display:block;font-weight:500;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.tenant-tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;padding:5px 13px 5px 11px;border-radius:999px;border:1px solid var(--border-2);background:var(--note-bg);margin-bottom:16px}
+.tenant-tag .dot{width:9px;height:9px;border-radius:50%;flex:none}
+.tenant-tag .sub{color:var(--muted);font-weight:500;letter-spacing:.03em;text-transform:none;font-size:11px}
+.tt-cascade{border-color:rgba(91,247,207,.5)}.tt-cascade .dot{background:linear-gradient(135deg,#625FED,#5DB9DB 55%,#5BF7CF)}
+.cover h1{font-size:37px;letter-spacing:-.025em}
+.cover .grad{background:var(--grad-hero);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cover .sub{margin-top:10px;font-size:15.5px;max-width:660px}
+.metabox{border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r);padding:16px 18px;min-width:230px}
+.metabox div{display:flex;justify-content:space-between;gap:18px;font-size:12.5px;padding:3px 0}
+.metabox div span:first-child{color:var(--muted)}
+.metabox div span:last-child{color:var(--text-strong);font-weight:500}
+.toggle{position:fixed;top:18px;right:20px;z-index:50;display:flex;gap:4px;padding:4px;border:1px solid var(--border-2);border-radius:999px;background:var(--surface)}
+.toggle button{border:0;background:transparent;color:var(--muted);font-family:var(--font);font-size:12px;font-weight:600;padding:5px 13px;border-radius:999px;cursor:pointer}
+.toggle button.on{background:var(--grad-main);color:#fff}
+.lead{max-width:840px;margin:0 0 30px;font-size:15.5px}
+.lead b{color:var(--text-strong)}
+.shead{display:flex;align-items:baseline;gap:14px;margin:46px 0 16px}
+.shead .n{font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:600}
+.shead h2{font-size:20px}
+.shead .h-sub{color:var(--muted);font-size:13px;margin-left:auto}
+.flow{border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r);padding:20px 18px;overflow-x:auto}
+.flowrow{display:flex;align-items:center;gap:8px;min-width:max-content}
+.node{display:flex;align-items:center;gap:8px;padding:9px 13px;border-radius:999px;border:1px solid var(--border-2);background:var(--surface);font-size:12.5px;font-weight:600;color:var(--text-strong);white-space:nowrap}
+.node .num{font-family:var(--mono);font-size:11px;color:var(--accent)}
+.node.start{background:var(--grad-main);color:#fff;border:0}.node.start .num{color:rgba(255,255,255,.8)}
+.arr{color:var(--muted);font-size:15px;flex:none}
+.flowrow.err{margin-top:12px}
+.node.errnode{border-color:var(--critical);color:var(--critical);background:var(--critical-bg)}
+.node.errnode .num{color:var(--critical)}
+.branchlbl{font-size:11px;color:var(--critical);font-weight:600;display:inline-flex;align-items:center;gap:6px}
+.frame{margin-top:40px}
+.frame-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.frame-head .fn{font-family:var(--mono);font-size:12px;font-weight:600;color:#fff;background:var(--grad-main);padding:4px 10px;border-radius:6px}
+.frame-head h3{font-size:18px}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin-left:auto}
+.tag{font-size:10.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid var(--border-2);color:var(--muted)}
+.tag.happy{color:var(--ok);border-color:var(--ok);background:var(--ok-bg)}
+.tag.err{color:var(--critical);border-color:var(--critical);background:var(--critical-bg)}
+.tag.gate{color:var(--gold);border-color:var(--gold);background:var(--warn-bg)}
+.frame-body{display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start}
+.note{border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r);padding:16px 17px;position:sticky;top:20px}
+.note .eyebrow{margin-bottom:8px}
+.note p{margin:0 0 10px;font-size:13px}
+.note ul{margin:0;padding-left:16px;font-size:12.5px}
+.note li{margin-bottom:6px}.note li b,.note p b{color:var(--text-strong)}
+.win{border:1px solid var(--border-2);border-radius:var(--r);overflow:hidden;background:var(--surface-2);box-shadow:0 24px 60px -30px rgba(0,0,0,.55)}
+.win-bar{display:flex;align-items:center;gap:8px;padding:9px 13px;background:var(--inset);border-bottom:1px solid var(--border)}
+.win-bar .lights{display:flex;gap:6px}
+.win-bar .lights i{width:10px;height:10px;border-radius:50%;display:block}
+.win-bar .url{flex:1;text-align:center;font-family:var(--mono);font-size:11px;color:var(--muted);background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:3px 10px;max-width:380px;margin:0 auto}
+.app{display:grid;grid-template-columns:200px 1fr;min-height:500px;background:var(--surface-2)}
+.nav{background:var(--inset);border-right:1px solid var(--border);padding:14px 12px;display:flex;flex-direction:column;gap:3px}
+.nav .navbrand{display:flex;align-items:center;gap:9px;padding:4px 6px 14px;margin-bottom:6px;border-bottom:1px solid var(--border)}
+.nav .navbrand b{font-size:13px;color:var(--text-strong);font-weight:600;line-height:1.05}
+.nav .navbrand b small{display:block;font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.nav .ng{font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding:12px 8px 5px}
+.nav-item{display:flex;align-items:center;gap:9px;padding:7px 9px;border-radius:8px;font-size:12.5px;font-weight:500;color:var(--text)}
+.nav-item .ico{width:16px;height:16px;color:var(--muted)}
+.nav-item.active{background:rgba(98,95,237,.18);color:var(--text-strong);font-weight:600}
+.nav-item.active .ico{color:var(--accent)}
+.nav-item .badge{margin-left:auto;font-family:var(--mono);font-size:10px;font-weight:600;color:#0B223A;background:var(--gold);border-radius:999px;padding:1px 6px}
+.tenantflag{margin:10px 6px 0;padding:8px 9px;border:1px dashed var(--border-2);border-radius:8px;font-size:10px;color:var(--muted);line-height:1.4}
+.tenantflag b{color:var(--accent);display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px}
+.navfoot{margin-top:auto;display:flex;align-items:center;gap:9px;padding:9px 6px 2px;border-top:1px solid var(--border)}
+.avatar{width:26px;height:26px;border-radius:50%;background:var(--grad-main);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}
+.navfoot .who{font-size:11.5px;line-height:1.1}.navfoot .who b{color:var(--text-strong);font-size:12px;display:block}
+.navfoot .who span{color:var(--muted);font-size:10.5px}
+.appmain{display:flex;flex-direction:column;min-width:0}
+.topbar{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--border);background:var(--topbar)}
+.topbar h4{font-size:14.5px}
+.env{font-family:var(--mono);font-size:10.5px;color:var(--ok);border:1px solid var(--ok);background:var(--ok-bg);border-radius:999px;padding:2px 9px;display:inline-flex;align-items:center;gap:6px}
+.env i{width:6px;height:6px;border-radius:50%;background:var(--ok);display:block}
+.topbar .right{margin-left:auto;display:flex;align-items:center;gap:10px;color:var(--muted)}
+.content{padding:18px;flex:1}
+.subtle{color:var(--muted);font-size:12px}
+.grid{display:grid;gap:12px}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:13px 14px}
+.card h5{font-size:12.5px;color:var(--text-strong);margin-bottom:11px;display:flex;align-items:center;gap:8px}
+.card h5 .r{margin-left:auto;font-size:10px;color:var(--muted);font-weight:500}
+.stat .lbl{font-size:9.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+.stat .v{font-size:22px;font-weight:700;color:var(--text-strong);margin-top:4px;font-variant-numeric:lining-nums tabular-nums}
+.stat .d{font-size:10.5px;color:var(--muted);margin-top:2px}
+.stat.flag{border-color:var(--gold);background:var(--warn-bg)}.stat.flag .v,.stat.flag .lbl{color:var(--gold)}
+.stat.good{border-color:var(--ok);background:var(--ok-bg)}.stat.good .v,.stat.good .lbl{color:var(--ok)}
+.stat.bad{border-color:var(--critical);background:var(--critical-bg)}.stat.bad .v,.stat.bad .lbl{color:var(--critical)}
+.pill{font-size:10px;font-weight:600;padding:2px 9px;border-radius:999px;text-transform:uppercase;white-space:nowrap}
+.pill.ok{color:var(--ok);background:var(--ok-bg);border:1px solid var(--ok)}
+.pill.warn{color:var(--gold);background:var(--warn-bg);border:1px solid var(--gold)}
+.pill.crit{color:var(--critical);background:var(--critical-bg);border:1px solid var(--critical)}
+.pill.info{color:var(--info);background:var(--info-bg);border:1px solid var(--info)}
+.pill.muted{color:var(--muted);border:1px solid var(--border-2)}
+.btn{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;border-radius:8px;padding:8px 14px;border:1px solid transparent}
+.btn.p{background:var(--grad-main);color:#fff}
+.btn.g{background:transparent;border-color:var(--border-2);color:var(--text-strong)}
+.btn.crit{background:transparent;border-color:var(--critical);color:var(--critical)}
+.btn.sm{padding:5px 11px;font-size:11px}
+table.tb{width:100%;border-collapse:collapse;font-size:12px}
+table.tb th{text-align:left;font-size:9px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);padding:8px 10px;background:var(--inset);border-bottom:1px solid var(--border)}
+table.tb td{padding:9px 10px;border-bottom:1px solid var(--border)}
+table.tb tr:last-child td{border-bottom:0}
+table.tb td b{color:var(--text-strong)}
+table.tb .m{font-family:var(--mono);font-size:11px}
+table.tb td.num{font-family:var(--mono);text-align:right;font-variant-numeric:lining-nums tabular-nums}
+.rowsel{background:rgba(98,95,237,.10)}
+.q{display:flex;align-items:center;gap:12px;padding:11px 13px;border:1px solid var(--border);border-radius:9px;background:var(--surface);margin-bottom:9px}
+.q .qi{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex:none;color:#fff}
+.q .qt{flex:1;min-width:0}.q .qt b{color:var(--text-strong);font-size:12.5px;font-weight:600;display:block}
+.q .qt span{color:var(--muted);font-size:11px}
+/* expected vs actual comparison */
+.eva{display:grid;grid-template-columns:1fr 40px 1fr;gap:0;align-items:stretch;margin-bottom:12px}
+.eva .col{border:1px solid var(--border);background:var(--surface);padding:14px 15px}
+.eva .col.exp{border-radius:10px 0 0 10px}
+.eva .col.act{border-radius:0 10px 10px 0;border-left:0}
+.eva .col h6{font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+.eva .kv{display:flex;justify-content:space-between;gap:12px;padding:5px 0;font-size:12px;border-bottom:1px solid var(--border)}
+.eva .kv:last-child{border-bottom:0}
+.eva .kv span:first-child{color:var(--muted);font-size:11px}
+.eva .kv span:last-child{color:var(--text-strong);font-weight:600;font-family:var(--mono);font-variant-numeric:lining-nums tabular-nums}
+.eva .kv .bad{color:var(--critical)}
+.eva .mid{display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:18px}
+.delta{display:inline-flex;align-items:center;gap:8px;background:var(--critical-bg);border:1px solid var(--critical);border-radius:8px;padding:8px 13px;font-size:12.5px;color:var(--critical);font-weight:600}
+.delta .amt{font-family:var(--mono);font-size:14px}
+.codeln{font-family:var(--mono);font-size:11px;background:var(--codebg);border:1px solid var(--border);border-radius:6px;padding:8px 11px;color:var(--muted);line-height:1.7;margin-top:10px}
+.codeln b{color:var(--accent)}
+.gate{border:1px solid var(--gold);border-radius:10px;overflow:hidden;background:var(--surface)}
+.gate .grule{height:3px;background:linear-gradient(90deg,var(--gold),transparent)}
+.gate .gbody{padding:14px 15px}
+.gate h5{color:var(--text-strong);font-size:13px;margin-bottom:4px}
+.gate p{font-size:12px;color:var(--text);margin:0 0 12px}
+.gate .acts{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.gate .audit{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--muted)}
+.closing{margin-top:52px;border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r);padding:22px 24px}
+.closing h2{font-size:19px;margin-bottom:10px}
+.closing p{max-width:840px;font-size:14px}
+.closing .cols{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:16px}
+.closing h4{font-size:13px;margin-bottom:7px}
+.closing ul{margin:0;padding-left:17px;font-size:13px}.closing li{margin-bottom:6px}
+.footer{margin-top:34px;text-align:center;color:var(--muted);font-size:11.5px;font-family:var(--mono)}
+@media(max-width:880px){.frame-body{grid-template-columns:1fr}.note{position:static}.app{grid-template-columns:1fr}.nav{display:none}.eva{grid-template-columns:1fr}.eva .col.exp{border-radius:10px 10px 0 0}.eva .col.act{border-radius:0 0 10px 10px;border-left:1px solid var(--border);border-top:0}.eva .mid{display:none}.cover h1{font-size:29px}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ccmark" viewBox="-0.7 -0.3 49.4 49.5">
+    <defs><linearGradient id="ccg" x1="0" y1="-0.3" x2="0" y2="49.2" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#625FED"/><stop offset=".62" stop-color="#5DB9DB"/><stop offset="1" stop-color="#5BF7CF"/></linearGradient></defs>
+    <path fill="url(#ccg)" d="M2.06789 18.0362c-2.75719-1.7103-2.75719-5.3619 0-7.0722l19.19821-10.19893c1.6445-1.02009 3.8231-1.02009 5.4677-0.00007l19.1982 10.199c2.6709 1.6568 2.7547 5.1352 0.2509 6.9059l-0.2509 0.1663-19.1982 10.199c-1.5932 0.9882-3.6874 1.0186-5.3119 0.0921l-0.1558-0.0921-19.19821-10.199z m2.27852-4.1256c-0.45954 0.285-0.45954 0.894 0 1.1791l19.19809 10.1989c0.274 0.1698 0.6368 0.1698 0.9108 0l19.1982-10.1989c0.4595-0.2851 0.4595-0.8941 0-1.1791l-19.1982-10.19895c-0.274-0.16981-0.6368-0.16981-0.9108 0l-19.19809 10.19895z"/>
+    <path fill="url(#ccg)" d="M42.874 22.1494c0.3206-0.5537 1.1641-0.8331 1.8926-0.5185 1.7915 0.7738 2.6814 2.2245 2.7314 3.6572 0.05 1.4315-0.7352 2.9218-2.4648 3.7851l-17.5098 8.7383c-1.8336 0.9151-4.1001 0.9177-5.9365 0.0069l-18.81542-9.3321c-1.61862-0.8029-2.33402-2.1958-2.26757-3.5215 0.06669-1.3274 0.92218-2.6678 2.62207-3.3496 0.74139-0.2971 1.5717 0.0055 1.87109 0.5625 0.27157 0.5057 0.05504 1.1693-0.66016 1.4561-0.65157 0.2615-1.04373 0.814-1.07421 1.4219-0.03043 0.6098 0.30751 1.1972 0.9375 1.5097l18.8144 9.3321h0.001c0.9545 0.4732 2.1206 0.4715 3.0733-0.0039l17.5088-8.7383c0.7601-0.3794 1.1649-1.079 1.1396-1.8037-0.0253-0.7235-0.4765-1.3955-1.2568-1.7325-0.6999-0.3024-0.8964-0.968-0.6065-1.4697z"/>
+    <path fill="url(#ccg)" transform="translate(0,10.04)" d="M42.874 22.1494c0.3206-0.5537 1.1641-0.8331 1.8926-0.5185 1.7915 0.7738 2.6814 2.2245 2.7314 3.6572 0.05 1.4315-0.7352 2.9218-2.4648 3.7851l-17.5098 8.7383c-1.8336 0.9151-4.1001 0.9177-5.9365 0.0069l-18.81542-9.3321c-1.61862-0.8029-2.33402-2.1958-2.26757-3.5215 0.06669-1.3274 0.92218-2.6678 2.62207-3.3496 0.74139-0.2971 1.5717 0.0055 1.87109 0.5625 0.27157 0.5057 0.05504 1.1693-0.66016 1.4561-0.65157 0.2615-1.04373 0.814-1.07421 1.4219-0.03043 0.6098 0.30751 1.1972 0.9375 1.5097l18.8144 9.3321h0.001c0.9545 0.4732 2.1206 0.4715 3.0733-0.0039l17.5088-8.7383c0.7601-0.3794 1.1649-1.079 1.1396-1.8037-0.0253-0.7235-0.4765-1.3955-1.2568-1.7325-0.6999-0.3024-0.8964-0.968-0.6065-1.4697z"/>
+  </symbol>
+  <symbol id="i-dash" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 3v18M5 7h14M5 7l-3 6a3 3 0 0 0 6 0zM19 7l-3 6a3 3 0 0 0 6 0z"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M6 4h10a2 2 0 0 1 2 2v14H8a2 2 0 0 1-2-2V4zM6 17h12"/></symbol>
+  <symbol id="i-runs" viewBox="0 0 24 24"><path d="M3 12h4l3 7 4-16 3 9h4"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-4 4V5z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 8v5M12 16.5v.5"/><path d="M12 3l9 16H3z"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+</svg>
+
+<div class="toggle">
+  <button id="tDark" class="on" onclick="setTheme('dark')">Dark</button>
+  <button id="tLight" onclick="setTheme('light')">Light</button>
+</div>
+
+<div class="board">
+
+  <header class="cover">
+    <div>
+      <div class="brandline">
+        <svg class="mark" style="width:30px;height:30px"><use href="#ccmark"/></svg>
+        <div class="wm">Cascade Clarity<small>Enterprise AI Integrators</small></div>
+      </div>
+      <div class="tenant-tag tt-cascade"><span class="dot"></span>Cascade · Reconciliation<span class="sub">· vertical demo</span></div>
+      <h1>Storyboard 09 —<br><span class="grad">Enterprise Reconciliation</span></h1>
+      <p class="sub">A different job entirely. The first eight boards move work through pipelines; this one checks numbers against each other — payroll, tax and general ledger — finds where they disagree to the cent, and proposes the correcting entry for a controller to sign. Same shell, same gate, a whole new vertical.</p>
+    </div>
+    <div class="metabox">
+      <div><span>Prepared by</span><span>David De los Reyes</span></div>
+      <div><span>For</span><span>John Cuellar</span></div>
+      <div><span>Date</span><span>Jul 17, 2026</span></div>
+      <div><span>User</span><span>Controller</span></div>
+      <div><span>Vertical</span><span>Reconciliation</span></div>
+      <div><span>Data</span><span>demo · stubbed</span></div>
+    </div>
+  </header>
+
+  <p class="lead">Reconciliation is the most developed Cascade vertical and the one behind John's live demo. The job: continuously compare payroll, tax and GL against the accounting system, <b>surface every discrepancy, and propose a correction for a human to approve.</b> Two claims make it different from the pipeline boards. First, the money math is done by <b>deterministic tools, never guessed by the model</b> — reproducible to the cent. Second, every proposed fix is <b>staged for sign-off with a full audit trail</b>. This board is tagged <b>Cascade · Platform</b>, not a client, because it is the vertical itself, ready to re-skin onto whichever brand the demo needs.</p>
+
+  <div class="shead"><span class="n">A</span><h2>The route</h2><span class="h-sub">controller · period close reconciliation</span></div>
+  <div class="flow">
+    <div class="flowrow">
+      <span class="node start"><span class="num">01</span>Reconciliation dashboard</span><span class="arr">→</span>
+      <span class="node"><span class="num">02</span>Amount mismatch</span><span class="arr">→</span>
+      <span class="node"><span class="num">03</span>Missing record</span><span class="arr">→</span>
+      <span class="node"><span class="num">04</span>Approve the correcting entry</span><span class="arr">→</span>
+      <span class="node"><span class="num">05</span>Audit trail</span>
+    </div>
+    <div class="flowrow err">
+      <span class="branchlbl"><svg class="ico" style="width:14px;height:14px;color:var(--critical)"><use href="#i-alert"/></svg>Branch</span>
+      <span class="arr">↳</span>
+      <span class="node errnode"><span class="num">04b</span>It's a timing difference → rejected with reason, agent learns</span>
+    </div>
+  </div>
+
+  <!-- FRAME 01 -->
+  <article class="frame" id="f01">
+    <div class="frame-head"><span class="fn">01</span><h3>Reconciliation dashboard — what disagrees, and by how much</h3>
+      <div class="tags"><span class="tag happy">Happy path</span><span class="tag">Needs your decision</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">recon.cascade.app/period/2026-06</div></div>
+        <div class="app">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Cascade<small>Reconciliation</small></b></div>
+            <a class="nav-item active"><svg class="ico"><use href="#i-dash"/></svg>Overview</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-scale"/></svg>Discrepancies<span class="badge">14</span></a>
+            <a class="nav-item"><svg class="ico"><use href="#i-book"/></svg>Ledgers</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-runs"/></svg>Runs</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Ask Cascade</a>
+            <div class="tenantflag"><b>Reconciliation</b>Same shell as every other board — the domain is money, not stock or staffing. Deterministic compute, human sign-off.</div>
+            <div class="navfoot"><div class="avatar">CT</div><div class="who"><b>C. Tran</b><span>Controller</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>June 2026 close</h4><span class="env"><i></i>Reconciled 06:00</span>
+              <div class="right"><span class="subtle">payroll ⇄ GL ⇄ tax</span></div></div>
+            <div class="content">
+              <div class="grid g4" style="margin-bottom:12px">
+                <div class="card stat good"><div class="lbl">Lines reconciled</div><div class="v">18,402</div><div class="d">99.92% clean</div></div>
+                <div class="card stat"><div class="lbl">Discrepancies</div><div class="v">14</div><div class="d">3 types</div></div>
+                <div class="card stat bad"><div class="lbl">Net at risk</div><div class="v">$5,180</div><div class="d">absolute delta</div></div>
+                <div class="card stat flag"><div class="lbl">Awaiting approval</div><div class="v">4</div><div class="d">correcting entries</div></div>
+              </div>
+              <div class="card" style="margin-bottom:12px;padding:0">
+                <table class="tb">
+                  <thead><tr><th>Type</th><th>Count</th><th>Example</th><th class="num">Delta</th><th>Status</th></tr></thead>
+                  <tbody>
+                    <tr class="rowsel"><td><b>Amount mismatch</b></td><td class="m">6</td><td class="m">payroll vs GL journal</td><td class="num">$3,140</td><td><span class="pill warn">Review</span></td></tr>
+                    <tr><td><b>Missing in GL</b></td><td class="m">5</td><td class="m">payroll line, no journal</td><td class="num">$1,620</td><td><span class="pill warn">Review</span></td></tr>
+                    <tr><td><b>Tax code mismatch</b></td><td class="m">3</td><td class="m">withholding class</td><td class="num">$420</td><td><span class="pill info">Auto-noted</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="q"><div class="qi" style="background:var(--gold)"><svg class="ico" style="width:15px;height:15px"><use href="#i-scale"/></svg></div>
+                <div class="qt"><b>Overtime for pay group NS-04 is $3,140 higher in payroll than in the GL</b><span>largest single delta this period · correcting entry drafted</span></div><span class="pill warn">Review</span></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>The overview leads with the one number a controller cares about at close: <b>how much is unexplained, and where.</b></p>
+        <ul>
+          <li>18,402 lines reconciled automatically; the human only ever looks at the <b>14 that disagree</b>.</li>
+          <li>Discrepancies are <b>typed</b> — amount, missing, tax code — because each has a different fix.</li>
+          <li>Same stat-row and list-detail components as the Construgypsum and Huffmaster boards. <b>Money is just another domain.</b></li>
+          <li>The queue item leads straight into Frame 02.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- FRAME 02 -->
+  <article class="frame" id="f02">
+    <div class="frame-head"><span class="fn">02</span><h3>Amount mismatch — expected against actual, to the cent</h3>
+      <div class="tags"><span class="tag happy">Happy path</span><span class="tag">Deterministic compute</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">recon.cascade.app/discrepancy/NS-04-OT</div></div>
+        <div class="app">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Cascade<small>Reconciliation</small></b></div>
+            <a class="nav-item"><svg class="ico"><use href="#i-dash"/></svg>Overview</a>
+            <a class="nav-item active"><svg class="ico"><use href="#i-scale"/></svg>Discrepancies<span class="badge">14</span></a>
+            <a class="nav-item"><svg class="ico"><use href="#i-book"/></svg>Ledgers</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-runs"/></svg>Runs</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Ask Cascade</a>
+            <div class="navfoot"><div class="avatar">CT</div><div class="who"><b>C. Tran</b><span>Controller</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Overtime · pay group NS-04</h4><span class="pill warn">Amount mismatch</span>
+              <div class="right"><span class="subtle mono">disc:NS-04-OT:2026-06</span></div></div>
+            <div class="content">
+              <div class="card" style="margin-bottom:12px">
+                <h5>In plain language <span class="r">before the numbers</span></h5>
+                <p style="margin:0;font-size:12.5px">Payroll paid <b>$3,140 more overtime</b> to pay group NS-04 than the general ledger recorded. The hours match; the <b>rate the GL used is the old one</b> — it wasn't updated after the June 1 shift-differential change.</p>
+              </div>
+              <div class="eva">
+                <div class="col exp"><h6>Expected · from payroll</h6>
+                  <div class="kv"><span>OT hours</span><span>412.5</span></div>
+                  <div class="kv"><span>OT rate</span><span>$58.20</span></div>
+                  <div class="kv"><span>Shift diff</span><span>$3.10</span></div>
+                  <div class="kv"><span>OT total</span><span>$25,286.25</span></div>
+                </div>
+                <div class="mid">⇄</div>
+                <div class="col act"><h6>Actual · from GL journal</h6>
+                  <div class="kv"><span>OT hours</span><span>412.5</span></div>
+                  <div class="kv"><span>OT rate</span><span class="bad">$50.60</span></div>
+                  <div class="kv"><span>Shift diff</span><span class="bad">$0.00</span></div>
+                  <div class="kv"><span>OT total</span><span class="bad">$22,146.25</span></div>
+                </div>
+              </div>
+              <div class="delta">Delta <span class="amt">$3,140.00</span> · payroll higher</div>
+              <div class="codeln">
+                <div>source · payroll:run:2026-06:NS-04 · <b>412.5h × $58.20 = $25,286.25</b></div>
+                <div>source · <b>gl:journal:NS-JE-2026-06-30</b> · 412.5h × $50.60 = $22,146.25</div>
+                <div>computed by · <b>recon-engine</b> (deterministic) · reproducible</div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>The heart of the vertical: <b>expected vs actual, with the delta and the exact line references.</b> A controller can trust it because they can re-derive it.</p>
+        <ul>
+          <li><b>Plain language first</b>, then the numbers — the agent explains the cause (stale GL rate) before showing the math.</li>
+          <li>Every figure is set in <b>mono tabular numerals</b> so columns line up — a ledger, not a headline.</li>
+          <li>"Computed by recon-engine (deterministic)" is the trust claim in one line: <b>the AI didn't guess the money.</b></li>
+          <li>The machine references (<span class="mono">gl:journal:NS-JE-2026-06-30</span>) let the controller open the source in one hop.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- FRAME 03 -->
+  <article class="frame" id="f03">
+    <div class="frame-head"><span class="fn">03</span><h3>Missing record — paid, but never journaled</h3>
+      <div class="tags"><span class="tag happy">Happy path</span><span class="tag">Different fix</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">recon.cascade.app/discrepancy/EE-2841-REIMB</div></div>
+        <div class="app">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Cascade<small>Reconciliation</small></b></div>
+            <a class="nav-item"><svg class="ico"><use href="#i-dash"/></svg>Overview</a>
+            <a class="nav-item active"><svg class="ico"><use href="#i-scale"/></svg>Discrepancies<span class="badge">14</span></a>
+            <a class="nav-item"><svg class="ico"><use href="#i-book"/></svg>Ledgers</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-runs"/></svg>Runs</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Ask Cascade</a>
+            <div class="navfoot"><div class="avatar">CT</div><div class="who"><b>C. Tran</b><span>Controller</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Reimbursement · EE-2841</h4><span class="pill warn">Missing in GL</span>
+              <div class="right"><span class="subtle mono">disc:EE-2841-REIMB:2026-06</span></div></div>
+            <div class="content">
+              <div class="card" style="margin-bottom:12px">
+                <h5>In plain language <span class="r">before the numbers</span></h5>
+                <p style="margin:0;font-size:12.5px">A <b>$742.00 travel reimbursement</b> was paid to employee EE-2841 in the June payroll run, but <b>no matching entry exists in the general ledger.</b> The cash left; the books don't show it. This understates expenses for the period.</p>
+              </div>
+              <div class="eva">
+                <div class="col exp"><h6>Found · in payroll</h6>
+                  <div class="kv"><span>Employee</span><span>EE-2841</span></div>
+                  <div class="kv"><span>Type</span><span>Travel reimb</span></div>
+                  <div class="kv"><span>Paid date</span><span>2026-06-14</span></div>
+                  <div class="kv"><span>Amount</span><span>$742.00</span></div>
+                </div>
+                <div class="mid">⇄</div>
+                <div class="col act"><h6>Searched · in GL</h6>
+                  <div class="kv"><span>Account 6400</span><span class="bad">no match</span></div>
+                  <div class="kv"><span>By employee</span><span class="bad">no match</span></div>
+                  <div class="kv"><span>By amount ±$1</span><span class="bad">no match</span></div>
+                  <div class="kv"><span>Result</span><span class="bad">missing</span></div>
+                </div>
+              </div>
+              <div class="delta">Delta <span class="amt">$742.00</span> · not in GL</div>
+              <div class="codeln">
+                <div>source · payroll:run:2026-06 · line <b>EE-2841 · REIMB · $742.00</b></div>
+                <div>searched · gl:2026-06 · acct 6400 travel · <b>0 matches within ±$1.00</b></div>
+                <div>proposed · new journal to <b>6400 Travel</b> / <b>1000 Cash</b> · $742.00</div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>A different discrepancy type needs a different screen. A missing record isn't a wrong number — it's an <b>absence</b>, so the "actual" column shows the search that came up empty.</p>
+        <ul>
+          <li>The agent <b>shows its work looking for the match</b> — by account, by employee, by amount — so the controller trusts the "missing" verdict.</li>
+          <li>The proposed fix is a <b>new journal entry</b>, not an edit — the correct accounting response to an omission.</li>
+          <li>Reuses the same expected-vs-actual component, bent to a new shape. One organism, many discrepancies.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- FRAME 04 -->
+  <article class="frame" id="f04">
+    <div class="frame-head"><span class="fn">04</span><h3>Approve the correcting entry — consequences first</h3>
+      <div class="tags"><span class="tag gate">Approval gate</span><span class="tag err">Reject branch</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">recon.cascade.app/discrepancy/NS-04-OT/fix</div></div>
+        <div class="app">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Cascade<small>Reconciliation</small></b></div>
+            <a class="nav-item"><svg class="ico"><use href="#i-dash"/></svg>Overview</a>
+            <a class="nav-item active"><svg class="ico"><use href="#i-scale"/></svg>Discrepancies<span class="badge">14</span></a>
+            <a class="nav-item"><svg class="ico"><use href="#i-book"/></svg>Ledgers</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-runs"/></svg>Runs</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Ask Cascade</a>
+            <div class="navfoot"><div class="avatar">CT</div><div class="who"><b>C. Tran</b><span>Controller</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Correcting entry · NS-04 overtime</h4><span class="pill warn">Needs approval</span>
+              <div class="right"><span class="subtle mono">disc:NS-04-OT · fix</span></div></div>
+            <div class="content">
+              <div class="card" style="margin-bottom:12px;padding:0">
+                <table class="tb">
+                  <thead><tr><th>Account</th><th>Description</th><th class="num">Debit</th><th class="num">Credit</th></tr></thead>
+                  <tbody>
+                    <tr><td class="m">6100 · Wages OT</td><td>NS-04 rate correction</td><td class="num">$3,140.00</td><td class="num">—</td></tr>
+                    <tr><td class="m">2100 · Accrued payroll</td><td>offset</td><td class="num">—</td><td class="num">$3,140.00</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="gate">
+                <div class="grule"></div>
+                <div class="gbody">
+                  <h5>Post this correcting journal to the GL?</h5>
+                  <p>The agent will write a balanced entry (<span class="mono">$3,140.00 Dr / $3,140.00 Cr</span>) to the June period, bringing the GL in line with payroll. It will be tagged as a system-proposed, human-approved correction. Reversible.</p>
+                  <div class="acts">
+                    <span class="btn p"><svg class="ico" style="width:14px;height:14px;stroke:#fff"><use href="#i-check"/></svg>Approve &amp; post</span>
+                    <span class="btn crit">Reject with reason</span>
+                    <span class="audit">signed by C. Tran · logged</span>
+                  </div>
+                </div>
+              </div>
+              <div class="card" style="margin-top:12px;border-style:dashed;border-color:var(--critical)">
+                <h5 style="color:var(--critical)"><svg class="ico" style="width:14px;height:14px"><use href="#i-alert"/></svg>Branch 04b — reject with reason</h5>
+                <p style="margin:0;font-size:12px">If the controller knows the GL rate was correct and payroll double-counted a differential, she rejects: <b style="color:var(--text-strong)">"Payroll error, not GL — route to payroll to reverse."</b> The entry is not posted, the reason is saved, and the agent learns this pay group's differential rule for next close.</p>
+                <div style="display:flex;gap:9px;margin-top:11px"><span class="btn crit sm">Reject &amp; route to payroll</span><span class="subtle" style="align-self:center">→ knowledge model</span></div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>The same approval gate as every other board, applied to money. It <b>states the consequence before asking</b> and never posts on its own.</p>
+        <ul>
+          <li>The proposed fix is shown as a <b>balanced journal entry</b> a controller can read at a glance — debits equal credits.</li>
+          <li><b>Reject-with-reason is a real path</b>: the agent might be right about the delta but wrong about the fix, and the human decides.</li>
+          <li>A rejection <b>teaches the knowledge model</b> the pay group's rule, so the same discrepancy resolves itself next month.</li>
+          <li>Every action is <b>signed and logged</b> — the audit trail Frame 05 shows.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- FRAME 05 -->
+  <article class="frame" id="f05">
+    <div class="frame-head"><span class="fn">05</span><h3>Audit trail — reproducible to the cent</h3>
+      <div class="tags"><span class="tag happy">Happy path</span><span class="tag">Exact + auditable</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">recon.cascade.app/audit/NS-04-OT</div></div>
+        <div class="app">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Cascade<small>Reconciliation</small></b></div>
+            <a class="nav-item"><svg class="ico"><use href="#i-dash"/></svg>Overview</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-scale"/></svg>Discrepancies</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-book"/></svg>Ledgers</a>
+            <a class="nav-item active"><svg class="ico"><use href="#i-runs"/></svg>Runs</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Ask Cascade</a>
+            <div class="navfoot"><div class="avatar">CT</div><div class="who"><b>C. Tran</b><span>Controller</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Audit trail · NS-04 overtime</h4><span class="pill ok">Posted &amp; closed</span>
+              <div class="right"><span class="subtle mono">entry GL-JE-2026-06-0412</span></div></div>
+            <div class="content">
+              <div class="card" style="padding:0;margin-bottom:12px">
+                <table class="tb">
+                  <thead><tr><th>When</th><th>Actor</th><th>Event</th><th>Reference</th></tr></thead>
+                  <tbody>
+                    <tr><td class="m">06-30 06:00</td><td class="m">recon-engine</td><td>Discrepancy detected · $3,140.00</td><td class="m">disc:NS-04-OT</td></tr>
+                    <tr><td class="m">06-30 06:00</td><td class="m">recon-engine</td><td>Root cause: stale GL rate</td><td class="m">gl:journal:NS-JE-2026-06-30</td></tr>
+                    <tr><td class="m">06-30 06:00</td><td class="m">recon-engine</td><td>Correcting entry drafted</td><td class="m">deterministic · reproducible</td></tr>
+                    <tr><td class="m">07-01 09:12</td><td class="m">C. Tran</td><td><b>Approved &amp; posted</b></td><td class="m">signed</td></tr>
+                    <tr><td class="m">07-01 09:12</td><td class="m">system</td><td>Journal posted to GL</td><td class="m">GL-JE-2026-06-0412</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="card" style="border-color:var(--ok)">
+                <h5 style="color:var(--ok)"><svg class="ico" style="width:14px;height:14px"><use href="#i-lock"/></svg>Why an auditor trusts this</h5>
+                <p style="margin:0;font-size:12.5px">Every figure was computed by a deterministic tool and can be <b>re-run to the identical cent</b>. Every action names <b>who</b> did it and <b>when</b>. The AI found and explained the problem; a <b>named human approved the money movement</b>; the system posted it. Nothing in the chain is a guess.</p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>The vertical's closing argument, and the reason it's the most developed one: <b>finance can't run on "probably."</b></p>
+        <ul>
+          <li>The trail separates <b>machine detection</b> from <b>human approval</b> — the auditable boundary the architecture diagram draws.</li>
+          <li>"Reproducible to the identical cent" is what makes this safe to sell into a controller's close process.</li>
+          <li>Same run/audit pattern as the Construgypsum CRM run and the Huffmaster deploy — one platform, one accountability model.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <div class="closing">
+    <h2>What this board proves</h2>
+    <p>Eight boards moved work through pipelines; this one does something categorically different — it checks numbers and moves money — and it still runs on <b>the same shell, the same list-detail, the same approval gate.</b> That is the strongest form of the platform claim: not just a new tenant, but a new <b>vertical</b>, built from the parts already on screen. Two things make reconciliation the one to lead a demo with: the math is <b>deterministic and reproducible to the cent</b>, and every correction is <b>staged for a named human with a full audit trail</b>. It's tagged Cascade · Platform because it isn't a client — it's a capability, ready to wear whichever brand the pitch calls for.</p>
+    <div class="cols">
+      <div><h4>Components this adds</h4>
+        <ul><li>Reconciliation overview + typed discrepancy list</li><li>Expected-vs-actual comparison with delta</li><li>Missing-record (search-came-up-empty) view</li><li>Correcting journal entry + approval gate</li><li>Audit trail (machine detect → human approve → post)</li></ul></div>
+      <div><h4>Open questions for John</h4>
+        <ul><li>Which brand does the demo wear — Cascade, LPL, or the prospect's?</li><li>Do we auto-post tax-code notes, or gate everything that touches the GL?</li><li>Is the stubbed Odoo dataset enough for the Ram demo, or do we need a real sample close?</li></ul></div>
+    </div>
+  </div>
+
+  <div class="footer">Cascade Clarity · Enterprise Agent · Storyboard 09 · Reconciliation vertical · v0.1 · built on Brand System Vol. 2</div>
+</div>
+
+<script>
+function setTheme(t){
+  document.documentElement.dataset.theme=t;
+  document.getElementById('tDark').classList.toggle('on',t==='dark');
+  document.getElementById('tLight').classList.toggle('on',t==='light');
+}
+</script>
+</body>
+</html>

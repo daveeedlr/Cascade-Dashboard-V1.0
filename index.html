@@ -129,12 +129,13 @@ svg.mark{width:26px;height:26px;display:block}
 
   <div class="hero">
     <h1>Cascade Dashboard <span class="grad">V1.0</span></h1>
-    <p>UI/UX storyboards for the <b>Cascade Enterprise Agent</b> — the browser-based, single-tenant agent workspace. Seven user journeys and one system diagram, drawn on the Cowork pattern, in the Cascade brand. Each board is <b>tagged by the account it references</b> so the set stays legible as it grows. Every board shows the happy path <b>and</b> what happens when it breaks.</p>
+    <p>UI/UX storyboards for the <b>Cascade Enterprise Agent</b> — the browser-based, single-tenant agent workspace. Nine user journeys and one system diagram, drawn on the Cowork pattern, in the Cascade brand. Each board is <b>tagged by the account it references</b> so the set stays legible as it grows. Every board shows the happy path <b>and</b> what happens when it breaks.</p>
     <div class="meta">
-      <span class="chip on">7 storyboards</span>
+      <span class="chip on">9 storyboards</span>
       <span class="chip on">1 architecture diagram</span>
       <span class="chip on">3 accounts</span>
-      <span class="chip">~43 annotated frames</span>
+      <span class="chip on">2 verticals</span>
+      <span class="chip">~53 annotated frames</span>
       <span class="chip">Dark + light on one token layer</span>
     </div>
   </div>
@@ -143,10 +144,10 @@ svg.mark{width:26px;height:26px;display:block}
 
   <div class="seclbl">Filter by account</div>
   <div class="filterbar">
-    <button class="fbtn on" onclick="filterAcct('all',this)">All <span class="count">8</span></button>
-    <button class="fbtn" onclick="filterAcct('cascade',this)"><span class="dot d-cascade"></span>Cascade · Platform <span class="count">1</span></button>
+    <button class="fbtn on" onclick="filterAcct('all',this)">All <span class="count">10</span></button>
+    <button class="fbtn" onclick="filterAcct('cascade',this)"><span class="dot d-cascade"></span>Cascade · Platform <span class="count">2</span></button>
     <button class="fbtn" onclick="filterAcct('construgypsum',this)"><span class="dot d-construgypsum"></span>Construgypsum <span class="count">6</span></button>
-    <button class="fbtn" onclick="filterAcct('huffmaster',this)"><span class="dot d-huffmaster"></span>Huffmaster <span class="count">1</span></button>
+    <button class="fbtn" onclick="filterAcct('huffmaster',this)"><span class="dot d-huffmaster"></span>Huffmaster <span class="count">2</span></button>
   </div>
 
   <!-- ARCHITECTURE (Cascade platform) -->
@@ -157,7 +158,7 @@ svg.mark{width:26px;height:26px;display:block}
     <span class="go">Open the diagram →</span>
   </a>
 
-  <div class="seclbl">The storyboards · one per user</div>
+  <div class="seclbl">The storyboards · by user and vertical</div>
   <div class="empty-note" id="emptyNote">No boards for this account yet.</div>
   <div class="grid" id="cardgrid">
     <a class="card" href="Cascade_Enterprise_Agent_Storyboard.html" data-tenant="construgypsum">
@@ -215,6 +216,22 @@ svg.mark{width:26px;height:26px;display:block}
       <div class="who">Second tenant · Sword</div>
       <p>A US strike-staffing operation instead of a materials distributor: Bullhorn, UKG, Zoho, NetSuite, Essium. Hire-to-deploy orchestration, a compliance gate, and a termination that closes a still-billing hotel. Same shell, different connectors — the platform argument.</p>
       <div class="frames">5 frames · 2 error branches</div>
+    </a>
+    <a class="card" href="Cascade_Enterprise_Agent_Storyboard_08_Recruiter.html" data-tenant="huffmaster">
+      <span class="ttag" style="border-color:rgba(122,107,224,.6)"><span class="dot d-huffmaster"></span>Huffmaster</span>
+      <span class="n">08</span>
+      <h3>Recruiter — order to recruit</h3>
+      <div class="who">Marcus · Recruiter</div>
+      <p>Upstream of the deployment: a Zoho staffing order auto-fires a Bullhorn job, an openings board with fill rates, a candidate kanban that hands to hire-to-deploy, and an honest read on a 700-person surge.</p>
+      <div class="frames">5 frames · 1 error branch</div>
+    </a>
+    <a class="card" href="Cascade_Enterprise_Agent_Storyboard_09_Reconciliation.html" data-tenant="cascade">
+      <span class="ttag" style="border-color:rgba(91,247,207,.5)"><span class="dot d-cascade"></span>Cascade · Reconciliation</span>
+      <span class="n">09</span>
+      <h3>Enterprise Reconciliation</h3>
+      <div class="who">Controller · a new vertical</div>
+      <p>A different job entirely: payroll, tax and GL checked against each other to the cent. Typed discrepancies, expected-vs-actual with the delta, a correcting journal entry a human approves, and a reproducible audit trail.</p>
+      <div class="frames">5 frames · reject branch</div>
     </a>
   </div>
 
