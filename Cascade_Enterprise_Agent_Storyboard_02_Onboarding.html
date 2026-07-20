@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cascade Enterprise Agent · Storyboard 02 · Admin Onboarding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Cascade Enterprise Agent · Storyboard 02 — Admin onboarding / first run
+   Same token layer as Storyboard 01. Self-contained so it can be opened alone. */
+:root{
+  --cc-navy:#0B223A;--cc-purple:#625FED;--cc-sky:#5DB9DB;--cc-mint:#5BF7CF;
+  --grad-main:linear-gradient(135deg,#625FED 0%,#5DB9DB 100%);
+  --grad-hero:linear-gradient(110deg,#5BF7CF 0%,#5DB9DB 50%,#625FED 100%);
+  --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;--r:12px;--r-sm:8px;
+}
+:root,[data-theme="dark"]{
+  --bg-grad:radial-gradient(1200px 600px at 15% -5%,rgba(98,95,237,.16),transparent 60%),radial-gradient(1000px 500px at 100% 0,rgba(93,185,219,.12),transparent 55%),#0B223A;
+  --surface:#0F3259;--surface-2:#0C2846;--inset:#081A2E;--topbar:rgba(8,26,46,.72);
+  --border:rgba(143,163,177,.16);--border-2:rgba(143,163,177,.30);--hover:rgba(255,255,255,.04);
+  --text:rgba(255,255,255,.85);--text-strong:#fff;--muted:#8FA3B1;
+  --accent:#5BF7CF;--link:#5DB9DB;--gold:#F5B455;
+  --critical:#FF6B7A;--warn:#F5B455;--ok:#5BF7CF;--info:#5DB9DB;
+  --critical-bg:rgba(255,107,122,.12);--warn-bg:rgba(245,180,85,.13);--ok-bg:rgba(91,247,207,.12);--info-bg:rgba(93,185,219,.12);
+  --note-bg:rgba(8,26,46,.55);
+}
+[data-theme="light"]{
+  --bg-grad:radial-gradient(1200px 600px at 12% -8%,rgba(98,95,237,.10),transparent 60%),radial-gradient(1000px 500px at 100% 0,rgba(93,185,219,.10),transparent 55%),#EAF0F6;
+  --surface:#fff;--surface-2:#F5F8FB;--inset:#F0F4F8;--topbar:rgba(255,255,255,.82);
+  --border:rgba(11,34,58,.12);--border-2:rgba(11,34,58,.20);--hover:rgba(11,34,58,.035);
+  --text:rgba(11,34,58,.86);--text-strong:#0B223A;--muted:#5C6B7A;
+  --accent:#0F8F79;--link:#2C6FB0;--gold:#B8791E;
+  --critical:#C24338;--warn:#B8791E;--ok:#0F8F79;--info:#2C6FB0;
+  --critical-bg:rgba(194,67,56,.10);--warn-bg:rgba(184,121,30,.12);--ok-bg:rgba(15,143,121,.10);--info-bg:rgba(44,111,176,.10);
+  --note-bg:rgba(255,255,255,.7);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg-grad);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{color:var(--text-strong);margin:0;line-height:1.15;font-weight:700;letter-spacing:-.01em}
+.mono{font-family:var(--mono);font-variant-numeric:lining-nums tabular-nums}
+.eyebrow{font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+svg.mark{width:26px;height:26px;display:block}
+svg.ico{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.board{max-width:1200px;margin:0 auto;padding:38px 26px 90px}
+.cover{display:flex;flex-wrap:wrap;gap:26px;align-items:flex-end;justify-content:space-between;padding-bottom:26px;border-bottom:1px solid var(--border);margin-bottom:30px}
+.brandline{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.brandline .wm{font-weight:600;font-size:15px;color:var(--text-strong);letter-spacing:-.01em;line-height:1.05}
+.brandline .wm small{display:block;font-weight:500;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.cover h1{font-size:37px;letter-spacing:-.025em}
+.cover .grad{background:var(--grad-hero);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cover .sub{margin-top:10px;font-size:15.5px;max-width:660px;color:var(--text)}
+.metabox{border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r);padding:16px 18px;min-width:230px}
+.metabox div{display:flex;justify-content:space-between;gap:18px;font-size:12.5px;padding:3px 0}
+.metabox div span:first-child{color:var(--muted)}
+.metabox div span:last-child{color:var(--text-strong);font-weight:500}
+.toggle{position:fixed;top:18px;right:20px;z-index:50;display:flex;gap:4px;padding:4px;border:1px solid var(--border-2);border-radius:999px;background:var(--surface);backdrop-filter:blur(8px)}
+.toggle button{border:0;background:transparent;color:var(--muted);font-family:var(--font);font-size:12px;font-weight:600;padding:5px 13px;border-radius:999px;cursor:pointer}
+.toggle button.on{background:var(--grad-main);color:#fff}
+.lead{max-width:840px;margin:0 0 30px;font-size:15.5px}
+.lead b{color:var(--text-strong)}
+.shead{display:flex;align-items:baseline;gap:14px;margin:46px 0 16px}
+.shead .n{font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:600}
+.shead h2{font-size:20px}
+.shead .h-sub{color:var(--muted);font-size:13px;margin-left:auto}
+.flow{border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r);padding:20px 18px;overflow-x:auto}
+.flowrow{display:flex;align-items:center;gap:8px;min-width:max-content}
+.node{display:flex;align-items:center;gap:8px;padding:9px 13px;border-radius:999px;border:1px solid var(--border-2);background:var(--surface);font-size:12.5px;font-weight:600;color:var(--text-strong);white-space:nowrap}
+.node .num{font-family:var(--mono);font-size:11px;color:var(--accent)}
+.node.start{background:var(--grad-main);color:#fff;border:0}.node.start .num{color:rgba(255,255,255,.8)}
+.arr{color:var(--muted);font-size:15px;flex:none}
+.flowrow.err{margin-top:12px}
+.node.errnode{border-color:var(--critical);color:var(--critical);background:var(--critical-bg)}
+.node.errnode .num{color:var(--critical)}
+.branchlbl{font-size:11px;color:var(--critical);font-weight:600;display:inline-flex;align-items:center;gap:6px}
+.frame{margin-top:40px}
+.frame-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.frame-head .fn{font-family:var(--mono);font-size:12px;font-weight:600;color:#fff;background:var(--grad-main);padding:4px 10px;border-radius:6px}
+.frame-head h3{font-size:18px}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin-left:auto}
+.tag{font-size:10.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid var(--border-2);color:var(--muted)}
+.tag.happy{color:var(--ok);border-color:var(--ok);background:var(--ok-bg)}
+.tag.err{color:var(--critical);border-color:var(--critical);background:var(--critical-bg)}
+.tag.gate{color:var(--gold);border-color:var(--gold);background:var(--warn-bg)}
+.frame-body{display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start}
+.note{border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r);padding:16px 17px;position:sticky;top:20px}
+.note .eyebrow{margin-bottom:8px}
+.note p{margin:0 0 10px;font-size:13px}
+.note ul{margin:0;padding-left:16px;font-size:12.5px}
+.note li{margin-bottom:6px}.note li b,.note p b{color:var(--text-strong)}
+.win{border:1px solid var(--border-2);border-radius:var(--r);overflow:hidden;background:var(--surface-2);box-shadow:0 24px 60px -30px rgba(0,0,0,.55)}
+.win-bar{display:flex;align-items:center;gap:8px;padding:9px 13px;background:var(--inset);border-bottom:1px solid var(--border)}
+.win-bar .lights{display:flex;gap:6px}
+.win-bar .lights i{width:10px;height:10px;border-radius:50%;display:block}
+.win-bar .url{flex:1;text-align:center;font-family:var(--mono);font-size:11px;color:var(--muted);background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:3px 10px;max-width:360px;margin:0 auto}
+.app{display:grid;grid-template-columns:196px 1fr;min-height:500px;background:var(--surface-2)}
+.app.solo{grid-template-columns:1fr}
+.nav{background:var(--inset);border-right:1px solid var(--border);padding:14px 12px;display:flex;flex-direction:column;gap:3px}
+.nav .navbrand{display:flex;align-items:center;gap:9px;padding:4px 6px 14px;margin-bottom:6px;border-bottom:1px solid var(--border)}
+.nav .navbrand b{font-size:13px;color:var(--text-strong);font-weight:600;line-height:1.05}
+.nav .navbrand b small{display:block;font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.nav .ng{font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding:12px 8px 5px}
+.nav-item{display:flex;align-items:center;gap:9px;padding:7px 9px;border-radius:8px;font-size:12.5px;font-weight:500;color:var(--text)}
+.nav-item .ico{width:16px;height:16px;color:var(--muted)}
+.nav-item.active{background:rgba(98,95,237,.18);color:var(--text-strong);font-weight:600}
+.nav-item.active .ico{color:var(--accent)}
+.nav-item.locked{opacity:.42}
+.nav-item .badge{margin-left:auto;font-family:var(--mono);font-size:10px;font-weight:600;color:#0B223A;background:var(--gold);border-radius:999px;padding:1px 6px}
+.nav-item .lock{margin-left:auto;font-size:9px;color:var(--muted)}
+.navfoot{margin-top:auto;display:flex;align-items:center;gap:9px;padding:9px 6px 2px;border-top:1px solid var(--border)}
+.avatar{width:26px;height:26px;border-radius:50%;background:var(--grad-main);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}
+.navfoot .who{font-size:11.5px;line-height:1.1}.navfoot .who b{color:var(--text-strong);font-size:12px;display:block}
+.navfoot .who span{color:var(--muted);font-size:10.5px}
+.appmain{display:flex;flex-direction:column;min-width:0}
+.topbar{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--border);background:var(--topbar)}
+.topbar h4{font-size:14.5px}
+.env{font-family:var(--mono);font-size:10.5px;color:var(--ok);border:1px solid var(--ok);background:var(--ok-bg);border-radius:999px;padding:2px 9px;display:inline-flex;align-items:center;gap:6px}
+.env i{width:6px;height:6px;border-radius:50%;background:var(--ok);display:block}
+.env.setup{color:var(--gold);border-color:var(--gold);background:var(--warn-bg)}.env.setup i{background:var(--gold)}
+.topbar .right{margin-left:auto;display:flex;align-items:center;gap:10px;color:var(--muted)}
+.content{padding:18px;flex:1}
+.subtle{color:var(--muted);font-size:12px}
+.grid{display:grid;gap:12px}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:13px 14px}
+.card h5{font-size:12.5px;color:var(--text-strong);margin-bottom:11px;display:flex;align-items:center;gap:8px}
+.card h5 .r{margin-left:auto;font-size:10px;color:var(--muted);font-weight:500}
+.stat .lbl{font-size:9.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+.stat .v{font-size:23px;font-weight:700;color:var(--text-strong);margin-top:4px;font-variant-numeric:lining-nums tabular-nums}
+.stat .d{font-size:10.5px;color:var(--muted);margin-top:2px}
+.stat.flag{border-color:var(--gold);background:var(--warn-bg)}.stat.flag .v,.stat.flag .lbl{color:var(--gold)}
+.pill{font-size:10px;font-weight:600;padding:2px 9px;border-radius:999px;white-space:nowrap;text-transform:uppercase}
+.pill.ok{color:var(--ok);background:var(--ok-bg);border:1px solid var(--ok)}
+.pill.warn{color:var(--gold);background:var(--warn-bg);border:1px solid var(--gold)}
+.pill.crit{color:var(--critical);background:var(--critical-bg);border:1px solid var(--critical)}
+.pill.info{color:var(--info);background:var(--info-bg);border:1px solid var(--info)}
+.pill.muted{color:var(--muted);border:1px solid var(--border-2)}
+.btn{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;border-radius:8px;padding:8px 14px;border:1px solid transparent}
+.btn.p{background:var(--grad-main);color:#fff}
+.btn.g{background:transparent;border-color:var(--border-2);color:var(--text-strong)}
+.btn.crit{background:transparent;border-color:var(--critical);color:var(--critical)}
+.btn.sm{padding:5px 11px;font-size:11px}
+.inp{width:100%;background:var(--inset);border:1px solid var(--border-2);border-radius:8px;padding:9px 12px;color:var(--text-strong);font-size:12.5px}
+.inp.ph{color:var(--muted)}.inp.bad{border-color:var(--critical);background:var(--critical-bg)}
+.fl{font-size:11px;font-weight:600;color:var(--text-strong);margin-bottom:5px;display:block}
+.err-msg{display:flex;gap:9px;align-items:flex-start;background:var(--critical-bg);border:1px solid var(--critical);border-radius:8px;padding:10px 12px;font-size:12px;color:var(--critical)}
+table.tb{width:100%;border-collapse:collapse;font-size:12px}
+table.tb th{text-align:left;font-size:9px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);padding:8px 10px;background:var(--inset);border-bottom:1px solid var(--border)}
+table.tb td{padding:9px 10px;border-bottom:1px solid var(--border)}
+table.tb tr:last-child td{border-bottom:0}
+table.tb td b{color:var(--text-strong)}
+table.tb .m{font-family:var(--mono);font-size:11px}
+/* onboarding-specific */
+.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:44px 20px;gap:12px}
+.empty .halo{width:76px;height:76px;border-radius:50%;background:radial-gradient(circle,rgba(98,95,237,.30),transparent 70%);display:flex;align-items:center;justify-content:center}
+.empty h3{font-size:19px}
+.empty p{max-width:400px;font-size:13px;color:var(--muted);margin:0}
+.checklist{border:1px solid var(--border);border-radius:10px;background:var(--surface);overflow:hidden;max-width:440px;width:100%;text-align:left;margin-top:6px}
+.ck{display:flex;align-items:center;gap:11px;padding:11px 14px;border-bottom:1px solid var(--border);font-size:12.5px}
+.ck:last-child{border-bottom:0}
+.ck .box{width:19px;height:19px;border-radius:6px;border:1.5px solid var(--border-2);display:flex;align-items:center;justify-content:center;flex:none;color:var(--muted)}
+.ck.done .box{background:var(--grad-main);border-color:transparent;color:#fff}
+.ck.now .box{border-color:var(--accent);color:var(--accent)}
+.ck .t{flex:1}.ck .t b{color:var(--text-strong);display:block;font-size:12.5px}
+.ck .t span{color:var(--muted);font-size:11px}
+.ck.done .t b{color:var(--muted);text-decoration:line-through}
+.prog{height:5px;background:var(--hover);border-radius:4px;overflow:hidden;max-width:440px;width:100%}
+.prog i{display:block;height:100%;background:var(--grad-main);border-radius:4px}
+.scope{display:flex;align-items:flex-start;gap:11px;padding:11px 13px;border:1px solid var(--border);border-radius:9px;background:var(--surface);margin-bottom:8px}
+.scope .sw{width:34px;height:19px;border-radius:999px;background:var(--grad-main);position:relative;flex:none;margin-top:1px}
+.scope .sw::after{content:"";position:absolute;width:14px;height:14px;border-radius:50%;background:#fff;top:2.5px;right:2.5px}
+.scope .sw.off{background:var(--border-2)}.scope .sw.off::after{right:auto;left:2.5px}
+.scope .st{flex:1}.scope .st b{color:var(--text-strong);font-size:12.5px;display:block}
+.scope .st span{color:var(--muted);font-size:11px}
+.conn{display:flex;align-items:center;gap:12px;padding:13px 14px;border:1px solid var(--border);border-radius:10px;background:var(--surface)}
+.conn.bad{border-color:var(--critical)}
+.conn .logo{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex:none;font-weight:700;font-size:13px;color:#fff;font-family:var(--mono)}
+.conn .ct{flex:1;min-width:0}.conn .ct b{color:var(--text-strong);font-size:13px;display:block}
+.conn .ct span{color:var(--muted);font-size:11px;font-family:var(--mono)}
+.diag{background:var(--inset);border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:10px;line-height:1.7}
+.diag b{color:var(--critical)}
+.closing{margin-top:52px;border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r);padding:22px 24px}
+.closing h2{font-size:19px;margin-bottom:10px}
+.closing p{max-width:840px;font-size:14px}
+.closing .cols{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:16px}
+.closing h4{font-size:13px;margin-bottom:7px}
+.closing ul{margin:0;padding-left:17px;font-size:13px}.closing li{margin-bottom:6px}
+.footer{margin-top:34px;text-align:center;color:var(--muted);font-size:11.5px;font-family:var(--mono)}
+@media(max-width:880px){.frame-body{grid-template-columns:1fr}.note{position:static}.app{grid-template-columns:1fr}.nav{display:none}.cover h1{font-size:29px}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ccmark" viewBox="-0.7 -0.3 49.4 49.5">
+    <defs><linearGradient id="ccg" x1="0" y1="-0.3" x2="0" y2="49.2" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#625FED"/><stop offset=".62" stop-color="#5DB9DB"/><stop offset="1" stop-color="#5BF7CF"/></linearGradient></defs>
+    <path fill="url(#ccg)" d="M2.06789 18.0362c-2.75719-1.7103-2.75719-5.3619 0-7.0722l19.19821-10.19893c1.6445-1.02009 3.8231-1.02009 5.4677-0.00007l19.1982 10.199c2.6709 1.6568 2.7547 5.1352 0.2509 6.9059l-0.2509 0.1663-19.1982 10.199c-1.5932 0.9882-3.6874 1.0186-5.3119 0.0921l-0.1558-0.0921-19.19821-10.199z m2.27852-4.1256c-0.45954 0.285-0.45954 0.894 0 1.1791l19.19809 10.1989c0.274 0.1698 0.6368 0.1698 0.9108 0l19.1982-10.1989c0.4595-0.2851 0.4595-0.8941 0-1.1791l-19.1982-10.19895c-0.274-0.16981-0.6368-0.16981-0.9108 0l-19.19809 10.19895z"/>
+    <path fill="url(#ccg)" d="M42.874 22.1494c0.3206-0.5537 1.1641-0.8331 1.8926-0.5185 1.7915 0.7738 2.6814 2.2245 2.7314 3.6572 0.05 1.4315-0.7352 2.9218-2.4648 3.7851l-17.5098 8.7383c-1.8336 0.9151-4.1001 0.9177-5.9365 0.0069l-18.81542-9.3321c-1.61862-0.8029-2.33402-2.1958-2.26757-3.5215 0.06669-1.3274 0.92218-2.6678 2.62207-3.3496 0.74139-0.2971 1.5717 0.0055 1.87109 0.5625 0.27157 0.5057 0.05504 1.1693-0.66016 1.4561-0.65157 0.2615-1.04373 0.814-1.07421 1.4219-0.03043 0.6098 0.30751 1.1972 0.9375 1.5097l18.8144 9.3321h0.001c0.9545 0.4732 2.1206 0.4715 3.0733-0.0039l17.5088-8.7383c0.7601-0.3794 1.1649-1.079 1.1396-1.8037-0.0253-0.7235-0.4765-1.3955-1.2568-1.7325-0.6999-0.3024-0.8964-0.968-0.6065-1.4697z"/>
+    <path fill="url(#ccg)" transform="translate(0,10.04)" d="M42.874 22.1494c0.3206-0.5537 1.1641-0.8331 1.8926-0.5185 1.7915 0.7738 2.6814 2.2245 2.7314 3.6572 0.05 1.4315-0.7352 2.9218-2.4648 3.7851l-17.5098 8.7383c-1.8336 0.9151-4.1001 0.9177-5.9365 0.0069l-18.81542-9.3321c-1.61862-0.8029-2.33402-2.1958-2.26757-3.5215 0.06669-1.3274 0.92218-2.6678 2.62207-3.3496 0.74139-0.2971 1.5717 0.0055 1.87109 0.5625 0.27157 0.5057 0.05504 1.1693-0.66016 1.4561-0.65157 0.2615-1.04373 0.814-1.07421 1.4219-0.03043 0.6098 0.30751 1.1972 0.9375 1.5097l18.8144 9.3321h0.001c0.9545 0.4732 2.1206 0.4715 3.0733-0.0039l17.5088-8.7383c0.7601-0.3794 1.1649-1.079 1.1396-1.8037-0.0253-0.7235-0.4765-1.3955-1.2568-1.7325-0.6999-0.3024-0.8964-0.968-0.6065-1.4697z"/>
+  </symbol>
+  <symbol id="i-dash" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-4 4V5z"/></symbol>
+  <symbol id="i-runs" viewBox="0 0 24 24"><path d="M3 12h4l3 7 4-16 3 9h4"/></symbol>
+  <symbol id="i-reps" viewBox="0 0 24 24"><path d="M12 21s7-6.5 7-11a7 7 0 1 0-14 0c0 4.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+  <symbol id="i-conn" viewBox="0 0 24 24"><path d="M9 3v5M15 3v5M7 8h10v3a5 5 0 0 1-10 0V8zM12 16v5"/></symbol>
+  <symbol id="i-know" viewBox="0 0 24 24"><path d="M6 4h10a2 2 0 0 1 2 2v14H8a2 2 0 0 1-2-2V4zM6 17h12"/></symbol>
+  <symbol id="i-listen" viewBox="0 0 24 24"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6zM10 20a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M16 5.4a3.2 3.2 0 0 1 0 5.4"/><path d="M20.5 20a5.5 5.5 0 0 0-4-5.3"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2 2M16.4 16.4l2 2M18.4 5.6l-2 2M7.6 16.4l-2 2"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 8v5M12 16.5v.5"/><path d="M12 3l9 16H3z"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+</svg>
+
+<div class="toggle">
+  <button id="tDark" class="on" onclick="setTheme('dark')">Dark</button>
+  <button id="tLight" onclick="setTheme('light')">Light</button>
+</div>
+
+<div class="board">
+
+  <header class="cover">
+    <div>
+      <div class="brandline">
+        <svg class="mark" style="width:30px;height:30px"><use href="#ccmark"/></svg>
+        <div class="wm">Cascade Clarity<small>Enterprise AI Integrators</small></div>
+      </div>
+      <h1>Storyboard 02 —<br><span class="grad">Admin onboarding &amp; first run</span></h1>
+      <p class="sub">Day one. An empty workspace has just been provisioned for Construgypsum and nobody has connected anything yet. This is the route from a blank room to the first agent run a human approves — the entry points, the empty states, and what happens when a connection refuses to cooperate.</p>
+    </div>
+    <div class="metabox">
+      <div><span>Prepared by</span><span>David De los Reyes</span></div>
+      <div><span>For</span><span>John Cuellar</span></div>
+      <div><span>Date</span><span>Jul 17, 2026</span></div>
+      <div><span>User</span><span>Administrator</span></div>
+      <div><span>Scenario</span><span>First run</span></div>
+      <div><span>Version</span><span class="mono">v0.1 · draft</span></div>
+    </div>
+  </header>
+
+  <p class="lead">Storyboard 01 showed a workspace already humming — connectors green, runs queued, reps in the field. That is the steady state, and it is the easy one to draw. <b>This board draws the hard part: the beginning.</b> Empty states are where most enterprise software loses the customer, and they are the screens nobody designs. Every frame here answers one question — <b>what does the admin see before there is any data, and what is the single next thing we want them to do?</b></p>
+
+  <div class="shead"><span class="n">A</span><h2>The route</h2><span class="h-sub">admin · first session · setup → first approved run</span></div>
+  <div class="flow">
+    <div class="flowrow">
+      <span class="node start"><span class="num">01</span>Empty workspace</span><span class="arr">→</span>
+      <span class="node"><span class="num">02</span>Connect Odoo</span><span class="arr">→</span>
+      <span class="node"><span class="num">03</span>Grant scopes</span><span class="arr">→</span>
+      <span class="node"><span class="num">04</span>Invite the team</span><span class="arr">→</span>
+      <span class="node"><span class="num">05</span>Arm listeners</span><span class="arr">→</span>
+      <span class="node"><span class="num">06</span>First run · approve</span>
+    </div>
+    <div class="flowrow err">
+      <span class="branchlbl"><svg class="ico" style="width:14px;height:14px;color:var(--critical)"><use href="#i-alert"/></svg>Branches</span>
+      <span class="arr">↳</span>
+      <span class="node errnode"><span class="num">02b</span>Can't reach the host</span>
+      <span class="node errnode"><span class="num">05b</span>Nothing to listen to yet</span>
+    </div>
+  </div>
+
+  <!-- FRAME 01 -->
+  <article class="frame" id="f01">
+    <div class="frame-head"><span class="fn">01</span><h3>Empty workspace — the blank room</h3>
+      <div class="tags"><span class="tag happy">Happy path</span><span class="tag">Empty state</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">construgypsum.cascade.app/welcome</div></div>
+        <div class="app">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Cascade<small>Enterprise</small></b></div>
+            <a class="nav-item active"><svg class="ico"><use href="#i-dash"/></svg>Get started</a>
+            <a class="nav-item locked"><svg class="ico"><use href="#i-chat"/></svg>Ask Cascade<span class="lock">◦</span></a>
+            <a class="nav-item locked"><svg class="ico"><use href="#i-runs"/></svg>Runs<span class="lock">◦</span></a>
+            <a class="nav-item locked"><svg class="ico"><use href="#i-reps"/></svg>Field Reps<span class="lock">◦</span></a>
+            <div class="ng">Admin</div>
+            <a class="nav-item"><svg class="ico"><use href="#i-conn"/></svg>Connectors</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-know"/></svg>Knowledge</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-listen"/></svg>Listeners</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-users"/></svg>Users &amp; Roles</a>
+            <div class="navfoot"><div class="avatar">DR</div><div class="who"><b>David R.</b><span>Administrator</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Welcome to Construgypsum</h4><span class="env setup"><i></i>Setup</span>
+              <div class="right"><span class="subtle mono">0 of 4 complete</span></div></div>
+            <div class="content">
+              <div class="empty">
+                <div class="halo"><svg class="mark" style="width:38px;height:38px"><use href="#ccmark"/></svg></div>
+                <h3>Your workspace is empty — that's expected</h3>
+                <p>Nothing is connected yet, so there is nothing for the agent to read. Connect one system and the rest of the app switches on.</p>
+                <div class="prog"><i style="width:6%"></i></div>
+                <div class="checklist">
+                  <div class="ck now"><span class="box"><svg class="ico" style="width:12px;height:12px"><use href="#i-plus"/></svg></span>
+                    <div class="t"><b>Connect your first system</b><span>Start with Odoo — it unlocks inventory, invoices and CRM</span></div><span class="pill warn">Start</span></div>
+                  <div class="ck"><span class="box"></span><div class="t"><b>Invite your team</b><span>Francisco, Panchito — roles decide what each can approve</span></div></div>
+                  <div class="ck"><span class="box"></span><div class="t"><b>Choose what the agent listens for</b><span>We'll suggest a set based on what you connected</span></div></div>
+                  <div class="ck"><span class="box"></span><div class="t"><b>Approve your first run</b><span>Nothing writes out until you say so</span></div></div>
+                </div>
+                <div class="btn p" style="margin-top:6px"><svg class="ico" style="width:14px;height:14px;stroke:#fff"><use href="#i-conn"/></svg>Connect Odoo</div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>The blank room is a <b>designed screen</b>, not an accident. It admits the emptiness, explains why, and offers exactly <b>one</b> next action.</p>
+        <ul>
+          <li>Nav items that need data are <b>dimmed, not hidden</b> — the admin can see where they're headed.</li>
+          <li>The <b>checklist</b> is the storyboard's own route, shown to the user as progress.</li>
+          <li>Environment pill reads <b>Setup</b>, not Production — state is always visible.</li>
+          <li>One primary CTA per view, per the brand's CTA rule.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- FRAME 02 -->
+  <article class="frame" id="f02">
+    <div class="frame-head"><span class="fn">02</span><h3>Connect Odoo — the setup form</h3>
+      <div class="tags"><span class="tag happy">Happy path</span><span class="tag">Test before save</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">construgypsum.cascade.app/connectors/odoo/new</div></div>
+        <div class="app">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Cascade<small>Enterprise</small></b></div>
+            <a class="nav-item"><svg class="ico"><use href="#i-dash"/></svg>Get started</a>
+            <a class="nav-item locked"><svg class="ico"><use href="#i-chat"/></svg>Ask Cascade<span class="lock">◦</span></a>
+            <a class="nav-item locked"><svg class="ico"><use href="#i-runs"/></svg>Runs<span class="lock">◦</span></a>
+            <a class="nav-item locked"><svg class="ico"><use href="#i-reps"/></svg>Field Reps<span class="lock">◦</span></a>
+            <div class="ng">Admin</div>
+            <a class="nav-item active"><svg class="ico"><use href="#i-conn"/></svg>Connectors</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-know"/></svg>Knowledge</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-listen"/></svg>Listeners</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-users"/></svg>Users &amp; Roles</a>
+            <div class="navfoot"><div class="avatar">DR</div><div class="who"><b>David R.</b><span>Administrator</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Connect Odoo</h4><span class="env setup"><i></i>Setup</span>
+              <div class="right"><span class="subtle">Step 1 of 4</span></div></div>
+            <div class="content">
+              <div class="conn" style="margin-bottom:14px"><div class="logo" style="background:#714B67">Od</div>
+                <div class="ct"><b>Odoo — via Cascade REST layer</b><span>we connect through our own REST API, not version-specific calls</span></div><span class="pill muted">Not connected</span></div>
+              <div class="grid g2" style="margin-bottom:12px">
+                <div><label class="fl">Odoo base URL</label><div class="inp">https://erp.construgypsum.com</div></div>
+                <div><label class="fl">Database</label><div class="inp">construgypsum_prod</div></div>
+                <div><label class="fl">API user</label><div class="inp">cascade.agent@construgypsum.com</div></div>
+                <div><label class="fl">API key</label><div class="inp ph">••••••••••••••••••••</div></div>
+              </div>
+              <div class="card" style="margin-bottom:12px">
+                <h5><svg class="ico" style="width:14px;height:14px;color:var(--info)"><use href="#i-shield"/></svg>Detected instance</h5>
+                <p class="subtle" style="margin:0">Odoo <b class="mono" style="color:var(--text-strong)">v15.0</b> · the v18 upgrade will not break this connection, because we talk to our REST layer rather than version-specific integrations.</p>
+              </div>
+              <div style="display:flex;gap:9px;align-items:center">
+                <span class="btn g"><svg class="ico" style="width:14px;height:14px"><use href="#i-check"/></svg>Test connection</span>
+                <span class="btn p">Save &amp; continue</span>
+                <span class="subtle" style="margin-left:auto">Credentials are stored in this tenant only.</span>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>A form is a <b>molecule</b> made of atoms. The important design decision here is <b>Test connection</b> sitting beside Save — the admin finds out now, not at 6am when a run fails.</p>
+        <ul>
+          <li>The app <b>detects and states the version</b>, then pre-empts the obvious worry about the v18 upgrade.</li>
+          <li>Says plainly where the credentials live — a single-tenant promise, made visible.</li>
+          <li>Branches to <b>02b</b> when the host can't be reached.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- FRAME 02b -->
+  <article class="frame" id="f02b">
+    <div class="frame-head"><span class="fn">02b</span><h3>Connection failed — with a diagnosis</h3>
+      <div class="tags"><span class="tag err">Unhappy path</span><span class="tag">Self-service fix</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">construgypsum.cascade.app/connectors/odoo/new</div></div>
+        <div class="app">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Cascade<small>Enterprise</small></b></div>
+            <a class="nav-item"><svg class="ico"><use href="#i-dash"/></svg>Get started</a>
+            <a class="nav-item locked"><svg class="ico"><use href="#i-chat"/></svg>Ask Cascade<span class="lock">◦</span></a>
+            <a class="nav-item locked"><svg class="ico"><use href="#i-runs"/></svg>Runs<span class="lock">◦</span></a>
+            <a class="nav-item locked"><svg class="ico"><use href="#i-reps"/></svg>Field Reps<span class="lock">◦</span></a>
+            <div class="ng">Admin</div>
+            <a class="nav-item active"><svg class="ico"><use href="#i-conn"/></svg>Connectors</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-know"/></svg>Knowledge</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-listen"/></svg>Listeners</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-users"/></svg>Users &amp; Roles</a>
+            <div class="navfoot"><div class="avatar">DR</div><div class="who"><b>David R.</b><span>Administrator</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Connect Odoo</h4><span class="env setup"><i></i>Setup</span>
+              <div class="right"><span class="pill crit">Test failed</span></div></div>
+            <div class="content">
+              <div class="err-msg" style="margin-bottom:13px"><svg class="ico" style="width:15px;height:15px;color:var(--critical)"><use href="#i-alert"/></svg>
+                <div><b>We reached the server, but Odoo refused the login.</b> The URL and database are correct — the API user or key is not. Ask the Odoo partner to confirm the key, or generate a new one under Settings → Users → API Keys.</div></div>
+              <div class="grid g2" style="margin-bottom:12px">
+                <div><label class="fl">Odoo base URL</label><div class="inp">https://erp.construgypsum.com <span style="color:var(--ok)">✓</span></div></div>
+                <div><label class="fl">Database</label><div class="inp">construgypsum_prod <span style="color:var(--ok)">✓</span></div></div>
+                <div><label class="fl">API user</label><div class="inp bad">cascade.agent@construgypsum.com</div></div>
+                <div><label class="fl">API key</label><div class="inp bad ph">••••••••••••••••••••</div></div>
+              </div>
+              <div class="diag">
+                <div>› resolving erp.construgypsum.com … <span style="color:var(--ok)">ok (38 ms)</span></div>
+                <div>› tls handshake … <span style="color:var(--ok)">ok</span></div>
+                <div>› database construgypsum_prod … <span style="color:var(--ok)">found</span></div>
+                <div>› authenticate cascade.agent … <b>failed · invalid api key (401)</b></div>
+              </div>
+              <div style="display:flex;gap:9px;align-items:center;margin-top:12px">
+                <span class="btn p">Retry test</span><span class="btn g">Email the Odoo partner</span>
+                <span class="subtle" style="margin-left:auto">Nothing was saved.</span>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>The difference between a good and a bad error screen is <b>how far it narrows the problem.</b> Here the app shows exactly which of four things broke.</p>
+        <ul>
+          <li>Fields that <b>passed</b> get a check; only the failing two go critical.</li>
+          <li>The <b>diagnostic trace</b> gives the technical person something to act on without a support ticket.</li>
+          <li>Offers the realistic next move — <b>email the Odoo partner</b>, since that is who holds the key.</li>
+          <li>"Nothing was saved" removes the fear of having half-broken the setup.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- FRAME 03 -->
+  <article class="frame" id="f03">
+    <div class="frame-head"><span class="fn">03</span><h3>Grant scopes — what the agent may touch</h3>
+      <div class="tags"><span class="tag happy">Happy path</span><span class="tag gate">Permission boundary</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">construgypsum.cascade.app/connectors/odoo/scopes</div></div>
+        <div class="app">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Cascade<small>Enterprise</small></b></div>
+            <a class="nav-item"><svg class="ico"><use href="#i-dash"/></svg>Get started</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Ask Cascade</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-runs"/></svg>Runs</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-reps"/></svg>Field Reps</a>
+            <div class="ng">Admin</div>
+            <a class="nav-item active"><svg class="ico"><use href="#i-conn"/></svg>Connectors</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-know"/></svg>Knowledge</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-listen"/></svg>Listeners</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-users"/></svg>Users &amp; Roles</a>
+            <div class="navfoot"><div class="avatar">DR</div><div class="who"><b>David R.</b><span>Administrator</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Odoo — permissions</h4><span class="pill ok">Connected</span>
+              <div class="right"><span class="subtle">Step 2 of 4</span></div></div>
+            <div class="content">
+              <p class="subtle" style="margin:0 0 13px">Read is granted freely. <b style="color:var(--text-strong)">Every write is off by default</b> — turn on only what you want the agent to be able to propose.</p>
+              <div class="scope"><span class="sw"></span><div class="st"><b>Read inventory &amp; stock</b><span>buffer report, Chayabamba levels, 13-month velocity</span></div><span class="pill info">Read</span></div>
+              <div class="scope"><span class="sw"></span><div class="st"><b>Read invoices &amp; collections</b><span>needed for quota — commission is paid on collected sales</span></div><span class="pill info">Read</span></div>
+              <div class="scope"><span class="sw"></span><div class="st"><b>Read CRM opportunities &amp; visits</b><span>pipeline stages, account 360</span></div><span class="pill info">Read</span></div>
+              <div class="scope"><span class="sw"></span><div class="st"><b>Write CRM stage &amp; reason fields</b><span>pipeline hygiene — still requires your approval per run</span></div><span class="pill warn">Write</span></div>
+              <div class="scope"><span class="sw off"></span><div class="st"><b>Write to the general ledger</b><span>off — not in scope for the first three months</span></div><span class="pill muted">Off</span></div>
+              <div class="scope"><span class="sw off"></span><div class="st"><b>Create or delete records</b><span>off — the agent never creates records on its own</span></div><span class="pill muted">Off</span></div>
+              <div style="display:flex;gap:9px;margin-top:13px"><span class="btn p">Save permissions</span><span class="subtle" style="align-self:center">Changing these is logged and reversible.</span></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>This screen is the <b>contract</b>. It is what lets us say "the agent proposes, a human approves" and point at something concrete.</p>
+        <ul>
+          <li><b>Writes off by default</b> is the safe default and the honest sales story.</li>
+          <li>Scopes are written in <b>business language</b>, not API endpoints.</li>
+          <li>GL write is visibly present but <b>off</b> — scope guard made visual, matching the proposal.</li>
+          <li>Two layers of safety: the scope here, and the per-run approval gate later.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- FRAME 04 -->
+  <article class="frame" id="f04">
+    <div class="frame-head"><span class="fn">04</span><h3>Invite the team — roles decide who approves</h3>
+      <div class="tags"><span class="tag happy">Happy path</span><span class="tag">Roles</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">construgypsum.cascade.app/users</div></div>
+        <div class="app">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Cascade<small>Enterprise</small></b></div>
+            <a class="nav-item"><svg class="ico"><use href="#i-dash"/></svg>Get started</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Ask Cascade</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-runs"/></svg>Runs</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-reps"/></svg>Field Reps</a>
+            <div class="ng">Admin</div>
+            <a class="nav-item"><svg class="ico"><use href="#i-conn"/></svg>Connectors</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-know"/></svg>Knowledge</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-listen"/></svg>Listeners</a>
+            <a class="nav-item active"><svg class="ico"><use href="#i-users"/></svg>Users &amp; Roles</a>
+            <div class="navfoot"><div class="avatar">DR</div><div class="who"><b>David R.</b><span>Administrator</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Users &amp; Roles</h4><span class="env"><i></i>Connected</span>
+              <div class="right"><span class="btn g sm"><svg class="ico" style="width:13px;height:13px"><use href="#i-plus"/></svg>Invite</span></div></div>
+            <div class="content" style="padding:0">
+              <table class="tb">
+                <thead><tr><th>Person</th><th>Role</th><th>Can approve</th><th>Sees</th><th>Status</th></tr></thead>
+                <tbody>
+                  <tr><td><b>Francisco</b><br><span class="subtle">owner</span></td><td class="m">Executive</td><td>Everything</td><td>All reports &amp; reps</td><td><span class="pill ok">Active</span></td></tr>
+                  <tr><td><b>Panchito</b><br><span class="subtle">inventory</span></td><td class="m">Operator</td><td>Inventory runs only</td><td>Buffer &amp; stock</td><td><span class="pill warn">Invited</span></td></tr>
+                  <tr><td><b>David R.</b><br><span class="subtle">Cascade</span></td><td class="m">Administrator</td><td>Everything</td><td>All + connectors</td><td><span class="pill ok">Active</span></td></tr>
+                  <tr><td><b>Sales manager</b><br><span class="subtle">unassigned</span></td><td class="m">Manager</td><td>Field &amp; CRM runs</td><td>Reps &amp; pipeline</td><td><span class="pill muted">Not invited</span></td></tr>
+                  <tr><td><b>Field reps ×9</b><br><span class="subtle">Luis, Karina, Diego…</span></td><td class="m">No login</td><td>—</td><td>WhatsApp only</td><td><span class="pill info">Via WhatsApp</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>Roles are not decoration — they decide <b>who can approve what</b>, which is the whole safety model.</p>
+        <ul>
+          <li>Panchito is an <b>Operator</b>: he approves inventory runs, and sees nothing else. That is Storyboard 03.</li>
+          <li>The <b>field reps have no login at all</b> — they meet the agent through WhatsApp. Worth naming explicitly on this screen so nobody buys seats for them.</li>
+          <li>A role can exist before a person fills it (Sales manager, unassigned).</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- FRAME 05 -->
+  <article class="frame" id="f05">
+    <div class="frame-head"><span class="fn">05</span><h3>Arm the listeners — suggested, not blank</h3>
+      <div class="tags"><span class="tag happy">Happy path</span><span class="tag">Smart defaults</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">construgypsum.cascade.app/listeners/suggested</div></div>
+        <div class="app">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Cascade<small>Enterprise</small></b></div>
+            <a class="nav-item"><svg class="ico"><use href="#i-dash"/></svg>Get started</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Ask Cascade</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-runs"/></svg>Runs</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-reps"/></svg>Field Reps</a>
+            <div class="ng">Admin</div>
+            <a class="nav-item"><svg class="ico"><use href="#i-conn"/></svg>Connectors</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-know"/></svg>Knowledge</a>
+            <a class="nav-item active"><svg class="ico"><use href="#i-listen"/></svg>Listeners</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-users"/></svg>Users &amp; Roles</a>
+            <div class="navfoot"><div class="avatar">DR</div><div class="who"><b>David R.</b><span>Administrator</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Suggested listeners</h4><span class="env"><i></i>Connected</span>
+              <div class="right"><span class="subtle">Step 3 of 4</span></div></div>
+            <div class="content">
+              <p class="subtle" style="margin:0 0 13px">Based on <b style="color:var(--text-strong)">Odoo</b> + <b style="color:var(--text-strong)">WhatsApp</b>, these are the four we'd start with. Turn any off — you can add your own later.</p>
+              <div class="scope"><span class="sw"></span><div class="st"><b>Stock below buffer → alert Panchito</b><span>the quick win · 13-month velocity vs Chayabamba stock</span></div><span class="pill ok">Recommended</span></div>
+              <div class="scope"><span class="sw"></span><div class="st"><b>After a scheduled visit → message the rep</b><span>how it went, which lines were offered, quotes &amp; closes</span></div><span class="pill ok">Recommended</span></div>
+              <div class="scope"><span class="sw"></span><div class="st"><b>Daily 12:30 &amp; 16:30 → compile the field report</b><span>replaces the manual compilation into the group chat</span></div><span class="pill ok">Recommended</span></div>
+              <div class="scope"><span class="sw off"></span><div class="st"><b>New “Perdido” with no reason → ask for one</b><span>needs the Perdido stage first — add it during the v18 work</span></div><span class="pill muted">Not yet</span></div>
+              <div class="err-msg" style="margin-top:12px;background:var(--warn-bg);border-color:var(--gold);color:var(--gold)">
+                <svg class="ico" style="width:15px;height:15px;color:var(--gold)"><use href="#i-alert"/></svg>
+                <div><b>One listener can't be armed yet.</b> Your Odoo pipeline has no “Perdido” stage, so there is nothing to listen for. We've left it off and flagged it for the upgrade work.</div></div>
+              <div style="display:flex;gap:9px;margin-top:13px"><span class="btn p">Arm 3 listeners</span><span class="btn g">Skip for now</span></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>Never hand someone an empty rules engine. The app <b>proposes a starting set</b> based on what was just connected.</p>
+        <ul>
+          <li>Branch <b>05b</b> drawn inline: a listener that <b>cannot</b> be armed because the data doesn't exist yet, explained rather than hidden.</li>
+          <li>That flag becomes a real project task — it is the Perdido-stage work in the proposal.</li>
+          <li><b>Skip for now</b> always exists. Setup should never be a locked corridor.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- FRAME 06 -->
+  <article class="frame" id="f06">
+    <div class="frame-head"><span class="fn">06</span><h3>First run — the payoff</h3>
+      <div class="tags"><span class="tag gate">Approval gate</span><span class="tag happy">Setup complete</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">construgypsum.cascade.app/runs/first</div></div>
+        <div class="app">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Cascade<small>Enterprise</small></b></div>
+            <a class="nav-item"><svg class="ico"><use href="#i-dash"/></svg>Dashboard</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Ask Cascade</a>
+            <a class="nav-item active"><svg class="ico"><use href="#i-runs"/></svg>Runs<span class="badge">1</span></a>
+            <a class="nav-item"><svg class="ico"><use href="#i-reps"/></svg>Field Reps</a>
+            <div class="ng">Admin</div>
+            <a class="nav-item"><svg class="ico"><use href="#i-conn"/></svg>Connectors</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-know"/></svg>Knowledge</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-listen"/></svg>Listeners</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-users"/></svg>Users &amp; Roles</a>
+            <div class="navfoot"><div class="avatar">DR</div><div class="who"><b>David R.</b><span>Administrator</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>First run — inventory buffer check</h4><span class="pill warn">Needs review</span>
+              <div class="right"><span class="subtle mono">run:buffer:0001</span></div></div>
+            <div class="content">
+              <div class="grid g4" style="margin-bottom:12px">
+                <div class="card stat"><div class="lbl">SKUs read</div><div class="v">1,284</div><div class="d">from Odoo</div></div>
+                <div class="card stat"><div class="lbl">Below buffer</div><div class="v">17</div><div class="d">need attention</div></div>
+                <div class="card stat"><div class="lbl">Dead stock</div><div class="v">63</div><div class="d">no sales, 13 mo</div></div>
+                <div class="card stat flag"><div class="lbl">Awaiting approval</div><div class="v">1</div><div class="d">this run</div></div>
+              </div>
+              <div class="card" style="margin-bottom:12px">
+                <h5>What the agent did <span class="r">first run · read-only</span></h5>
+                <p style="margin:0;font-size:12.5px">Read 1,284 SKUs from Odoo and compared 13-month sales velocity against Chayabamba stock. <b>Nothing was written.</b> It proposes sending Panchito a daily digest of the 17 items below buffer, starting tomorrow at 07:00.</p>
+              </div>
+              <div class="card" style="border-color:var(--gold)">
+                <h5 style="color:var(--gold)">Approve the daily digest to Panchito?</h5>
+                <p style="margin:0 0 12px;font-size:12px">This will send one WhatsApp message per weekday. You can change the time or stop it from Listeners at any point.</p>
+                <div style="display:flex;gap:9px;align-items:center">
+                  <span class="btn p"><svg class="ico" style="width:14px;height:14px;stroke:#fff"><use href="#i-check"/></svg>Approve &amp; start</span>
+                  <span class="btn crit">Not yet</span>
+                  <span class="subtle mono" style="margin-left:auto">setup 4 of 4 · signed by David R.</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>Setup ends with something <b>real</b> — not a "you're all set" screen. The first thing the admin sees the agent do is a read-only run they approve.</p>
+        <ul>
+          <li>"<b>Nothing was written</b>" is the sentence that earns trust on day one.</li>
+          <li>The nav has quietly switched from <b>Get started</b> to <b>Dashboard</b> — onboarding dissolves into the product.</li>
+          <li>This run hands off directly to <b>Storyboard 03</b>, where Panchito receives that digest.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <div class="closing">
+    <h2>What this board settles</h2>
+    <p>Storyboard 01 assumed a working system. This one shows the twenty minutes that decide whether the client ever gets there. Three things fall out of it that the build needs: <b>writes are off until someone turns them on</b>, <b>roles decide who can approve</b>, and <b>the field reps never log in</b> — they meet the agent through WhatsApp, which is exactly where Storyboard 03 picks up.</p>
+    <div class="cols">
+      <div><h4>Components this adds</h4>
+        <ul><li>Empty state + setup checklist</li><li>Connector form with test-before-save</li><li>Diagnostic trace on failure</li><li>Scope/permission toggle row</li><li>Role table</li></ul></div>
+      <div><h4>Open questions for John</h4>
+        <ul><li>Do we run setup for the client, or hand them this flow?</li><li>Should scopes be per-role as well as per-connector?</li><li>Is the first run always read-only? I've assumed yes.</li></ul></div>
+    </div>
+  </div>
+
+  <div class="footer">Cascade Clarity · Enterprise Agent · Storyboard 02 · Admin onboarding · v0.1 · built on Brand System Vol. 2</div>
+</div>
+
+<script>
+function setTheme(t){
+  document.documentElement.dataset.theme=t;
+  document.getElementById('tDark').classList.toggle('on',t==='dark');
+  document.getElementById('tLight').classList.toggle('on',t==='light');
+}
+</script>
+</body>
+</html>

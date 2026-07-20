@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cascade Agents · Global Decision Architecture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --grad-main:linear-gradient(135deg,#625FED 0%,#5DB9DB 100%);
+  --grad-hero:linear-gradient(110deg,#5BF7CF 0%,#5DB9DB 50%,#625FED 100%);
+  --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;--r:12px;
+}
+:root,[data-theme="dark"]{
+  --bg-grad:radial-gradient(1200px 600px at 15% -5%,rgba(98,95,237,.16),transparent 60%),radial-gradient(1000px 500px at 100% 0,rgba(93,185,219,.12),transparent 55%),#0B223A;
+  --surface:#0F3259;--surface-2:#0C2846;--inset:#081A2E;
+  --border:rgba(143,163,177,.16);--border-2:rgba(143,163,177,.34);
+  --text:rgba(255,255,255,.85);--text-strong:#fff;--muted:#8FA3B1;
+  --accent:#5BF7CF;--link:#5DB9DB;--gold:#F5B455;--purple:#625FED;
+  --critical:#FF6B7A;--ok:#5BF7CF;--info:#5DB9DB;
+  --critical-bg:rgba(255,107,122,.14);--warn-bg:rgba(245,180,85,.14);--ok-bg:rgba(91,247,207,.13);--info-bg:rgba(93,185,219,.13);
+  --note-bg:rgba(8,26,46,.55);--diagram-bg:rgba(8,26,46,.5);
+}
+[data-theme="light"]{
+  --bg-grad:radial-gradient(1200px 600px at 12% -8%,rgba(98,95,237,.10),transparent 60%),radial-gradient(1000px 500px at 100% 0,rgba(93,185,219,.10),transparent 55%),#EAF0F6;
+  --surface:#fff;--surface-2:#F5F8FB;--inset:#F0F4F8;
+  --border:rgba(11,34,58,.12);--border-2:rgba(11,34,58,.24);
+  --text:rgba(11,34,58,.86);--text-strong:#0B223A;--muted:#5C6B7A;
+  --accent:#0F8F79;--link:#2C6FB0;--gold:#B8791E;--purple:#5049C9;
+  --critical:#C24338;--ok:#0F8F79;--info:#2C6FB0;
+  --critical-bg:rgba(194,67,56,.10);--warn-bg:rgba(184,121,30,.13);--ok-bg:rgba(15,143,121,.10);--info-bg:rgba(44,111,176,.10);
+  --note-bg:rgba(255,255,255,.7);--diagram-bg:rgba(255,255,255,.75);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg-grad);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{color:var(--text-strong);margin:0;line-height:1.15;font-weight:700;letter-spacing:-.01em}
+.mono{font-family:var(--mono)}
+.eyebrow{font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+svg.mark{width:26px;height:26px;display:block}
+.board{max-width:1200px;margin:0 auto;padding:38px 26px 90px}
+.cover{display:flex;flex-wrap:wrap;gap:26px;align-items:flex-end;justify-content:space-between;padding-bottom:26px;border-bottom:1px solid var(--border);margin-bottom:28px}
+.brandline{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.brandline .wm{font-weight:600;font-size:15px;color:var(--text-strong);line-height:1.05}
+.brandline .wm small{display:block;font-weight:500;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.cover h1{font-size:37px;letter-spacing:-.025em}
+.cover .grad{background:var(--grad-hero);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cover .sub{margin-top:10px;font-size:15.5px;max-width:640px}
+.metabox{border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r);padding:16px 18px;min-width:230px}
+.metabox div{display:flex;justify-content:space-between;gap:18px;font-size:12.5px;padding:3px 0}
+.metabox div span:first-child{color:var(--muted)}
+.metabox div span:last-child{color:var(--text-strong);font-weight:500}
+.toggle{position:fixed;top:18px;right:20px;z-index:50;display:flex;gap:4px;padding:4px;border:1px solid var(--border-2);border-radius:999px;background:var(--surface)}
+.toggle button{border:0;background:transparent;color:var(--muted);font-family:var(--font);font-size:12px;font-weight:600;padding:5px 13px;border-radius:999px;cursor:pointer}
+.toggle button.on{background:var(--grad-main);color:#fff}
+.lead{max-width:860px;margin:0 0 26px;font-size:15.5px}
+.lead b{color:var(--text-strong)}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-bottom:22px}
+.lg{border:1px solid var(--border);background:var(--note-bg);border-radius:9px;padding:11px 13px;font-size:12px}
+.lg .k{display:flex;align-items:center;gap:9px;font-weight:600;color:var(--text-strong);margin-bottom:3px;font-size:12.5px}
+.sw{width:26px;height:15px;flex:none;border-radius:3px;border:1.5px solid var(--border-2);background:var(--surface)}
+.sw.dia{transform:rotate(45deg);width:14px;height:14px;border-radius:2px;margin:0 6px}
+.sw.term{border-color:var(--ok);background:var(--ok-bg)}
+.sw.gate{border-color:var(--gold);background:var(--warn-bg)}
+.sw.stop{border-color:var(--critical);background:var(--critical-bg)}
+.diagramwrap{border:1px solid var(--border);background:var(--diagram-bg);border-radius:var(--r);padding:20px 10px;overflow-x:auto}
+svg.flow{display:block;margin:0 auto;min-width:940px;width:100%;max-width:1060px;height:auto}
+/* SVG element styling, themed */
+.flow .box{fill:var(--surface);stroke:var(--border-2);stroke-width:1.2}
+.flow .box.layer{fill:var(--inset);stroke:var(--border-2)}
+.flow .box.gate{fill:var(--warn-bg);stroke:var(--gold);stroke-width:1.6}
+.flow .box.term{fill:var(--ok-bg);stroke:var(--ok);stroke-width:1.6}
+.flow .box.stop{fill:var(--critical-bg);stroke:var(--critical);stroke-width:1.4}
+.flow .box.exec{fill:var(--info-bg);stroke:var(--info);stroke-width:1.4}
+.flow .dia{fill:var(--surface-2);stroke:var(--purple);stroke-width:1.6}
+.flow .t{fill:var(--text-strong);font-family:var(--font);font-size:12.5px;font-weight:600;text-anchor:middle}
+.flow .t.sm{font-size:10.5px;font-weight:500;fill:var(--muted)}
+.flow .t.dq{font-size:12px;font-weight:600;fill:var(--text-strong)}
+.flow .t.ref{font-family:var(--mono);font-size:8.5px;fill:var(--muted);font-weight:500}
+.flow .t.stopt{fill:var(--critical)}
+.flow .t.termt{fill:var(--ok)}
+.flow .t.gatet{fill:var(--gold)}
+.flow .ln{stroke:var(--border-2);stroke-width:1.6;fill:none}
+.flow .ln.yes{stroke:var(--ok)}
+.flow .ln.no{stroke:var(--critical);stroke-dasharray:5 4}
+.flow .ln.loop{stroke:var(--purple);stroke-dasharray:4 5}
+.flow .lbl{font-family:var(--mono);font-size:10px;font-weight:600;text-anchor:middle}
+.flow .lbl.yes{fill:var(--ok)}
+.flow .lbl.no{fill:var(--critical)}
+.flow .lbl.loop{fill:var(--purple)}
+.flow .ah{fill:var(--border-2)}
+.flow .ah.yes{fill:var(--ok)}
+.flow .ah.no{fill:var(--critical)}
+.flow .ah.loop{fill:var(--purple)}
+.claims{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:30px}
+.claim{border:1px solid var(--border);background:var(--note-bg);border-radius:10px;padding:15px 16px}
+.claim h4{font-size:13px;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.claim p{margin:0;font-size:12.5px}
+.claim .n{font-family:var(--mono);font-size:11px;color:var(--accent)}
+.closing{margin-top:44px;border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r);padding:22px 24px}
+.closing h2{font-size:19px;margin-bottom:10px}
+.closing p{max-width:860px;font-size:14px}
+.closing ul{margin:10px 0 0;padding-left:18px;font-size:13.5px}
+.closing li{margin-bottom:6px}
+.closing b{color:var(--text-strong)}
+.footer{margin-top:34px;text-align:center;color:var(--muted);font-size:11.5px;font-family:var(--mono)}
+@media(max-width:880px){.cover h1{font-size:28px}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ccmark" viewBox="-0.7 -0.3 49.4 49.5">
+    <defs><linearGradient id="ccg" x1="0" y1="-0.3" x2="0" y2="49.2" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#625FED"/><stop offset=".62" stop-color="#5DB9DB"/><stop offset="1" stop-color="#5BF7CF"/></linearGradient></defs>
+    <path fill="url(#ccg)" d="M2.06789 18.0362c-2.75719-1.7103-2.75719-5.3619 0-7.0722l19.19821-10.19893c1.6445-1.02009 3.8231-1.02009 5.4677-0.00007l19.1982 10.199c2.6709 1.6568 2.7547 5.1352 0.2509 6.9059l-0.2509 0.1663-19.1982 10.199c-1.5932 0.9882-3.6874 1.0186-5.3119 0.0921l-0.1558-0.0921-19.19821-10.199z m2.27852-4.1256c-0.45954 0.285-0.45954 0.894 0 1.1791l19.19809 10.1989c0.274 0.1698 0.6368 0.1698 0.9108 0l19.1982-10.1989c0.4595-0.2851 0.4595-0.8941 0-1.1791l-19.1982-10.19895c-0.274-0.16981-0.6368-0.16981-0.9108 0l-19.19809 10.19895z"/>
+    <path fill="url(#ccg)" d="M42.874 22.1494c0.3206-0.5537 1.1641-0.8331 1.8926-0.5185 1.7915 0.7738 2.6814 2.2245 2.7314 3.6572 0.05 1.4315-0.7352 2.9218-2.4648 3.7851l-17.5098 8.7383c-1.8336 0.9151-4.1001 0.9177-5.9365 0.0069l-18.81542-9.3321c-1.61862-0.8029-2.33402-2.1958-2.26757-3.5215 0.06669-1.3274 0.92218-2.6678 2.62207-3.3496 0.74139-0.2971 1.5717 0.0055 1.87109 0.5625 0.27157 0.5057 0.05504 1.1693-0.66016 1.4561-0.65157 0.2615-1.04373 0.814-1.07421 1.4219-0.03043 0.6098 0.30751 1.1972 0.9375 1.5097l18.8144 9.3321h0.001c0.9545 0.4732 2.1206 0.4715 3.0733-0.0039l17.5088-8.7383c0.7601-0.3794 1.1649-1.079 1.1396-1.8037-0.0253-0.7235-0.4765-1.3955-1.2568-1.7325-0.6999-0.3024-0.8964-0.968-0.6065-1.4697z"/>
+    <path fill="url(#ccg)" transform="translate(0,10.04)" d="M42.874 22.1494c0.3206-0.5537 1.1641-0.8331 1.8926-0.5185 1.7915 0.7738 2.6814 2.2245 2.7314 3.6572 0.05 1.4315-0.7352 2.9218-2.4648 3.7851l-17.5098 8.7383c-1.8336 0.9151-4.1001 0.9177-5.9365 0.0069l-18.81542-9.3321c-1.61862-0.8029-2.33402-2.1958-2.26757-3.5215 0.06669-1.3274 0.92218-2.6678 2.62207-3.3496 0.74139-0.2971 1.5717 0.0055 1.87109 0.5625 0.27157 0.5057 0.05504 1.1693-0.66016 1.4561-0.65157 0.2615-1.04373 0.814-1.07421 1.4219-0.03043 0.6098 0.30751 1.1972 0.9375 1.5097l18.8144 9.3321h0.001c0.9545 0.4732 2.1206 0.4715 3.0733-0.0039l17.5088-8.7383c0.7601-0.3794 1.1649-1.079 1.1396-1.8037-0.0253-0.7235-0.4765-1.3955-1.2568-1.7325-0.6999-0.3024-0.8964-0.968-0.6065-1.4697z"/>
+  </symbol>
+</svg>
+
+<div class="toggle">
+  <button id="tDark" class="on" onclick="setTheme('dark')">Dark</button>
+  <button id="tLight" onclick="setTheme('light')">Light</button>
+</div>
+
+<div class="board">
+
+  <header class="cover">
+    <div>
+      <div class="brandline">
+        <svg class="mark" style="width:30px;height:30px"><use href="#ccmark"/></svg>
+        <div class="wm">Cascade Clarity<small>Enterprise AI Integrators</small></div>
+      </div>
+      <h1>Cascade Agents<br><span class="grad">Global decision architecture</span></h1>
+      <p class="sub">One page, the whole system. Everything a request passes through from a connected system to a real-world action — and every gate where the answer can be <b>no</b>.</p>
+    </div>
+    <div class="metabox">
+      <div><span>Prepared by</span><span>David De los Reyes</span></div>
+      <div><span>For</span><span>John Cuellar</span></div>
+      <div><span>Date</span><span>Jul 17, 2026</span></div>
+      <div><span>Scope</span><span>Platform-wide</span></div>
+      <div><span>Applies to</span><span>All tenants</span></div>
+      <div><span>Version</span><span class="mono">v1.0 · draft</span></div>
+    </div>
+  </header>
+
+  <p class="lead">The storyboards show what each user sees. This shows <b>what the system does underneath all of them.</b> Read it top to bottom: data comes in through the connector layer, the agent reads and reasons, and then it hits a series of gates. Every diamond is a decision with exactly two exits. <b>Follow the green line and you reach a real action; every red line stops somewhere safe and says why.</b> The tag on each gate points at the storyboard frame that draws it.</p>
+
+  <div class="legend">
+    <div class="lg"><div class="k"><span class="sw"></span>Process</div>Something the system does automatically.</div>
+    <div class="lg"><div class="k"><span class="sw dia"></span>Decision</div>A gate. Two exits only — yes or no.</div>
+    <div class="lg"><div class="k"><span class="sw gate"></span>Human gate</div>A person must actively approve.</div>
+    <div class="lg"><div class="k"><span class="sw term"></span>Completed</div>An end state that did something.</div>
+    <div class="lg"><div class="k"><span class="sw stop"></span>Stopped</div>An end state that safely did nothing.</div>
+  </div>
+
+  <div class="diagramwrap">
+  <svg class="flow" viewBox="0 0 1040 1800" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cascade Agents decision flow">
+
+    <!-- ============ MAIN COLUMN ============ -->
+
+    <!-- 1 · Sources -->
+    <rect class="box layer" x="150" y="24" width="460" height="58" rx="10"/>
+    <text class="t" x="380" y="48">Your systems</text>
+    <text class="t sm" x="380" y="66">Odoo · WhatsApp · Google Drive · GitHub · PowerBI</text>
+    <path class="ln" d="M380 82 L380 108"/>
+    <polygon class="ah" points="380,116 375,106 385,106"/>
+
+    <!-- 2 · MCP layer -->
+    <rect class="box layer" x="150" y="116" width="460" height="54" rx="10"/>
+    <text class="t" x="380" y="139">MCP connector layer</text>
+    <text class="t sm" x="380" y="157">one protocol in and out · new system = new connector</text>
+    <path class="ln" d="M380 170 L380 190"/>
+    <polygon class="ah" points="380,198 375,188 385,188"/>
+
+    <!-- D1 · connector healthy -->
+    <polygon class="dia" points="380,198 505,248 380,298 255,248"/>
+    <text class="t dq" x="380" y="245">Connector</text>
+    <text class="t dq" x="380" y="260">healthy?</text>
+    <text class="t ref" x="380" y="290">SB01·03 / SB02·02b</text>
+    <!-- NO -->
+    <path class="ln no" d="M505 248 L692 248"/>
+    <polygon class="ah no" points="700,248 690,243 690,253"/>
+    <text class="lbl no" x="598" y="240">NO</text>
+    <!-- YES -->
+    <path class="ln yes" d="M380 298 L380 322"/>
+    <polygon class="ah yes" points="380,330 375,320 385,320"/>
+    <text class="lbl yes" x="400" y="316">YES</text>
+
+    <!-- 3 · Ingest -->
+    <rect class="box" x="240" y="330" width="280" height="54" rx="10"/>
+    <text class="t" x="380" y="353">Ingest &amp; read</text>
+    <text class="t sm" x="380" y="371">data + this customer's knowledge model</text>
+    <path class="ln" d="M380 384 L380 404"/>
+    <polygon class="ah" points="380,412 375,402 385,402"/>
+
+    <!-- D2 · in scope -->
+    <polygon class="dia" points="380,412 505,462 380,512 255,462"/>
+    <text class="t dq" x="380" y="459">Inside the</text>
+    <text class="t dq" x="380" y="474">granted scope?</text>
+    <text class="t ref" x="380" y="504">SB02·03</text>
+    <path class="ln no" d="M505 462 L692 462"/>
+    <polygon class="ah no" points="700,462 690,457 690,467"/>
+    <text class="lbl no" x="598" y="454">NO</text>
+    <path class="ln yes" d="M380 512 L380 536"/>
+    <polygon class="ah yes" points="380,544 375,534 385,534"/>
+    <text class="lbl yes" x="400" y="530">YES</text>
+
+    <!-- 4 · Correlate -->
+    <rect class="box" x="240" y="544" width="280" height="54" rx="10"/>
+    <text class="t" x="380" y="567">Correlate &amp; reason</text>
+    <text class="t sm" x="380" y="585">the agent forms a proposal</text>
+    <path class="ln" d="M380 598 L380 618"/>
+    <polygon class="ah" points="380,626 375,616 385,616"/>
+
+    <!-- D3 · writes outside -->
+    <polygon class="dia" points="380,626 505,676 380,726 255,676"/>
+    <text class="t dq" x="380" y="673">Writes to an</text>
+    <text class="t dq" x="380" y="688">outside system?</text>
+    <text class="t ref" x="380" y="718">SB01·04</text>
+    <!-- NO -> deliver (terminal, this NO is a good outcome) -->
+    <path class="ln" style="stroke:var(--ok)" d="M505 676 L692 676"/>
+    <polygon class="ah yes" points="700,676 690,671 690,681"/>
+    <text class="lbl" style="fill:var(--ok)" x="598" y="668">NO</text>
+    <path class="ln yes" d="M380 726 L380 750"/>
+    <polygon class="ah yes" points="380,758 375,748 385,748"/>
+    <text class="lbl yes" x="400" y="744">YES</text>
+
+    <!-- D4 · role -->
+    <polygon class="dia" points="380,758 505,808 380,858 255,808"/>
+    <text class="t dq" x="380" y="805">Approver has</text>
+    <text class="t dq" x="380" y="820">the right role?</text>
+    <text class="t ref" x="380" y="850">SB02·04</text>
+    <path class="ln no" d="M505 808 L692 808"/>
+    <polygon class="ah no" points="700,808 690,803 690,813"/>
+    <text class="lbl no" x="598" y="800">NO</text>
+    <path class="ln yes" d="M380 858 L380 882"/>
+    <polygon class="ah yes" points="380,890 375,880 385,880"/>
+    <text class="lbl yes" x="400" y="876">YES</text>
+
+    <!-- D5 · limit -->
+    <polygon class="dia" points="380,890 505,940 380,990 255,940"/>
+    <text class="t dq" x="380" y="937">Within their</text>
+    <text class="t dq" x="380" y="952">approval limit?</text>
+    <text class="t ref" x="380" y="982">SB03·05b</text>
+    <path class="ln no" d="M505 940 L692 940"/>
+    <polygon class="ah no" points="700,940 690,935 690,945"/>
+    <text class="lbl no" x="598" y="932">NO</text>
+    <path class="ln yes" d="M380 990 L380 1014"/>
+    <polygon class="ah yes" points="380,1022 375,1012 385,1012"/>
+    <text class="lbl yes" x="400" y="1008">YES</text>
+
+    <!-- 5 · Approval gate -->
+    <rect class="box gate" x="240" y="1022" width="280" height="60" rx="10"/>
+    <text class="t gatet" x="380" y="1046">Human approval gate</text>
+    <text class="t sm" x="380" y="1064">expected vs actual · consequences stated first</text>
+    <path class="ln" d="M380 1082 L380 1104"/>
+    <polygon class="ah" points="380,1112 375,1102 385,1102"/>
+
+    <!-- D6 · approved -->
+    <polygon class="dia" points="380,1112 505,1162 380,1212 255,1162"/>
+    <text class="t dq" x="380" y="1167">Approved?</text>
+    <text class="t ref" x="380" y="1204">SB01·06</text>
+    <path class="ln no" d="M505 1162 L692 1162"/>
+    <polygon class="ah no" points="700,1162 690,1157 690,1167"/>
+    <text class="lbl no" x="598" y="1154">NO</text>
+    <path class="ln yes" d="M380 1212 L380 1236"/>
+    <polygon class="ah yes" points="380,1244 375,1234 385,1234"/>
+    <text class="lbl yes" x="400" y="1230">YES</text>
+
+    <!-- 6 · Execute -->
+    <rect class="box exec" x="240" y="1244" width="280" height="54" rx="10"/>
+    <text class="t" x="380" y="1267">Execute the write</text>
+    <text class="t sm" x="380" y="1285">through the connector · deterministic</text>
+    <path class="ln" d="M380 1298 L380 1318"/>
+    <polygon class="ah" points="380,1326 375,1316 385,1316"/>
+
+    <!-- D7 · success -->
+    <polygon class="dia" points="380,1326 505,1376 380,1426 255,1376"/>
+    <text class="t dq" x="380" y="1381">Write succeeded?</text>
+    <text class="t ref" x="380" y="1418">SB01·05</text>
+    <path class="ln no" d="M505 1376 L692 1376"/>
+    <polygon class="ah no" points="700,1376 690,1371 690,1381"/>
+    <text class="lbl no" x="598" y="1368">NO</text>
+    <path class="ln yes" d="M380 1426 L380 1450"/>
+    <polygon class="ah yes" points="380,1458 375,1448 385,1448"/>
+    <text class="lbl yes" x="400" y="1444">YES</text>
+
+    <!-- 7 · Applied terminal -->
+    <rect class="box term" x="240" y="1458" width="280" height="56" rx="10"/>
+    <text class="t termt" x="380" y="1482">Applied</text>
+    <text class="t sm" x="380" y="1500">logged · signed · reversible from the run</text>
+    <path class="ln" d="M380 1514 L380 1538"/>
+    <polygon class="ah" points="380,1546 375,1536 385,1536"/>
+
+    <!-- 8 · Weekly accuracy -->
+    <rect class="box" x="240" y="1546" width="280" height="54" rx="10"/>
+    <text class="t" x="380" y="1569">Weekly accuracy check</text>
+    <text class="t sm" x="380" y="1587">the human corrects what the agent got wrong</text>
+    <path class="ln" d="M380 1600 L380 1622"/>
+    <polygon class="ah" points="380,1630 375,1620 385,1620"/>
+
+    <!-- 9 · Knowledge model -->
+    <rect class="box" x="240" y="1630" width="280" height="56" rx="10" style="stroke:var(--purple);stroke-width:1.6"/>
+    <text class="t" x="380" y="1654">Knowledge model</text>
+    <text class="t sm" x="380" y="1672">per customer · versioned · human-approved</text>
+
+    <!-- feedback loop: knowledge model -> ingest -->
+    <path class="ln loop" d="M240 1658 L96 1658 L96 357 L232 357"/>
+    <polygon class="ah loop" points="240,357 230,352 230,362"/>
+    <text class="lbl loop" x="96" y="1000" transform="rotate(-90 96 1000)">LEARNS · FEEDS EVERY FUTURE RUN</text>
+
+    <!-- ============ RIGHT COLUMN · NO OUTCOMES ============ -->
+
+    <rect class="box stop" x="700" y="220" width="260" height="56" rx="10"/>
+    <text class="t stopt" x="830" y="244">Run paused</text>
+    <text class="t sm" x="830" y="262">admin alerted · nothing partial is written</text>
+
+    <rect class="box stop" x="700" y="434" width="260" height="56" rx="10"/>
+    <text class="t stopt" x="830" y="458">Blocked — out of scope</text>
+    <text class="t sm" x="830" y="476">logged · an admin must grant it first</text>
+
+    <rect class="box term" x="700" y="648" width="260" height="56" rx="10"/>
+    <text class="t termt" x="830" y="672">Delivered</text>
+    <text class="t sm" x="830" y="690">read-only answer or report · no approval needed</text>
+
+    <rect class="box stop" x="700" y="780" width="260" height="56" rx="10"/>
+    <text class="t stopt" x="830" y="804">Escalated to an admin</text>
+    <text class="t sm" x="830" y="822">nobody with that role is assigned</text>
+
+    <rect class="box stop" x="700" y="912" width="260" height="56" rx="10"/>
+    <text class="t stopt" x="830" y="936">Escalated upward</text>
+    <text class="t sm" x="830" y="954">over the limit · held, not lost</text>
+
+    <rect class="box stop" x="700" y="1134" width="260" height="56" rx="10"/>
+    <text class="t stopt" x="830" y="1158">Not applied</text>
+    <text class="t sm" x="830" y="1176">rejected with a reason · reason captured</text>
+
+    <rect class="box stop" x="700" y="1348" width="260" height="56" rx="10"/>
+    <text class="t stopt" x="830" y="1372">Rolled back</text>
+    <text class="t sm" x="830" y="1390">alerted · system left as it was</text>
+
+    <!-- rejected reason feeds the knowledge model -->
+    <path class="ln loop" d="M960 1190 L992 1190 L992 1740 L380 1740 L380 1694"/>
+    <polygon class="ah loop" points="380,1686 375,1696 385,1696"/>
+    <text class="lbl loop" x="690" y="1732">REJECTION REASON TEACHES THE AGENT</text>
+
+  </svg>
+  </div>
+
+  <div class="claims">
+    <div class="claim"><h4><span class="n">01</span>No path skips the human</h4>
+      <p>Trace every green line. There is <b>no route</b> from a connected system to a write that does not pass the approval gate. That is the safety claim, and the diagram is the proof.</p></div>
+    <div class="claim"><h4><span class="n">02</span>Every "no" lands somewhere</h4>
+      <p>Seven gates, seven red exits — and not one of them is a dead end. Each stops safely, says why, and names who can unblock it.</p></div>
+    <div class="claim"><h4><span class="n">03</span>Reading is cheap, writing is expensive</h4>
+      <p>The "writes to an outside system?" gate is the fork that matters. Answer no and you get an instant answer. Answer yes and you inherit four more gates.</p></div>
+    <div class="claim"><h4><span class="n">04</span>Being told no is how it learns</h4>
+      <p>Both purple loops end at the knowledge model. A rejection is not a failure — it is the input that makes the next run better, and it is what we actually sell.</p></div>
+  </div>
+
+  <div class="closing">
+    <h2>How to use this with a client</h2>
+    <p>This is the one page to put in front of a buyer who asks "what stops it doing something stupid?" It answers in their language without a word of architecture jargon:</p>
+    <ul>
+      <li><b>Point at the gates.</b> Seven of them, each with a person or a rule behind it.</li>
+      <li><b>Point at the green line.</b> It never reaches the bottom without a human saying yes.</li>
+      <li><b>Point at the purple loops.</b> That's the part that compounds — the system gets more useful the longer they own it.</li>
+      <li><b>Point at "Blocked — out of scope."</b> That's the answer to "could it touch the general ledger?" No, not unless you turn it on.</li>
+    </ul>
+  </div>
+
+  <div class="footer">Cascade Clarity · Cascade Agents · Global decision architecture · v1.0 · built on Brand System Vol. 2</div>
+</div>
+
+<script>
+function setTheme(t){
+  document.documentElement.dataset.theme=t;
+  document.getElementById('tDark').classList.toggle('on',t==='dark');
+  document.getElementById('tLight').classList.toggle('on',t==='light');
+}
+</script>
+</body>
+</html>

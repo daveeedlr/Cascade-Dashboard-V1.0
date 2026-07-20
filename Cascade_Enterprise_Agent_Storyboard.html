@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cascade Enterprise Agent · Admin Storyboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================================
+   Cascade Enterprise Agent · Admin Storyboard
+   Built on Cascade Clarity Brand System Vol. 2 tokens (see 09 Demo App cascade.css)
+   Storyboard of the admin user's route through the agent, Construgypsum tenant.
+   ========================================================================== */
+
+/* 1 · BRAND TOKENS ---------------------------------------------------------- */
+:root{
+  --cc-navy:#0B223A; --cc-purple:#625FED; --cc-sky:#5DB9DB; --cc-mint:#5BF7CF;
+  --cc-deep-purple:#5B49BA; --cc-white:#fff; --cc-cloud:#F0F4F8; --cc-slate:#8FA3B1;
+  --cc-navy-light:#0F3259; --cc-navy-mid:#002A48; --cc-navy-deep:#081A2E;
+  --grad-main:linear-gradient(135deg,#625FED 0%,#5DB9DB 100%);
+  --grad-hero:linear-gradient(110deg,#5BF7CF 0%,#5DB9DB 50%,#625FED 100%);
+  --grad-aurora:linear-gradient(135deg,#5BF7CF 0%,#5B49BA 100%);
+  --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  --r:12px; --r-sm:8px;
+}
+/* 2 · SURFACE TOKENS · two skins ------------------------------------------- */
+:root,[data-theme="dark"]{
+  --bg:#0B223A; --bg-grad:radial-gradient(1200px 600px at 15% -5%,rgba(98,95,237,.16),transparent 60%),radial-gradient(1000px 500px at 100% 0,rgba(93,185,219,.12),transparent 55%),#0B223A;
+  --surface:#0F3259; --surface-2:#0C2846; --inset:#081A2E; --topbar:rgba(8,26,46,.72);
+  --border:rgba(143,163,177,.16); --border-2:rgba(143,163,177,.30); --hover:rgba(255,255,255,.04);
+  --text:rgba(255,255,255,.85); --text-strong:#fff; --muted:#8FA3B1;
+  --accent:#5BF7CF; --link:#5DB9DB; --gold:#F5B455;
+  --critical:#FF6B7A; --warn:#F5B455; --ok:#5BF7CF; --info:#5DB9DB;
+  --critical-bg:rgba(255,107,122,.12); --warn-bg:rgba(245,180,85,.13); --ok-bg:rgba(91,247,207,.12); --info-bg:rgba(93,185,219,.12);
+  --note-bg:rgba(8,26,46,.55);
+}
+[data-theme="light"]{
+  --bg:#EAF0F6; --bg-grad:radial-gradient(1200px 600px at 12% -8%,rgba(98,95,237,.10),transparent 60%),radial-gradient(1000px 500px at 100% 0,rgba(93,185,219,.10),transparent 55%),#EAF0F6;
+  --surface:#fff; --surface-2:#F5F8FB; --inset:#F0F4F8; --topbar:rgba(255,255,255,.82);
+  --border:rgba(11,34,58,.12); --border-2:rgba(11,34,58,.20); --hover:rgba(11,34,58,.035);
+  --text:rgba(11,34,58,.86); --text-strong:#0B223A; --muted:#5C6B7A;
+  --accent:#0F8F79; --link:#2C6FB0; --gold:#B8791E;
+  --critical:#C24338; --warn:#B8791E; --ok:#0F8F79; --info:#2C6FB0;
+  --critical-bg:rgba(194,67,56,.10); --warn-bg:rgba(184,121,30,.12); --ok-bg:rgba(15,143,121,.10); --info-bg:rgba(44,111,176,.10);
+  --note-bg:rgba(255,255,255,.7);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg-grad);color:var(--text);font-family:var(--font);
+  font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4{color:var(--text-strong);margin:0;line-height:1.15;font-weight:700;letter-spacing:-.01em}
+.mono{font-family:var(--mono);font-variant-numeric:lining-nums tabular-nums}
+.eyebrow{font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+
+/* mark + icons */
+svg.mark{width:26px;height:26px;display:block}
+svg.ico{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+/* board shell */
+.board{max-width:1200px;margin:0 auto;padding:38px 26px 90px}
+
+/* cover */
+.cover{display:flex;flex-wrap:wrap;gap:26px;align-items:flex-end;justify-content:space-between;
+  padding-bottom:26px;border-bottom:1px solid var(--border);margin-bottom:30px}
+.brandline{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.brandline .wm{font-weight:600;font-size:15px;color:var(--text-strong);letter-spacing:-.01em;line-height:1.05}
+.brandline .wm small{display:block;font-weight:500;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.cover h1{font-size:37px;letter-spacing:-.025em}
+.cover .grad{background:var(--grad-hero);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cover .sub{margin-top:10px;font-size:15.5px;max-width:640px;color:var(--text)}
+.metabox{border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r);padding:16px 18px;min-width:230px}
+.metabox div{display:flex;justify-content:space-between;gap:18px;font-size:12.5px;padding:3px 0}
+.metabox div span:first-child{color:var(--muted)}
+.metabox div span:last-child{color:var(--text-strong);font-weight:500}
+
+/* theme toggle */
+.toggle{position:fixed;top:18px;right:20px;z-index:50;display:flex;gap:4px;padding:4px;border:1px solid var(--border-2);
+  border-radius:999px;background:var(--surface);backdrop-filter:blur(8px)}
+.toggle button{border:0;background:transparent;color:var(--muted);font-family:var(--font);font-size:12px;font-weight:600;
+  padding:5px 13px;border-radius:999px;cursor:pointer;letter-spacing:.02em}
+.toggle button.on{background:var(--grad-main);color:#fff}
+
+/* generic prose block */
+.lead{max-width:820px;margin:0 0 30px;color:var(--text);font-size:15.5px}
+.lead b{color:var(--text-strong)}
+
+/* section heading */
+.shead{display:flex;align-items:baseline;gap:14px;margin:46px 0 16px}
+.shead .n{font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:600}
+.shead h2{font-size:20px}
+.shead .h-sub{color:var(--muted);font-size:13px;margin-left:auto}
+
+/* legend + vocab */
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-bottom:14px}
+.lg{border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r-sm);padding:12px 14px;font-size:12.5px}
+.lg .k{display:flex;align-items:center;gap:8px;font-weight:600;color:var(--text-strong);margin-bottom:3px}
+.dot{width:10px;height:10px;border-radius:3px;flex:none}
+.vocab{display:flex;flex-wrap:wrap;gap:8px;align-items:center;border:1px dashed var(--border-2);border-radius:var(--r-sm);
+  padding:12px 14px;font-size:12.5px;color:var(--muted);background:var(--note-bg)}
+.vocab b{color:var(--text-strong)}
+.vc{display:inline-flex;align-items:center;gap:7px}
+.vc .p{font-family:var(--mono);font-size:11px;color:var(--accent)}
+.vsep{color:var(--border-2)}
+
+/* flow map */
+.flow{border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r);padding:20px 18px;overflow-x:auto}
+.flowrow{display:flex;align-items:center;gap:8px;min-width:max-content}
+.node{display:flex;align-items:center;gap:8px;padding:9px 13px;border-radius:999px;border:1px solid var(--border-2);
+  background:var(--surface);font-size:12.5px;font-weight:600;color:var(--text-strong);white-space:nowrap}
+.node .num{font-family:var(--mono);font-size:11px;color:var(--accent)}
+.node.start{background:var(--grad-main);color:#fff;border:0}
+.node.start .num{color:rgba(255,255,255,.8)}
+.arr{color:var(--muted);font-size:15px;flex:none}
+.flowrow.err{margin-top:12px}
+.node.errnode{border-color:var(--critical);color:var(--critical);background:var(--critical-bg)}
+.node.errnode .num{color:var(--critical)}
+.branchlbl{font-size:11px;color:var(--critical);font-weight:600;letter-spacing:.04em;display:inline-flex;align-items:center;gap:6px}
+
+/* ===== FRAME ============================================================== */
+.frame{margin-top:40px}
+.frame-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.frame-head .fn{font-family:var(--mono);font-size:12px;font-weight:600;color:#fff;background:var(--grad-main);
+  padding:4px 10px;border-radius:6px;letter-spacing:.02em}
+.frame-head h3{font-size:18px}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin-left:auto}
+.tag{font-size:10.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid var(--border-2);color:var(--muted)}
+.tag.happy{color:var(--ok);border-color:var(--ok);background:var(--ok-bg)}
+.tag.err{color:var(--critical);border-color:var(--critical);background:var(--critical-bg)}
+.tag.gate{color:var(--gold);border-color:var(--gold);background:var(--warn-bg)}
+
+.frame-body{display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start}
+.note{border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r);padding:16px 17px;position:sticky;top:20px}
+.note .eyebrow{margin-bottom:8px}
+.note p{margin:0 0 10px;font-size:13px;color:var(--text)}
+.note ul{margin:0;padding-left:16px;font-size:12.5px;color:var(--text)}
+.note li{margin-bottom:6px}
+.note li b{color:var(--text-strong)}
+
+/* ===== browser window mock ================================================ */
+.win{border:1px solid var(--border-2);border-radius:var(--r);overflow:hidden;background:var(--surface-2);
+  box-shadow:0 24px 60px -30px rgba(0,0,0,.55)}
+.win-bar{display:flex;align-items:center;gap:8px;padding:9px 13px;background:var(--inset);border-bottom:1px solid var(--border)}
+.win-bar .lights{display:flex;gap:6px}
+.win-bar .lights i{width:10px;height:10px;border-radius:50%;display:block}
+.win-bar .url{flex:1;text-align:center;font-family:var(--mono);font-size:11px;color:var(--muted);
+  background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:3px 10px;max-width:340px;margin:0 auto}
+
+/* app shell inside window */
+.app{display:grid;grid-template-columns:196px 1fr 236px;min-height:520px;background:var(--surface-2)}
+.app.no-panel{grid-template-columns:196px 1fr}
+/* left nav */
+.nav{background:var(--inset);border-right:1px solid var(--border);padding:14px 12px;display:flex;flex-direction:column;gap:3px}
+.nav .navbrand{display:flex;align-items:center;gap:9px;padding:4px 6px 14px;margin-bottom:6px;border-bottom:1px solid var(--border)}
+.nav .navbrand b{font-size:13px;color:var(--text-strong);font-weight:600;line-height:1.05}
+.nav .navbrand b small{display:block;font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.nav .ng{font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding:12px 8px 5px}
+.nav-item{display:flex;align-items:center;gap:9px;padding:7px 9px;border-radius:8px;font-size:12.5px;font-weight:500;color:var(--text);cursor:default}
+.nav-item .ico{width:16px;height:16px;color:var(--muted)}
+.nav-item:hover{background:var(--hover)}
+.nav-item.active{background:rgba(98,95,237,.18);color:var(--text-strong);font-weight:600}
+.nav-item.active .ico{color:var(--accent)}
+.nav-item .badge{margin-left:auto;font-family:var(--mono);font-size:10px;font-weight:600;color:var(--navy);background:var(--gold);
+  border-radius:999px;padding:1px 6px}
+.navfoot{margin-top:auto;display:flex;align-items:center;gap:9px;padding:9px 6px 2px;border-top:1px solid var(--border)}
+.avatar{width:26px;height:26px;border-radius:50%;background:var(--grad-main);color:#fff;font-size:11px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;flex:none}
+.navfoot .who{font-size:11.5px;line-height:1.1}.navfoot .who b{color:var(--text-strong);font-size:12px;display:block}
+.navfoot .who span{color:var(--muted);font-size:10.5px}
+
+/* main column */
+.appmain{display:flex;flex-direction:column;min-width:0}
+.topbar{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--border);background:var(--topbar)}
+.topbar h4{font-size:14.5px}
+.topbar .env{font-family:var(--mono);font-size:10.5px;color:var(--ok);border:1px solid var(--ok);background:var(--ok-bg);
+  border-radius:999px;padding:2px 9px;display:inline-flex;align-items:center;gap:6px}
+.env i{width:6px;height:6px;border-radius:50%;background:var(--ok);display:block}
+.topbar .right{margin-left:auto;display:flex;align-items:center;gap:12px;color:var(--muted)}
+.content{padding:18px;overflow:hidden;flex:1}
+.subtle{color:var(--muted);font-size:12px}
+
+/* chat bar */
+.chatbar{margin:0 18px 16px;display:flex;align-items:center;gap:10px;border:1px solid var(--border-2);border-radius:999px;
+  padding:9px 9px 9px 16px;background:var(--inset)}
+.chatbar span{color:var(--muted);font-size:12.5px;flex:1}
+.chatbar .send{width:30px;height:30px;border-radius:50%;background:var(--grad-main);display:flex;align-items:center;justify-content:center;color:#fff;flex:none}
+
+/* right knowledge panel */
+.panel{background:var(--inset);border-left:1px solid var(--border);padding:14px 13px}
+.panel .ph{display:flex;align-items:center;gap:7px;font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.file{display:flex;align-items:center;gap:9px;padding:7px 8px;border-radius:7px;font-size:11.5px;color:var(--text)}
+.file:hover{background:var(--hover)}
+.file.on{background:rgba(91,247,207,.10);border:1px solid rgba(91,247,207,.3)}
+.file .fi{width:20px;height:20px;border-radius:5px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:9px;font-weight:700;flex:none;font-family:var(--mono)}
+.file b{color:var(--text-strong);font-weight:500;font-family:var(--mono);font-size:11px}
+.file span{display:block;color:var(--muted);font-size:10px}
+.panel .pnote{margin-top:12px;padding-top:10px;border-top:1px solid var(--border);font-size:10.5px;color:var(--muted)}
+
+/* cards / stats / tables reused in screens */
+.grid{display:grid;gap:12px}
+.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:13px 14px}
+.stat .lbl{font-size:9.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+.stat .v{font-size:23px;font-weight:700;color:var(--text-strong);margin-top:4px;font-variant-numeric:lining-nums tabular-nums}
+.stat .d{font-size:10.5px;color:var(--muted);margin-top:2px}
+.stat.flag{border-color:var(--gold);background:var(--warn-bg)}
+.stat.flag .v{color:var(--gold)}
+.stat.flag .lbl{color:var(--gold)}
+.card h5{font-size:12.5px;color:var(--text-strong);margin-bottom:11px;display:flex;align-items:center;gap:8px}
+.card h5 .r{margin-left:auto;font-size:10px;color:var(--muted);font-weight:500}
+
+/* bars */
+.bar{display:flex;align-items:center;gap:10px;margin-bottom:9px;font-size:11.5px}
+.bar .bl{width:112px;color:var(--text);flex:none}
+.bar .track{flex:1;height:7px;border-radius:4px;background:var(--hover);overflow:hidden}
+.bar .fill{height:100%;border-radius:4px;background:var(--grad-main)}
+.bar .fill.low{background:var(--critical)}
+.bar .fill.mid{background:var(--gold)}
+.bar .pc{width:34px;text-align:right;font-family:var(--mono);color:var(--text-strong);font-weight:600;flex:none}
+
+/* queue rows */
+.q{display:flex;align-items:center;gap:12px;padding:11px 13px;border:1px solid var(--border);border-radius:9px;background:var(--surface);margin-bottom:9px}
+.q .qi{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex:none;color:#fff}
+.q .qt{flex:1;min-width:0}.q .qt b{color:var(--text-strong);font-size:12.5px;font-weight:600;display:block}
+.q .qt span{color:var(--muted);font-size:11px}
+.pill{font-size:10px;font-weight:600;letter-spacing:.03em;padding:2px 9px;border-radius:999px;white-space:nowrap;text-transform:uppercase}
+.pill.ok{color:var(--ok);background:var(--ok-bg);border:1px solid var(--ok)}
+.pill.warn{color:var(--gold);background:var(--warn-bg);border:1px solid var(--gold)}
+.pill.crit{color:var(--critical);background:var(--critical-bg);border:1px solid var(--critical)}
+.pill.info{color:var(--info);background:var(--info-bg);border:1px solid var(--info)}
+.pill.muted{color:var(--muted);border:1px solid var(--border-2)}
+
+/* tables */
+table.tb{width:100%;border-collapse:collapse;font-size:12px}
+table.tb th{text-align:left;font-size:9px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);
+  padding:8px 10px;background:var(--inset);border-bottom:1px solid var(--border)}
+table.tb td{padding:9px 10px;border-bottom:1px solid var(--border);color:var(--text)}
+table.tb tr:last-child td{border-bottom:0}
+table.tb td b{color:var(--text-strong);font-weight:600}
+table.tb .m{font-family:var(--mono);font-size:11px}
+.rowsel{background:rgba(98,95,237,.10)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:7px;font-family:var(--font);font-size:12px;font-weight:600;border-radius:8px;
+  padding:8px 14px;border:1px solid transparent;cursor:default}
+.btn.p{background:var(--grad-main);color:#fff}
+.btn.g{background:transparent;border-color:var(--border-2);color:var(--text-strong)}
+.btn.crit{background:transparent;border-color:var(--critical);color:var(--critical)}
+.btn.sm{padding:5px 11px;font-size:11px}
+
+/* login */
+.login{display:grid;grid-template-columns:1.05fr .95fr;min-height:520px}
+.login .hero{background:
+  radial-gradient(600px 400px at 30% 20%,rgba(98,95,237,.35),transparent 60%),
+  radial-gradient(500px 360px at 90% 90%,rgba(91,247,207,.22),transparent 60%),var(--inset);
+  padding:34px;display:flex;flex-direction:column;justify-content:space-between;color:#fff}
+.login .hero h2{font-size:26px;color:#fff;letter-spacing:-.02em;max-width:320px}
+.login .hero .k{background:var(--grad-hero);-webkit-background-clip:text;background-clip:text;color:transparent}
+.login .hero p{color:rgba(255,255,255,.72);font-size:13px;max-width:300px;margin-top:12px}
+.login .hero .steps{display:flex;gap:8px;margin-top:20px}
+.login .hero .steps span{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.7);
+  border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:4px 11px}
+.login .form{padding:40px 38px;display:flex;flex-direction:column;justify-content:center;gap:13px;background:var(--surface-2)}
+.login .form .fl{font-size:11px;font-weight:600;color:var(--text-strong);margin-bottom:5px;display:block}
+.inp{width:100%;background:var(--inset);border:1px solid var(--border-2);border-radius:8px;padding:10px 12px;color:var(--text-strong);
+  font-family:var(--font);font-size:13px}
+.inp.bad{border-color:var(--critical);background:var(--critical-bg)}
+.inp.ph{color:var(--muted)}
+.err-msg{display:flex;gap:9px;align-items:flex-start;background:var(--critical-bg);border:1px solid var(--critical);border-radius:8px;
+  padding:10px 12px;font-size:12px;color:var(--critical)}
+.err-msg b{color:var(--critical)}
+.divider{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:11px}
+.divider::before,.divider::after{content:"";height:1px;flex:1;background:var(--border)}
+.ssobtn{display:flex;align-items:center;justify-content:center;gap:9px;border:1px solid var(--border-2);border-radius:8px;
+  padding:9px;font-size:12px;font-weight:600;color:var(--text-strong)}
+
+/* approval gate */
+.gate{border:1px solid var(--gold);border-radius:10px;overflow:hidden;background:var(--surface)}
+.gate .grule{height:3px;background:linear-gradient(90deg,var(--gold),transparent)}
+.gate .gbody{padding:14px 15px}
+.gate h5{color:var(--text-strong);font-size:13px;margin-bottom:4px}
+.gate p{font-size:12px;color:var(--text);margin:0 0 12px}
+.gate .acts{display:flex;gap:9px;align-items:center}
+.gate .audit{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--muted)}
+
+/* chat conversation */
+.conv{display:flex;flex-direction:column;gap:13px;padding:2px}
+.msg{max-width:78%;font-size:12.5px;line-height:1.5}
+.msg.u{align-self:flex-end;background:var(--grad-main);color:#fff;border-radius:14px 14px 4px 14px;padding:9px 13px}
+.msg.a{align-self:flex-start}
+.msg.a .who{display:flex;align-items:center;gap:7px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.msg.a .body{background:var(--surface);border:1px solid var(--border);border-radius:4px 14px 14px 14px;padding:11px 13px;color:var(--text)}
+.msg.a .body .src{margin-top:8px;font-family:var(--mono);font-size:10px;color:var(--link)}
+.propose{margin-top:9px;border:1px dashed var(--gold);border-radius:8px;padding:10px 11px;background:var(--warn-bg)}
+.propose .pt{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:4px}
+.propose .pd{font-size:12px;color:var(--text-strong);margin-bottom:9px}
+
+/* connector cards */
+.conn{display:flex;align-items:center;gap:12px;padding:13px 14px;border:1px solid var(--border);border-radius:10px;background:var(--surface)}
+.conn.bad{border-color:var(--critical)}
+.conn .logo{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex:none;
+  font-weight:700;font-size:13px;color:#fff;font-family:var(--mono)}
+.conn .ct{flex:1;min-width:0}.conn .ct b{color:var(--text-strong);font-size:13px;display:block}
+.conn .ct span{color:var(--muted);font-size:11px;font-family:var(--mono)}
+
+/* rep detail split */
+.split{display:grid;grid-template-columns:150px 1fr;gap:14px}
+.replist{border:1px solid var(--border);border-radius:9px;overflow:hidden;background:var(--surface)}
+.repitem{padding:9px 11px;border-bottom:1px solid var(--border);font-size:12px;color:var(--text);cursor:default}
+.repitem:last-child{border-bottom:0}
+.repitem.on{background:rgba(98,95,237,.12);color:var(--text-strong);font-weight:600;border-left:2px solid var(--accent)}
+.repitem span{display:block;font-size:10px;color:var(--muted);font-weight:400}
+.mini{font-size:11px;color:var(--muted)}
+
+/* listeners */
+.lrow{display:flex;align-items:center;gap:12px;padding:12px 14px;border:1px solid var(--border);border-radius:9px;background:var(--surface);margin-bottom:9px}
+.lrow .lt{flex:1;min-width:0}.lrow .lt b{color:var(--text-strong);font-size:12.5px;display:block}
+.lrow .lt span{color:var(--muted);font-size:11px}
+.sw{width:34px;height:19px;border-radius:999px;background:var(--grad-main);position:relative;flex:none}
+.sw::after{content:"";position:absolute;width:14px;height:14px;border-radius:50%;background:#fff;top:2.5px;right:2.5px}
+.sw.off{background:var(--border-2)}.sw.off::after{right:auto;left:2.5px}
+
+/* closing */
+.closing{margin-top:52px;border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r);padding:22px 24px}
+.closing h2{font-size:19px;margin-bottom:10px}
+.closing p{max-width:840px;font-size:14px;color:var(--text)}
+.closing .cols{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:16px}
+.closing h4{font-size:13px;margin-bottom:7px;color:var(--text-strong)}
+.closing ul{margin:0;padding-left:17px;font-size:13px}.closing li{margin-bottom:6px}
+.footer{margin-top:34px;text-align:center;color:var(--muted);font-size:11.5px;font-family:var(--mono)}
+
+@media(max-width:880px){
+  .frame-body{grid-template-columns:1fr}.note{position:static}
+  .app,.app.no-panel{grid-template-columns:1fr}.nav,.panel{display:none}
+  .cover h1{font-size:29px}.login{grid-template-columns:1fr}.login .hero{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- hidden svg: mark + icon symbols -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ccmark" viewBox="-0.7 -0.3 49.4 49.5">
+    <defs><linearGradient id="ccg" x1="0" y1="-0.3" x2="0" y2="49.2" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#625FED"/><stop offset=".62" stop-color="#5DB9DB"/><stop offset="1" stop-color="#5BF7CF"/>
+    </linearGradient></defs>
+    <path fill="url(#ccg)" d="M2.06789 18.0362c-2.75719-1.7103-2.75719-5.3619 0-7.0722l19.19821-10.19893c1.6445-1.02009 3.8231-1.02009 5.4677-0.00007l19.1982 10.199c2.6709 1.6568 2.7547 5.1352 0.2509 6.9059l-0.2509 0.1663-19.1982 10.199c-1.5932 0.9882-3.6874 1.0186-5.3119 0.0921l-0.1558-0.0921-19.19821-10.199z m2.27852-4.1256c-0.45954 0.285-0.45954 0.894 0 1.1791l19.19809 10.1989c0.274 0.1698 0.6368 0.1698 0.9108 0l19.1982-10.1989c0.4595-0.2851 0.4595-0.8941 0-1.1791l-19.1982-10.19895c-0.274-0.16981-0.6368-0.16981-0.9108 0l-19.19809 10.19895z"/>
+    <path fill="url(#ccg)" d="M42.874 22.1494c0.3206-0.5537 1.1641-0.8331 1.8926-0.5185 1.7915 0.7738 2.6814 2.2245 2.7314 3.6572 0.05 1.4315-0.7352 2.9218-2.4648 3.7851l-17.5098 8.7383c-1.8336 0.9151-4.1001 0.9177-5.9365 0.0069l-18.81542-9.3321c-1.61862-0.8029-2.33402-2.1958-2.26757-3.5215 0.06669-1.3274 0.92218-2.6678 2.62207-3.3496 0.74139-0.2971 1.5717 0.0055 1.87109 0.5625 0.27157 0.5057 0.05504 1.1693-0.66016 1.4561-0.65157 0.2615-1.04373 0.814-1.07421 1.4219-0.03043 0.6098 0.30751 1.1972 0.9375 1.5097l18.8144 9.3321h0.001c0.9545 0.4732 2.1206 0.4715 3.0733-0.0039l17.5088-8.7383c0.7601-0.3794 1.1649-1.079 1.1396-1.8037-0.0253-0.7235-0.4765-1.3955-1.2568-1.7325-0.6999-0.3024-0.8964-0.968-0.6065-1.4697z"/>
+    <path fill="url(#ccg)" transform="translate(0,10.04)" d="M42.874 22.1494c0.3206-0.5537 1.1641-0.8331 1.8926-0.5185 1.7915 0.7738 2.6814 2.2245 2.7314 3.6572 0.05 1.4315-0.7352 2.9218-2.4648 3.7851l-17.5098 8.7383c-1.8336 0.9151-4.1001 0.9177-5.9365 0.0069l-18.81542-9.3321c-1.61862-0.8029-2.33402-2.1958-2.26757-3.5215 0.06669-1.3274 0.92218-2.6678 2.62207-3.3496 0.74139-0.2971 1.5717 0.0055 1.87109 0.5625 0.27157 0.5057 0.05504 1.1693-0.66016 1.4561-0.65157 0.2615-1.04373 0.814-1.07421 1.4219-0.03043 0.6098 0.30751 1.1972 0.9375 1.5097l18.8144 9.3321h0.001c0.9545 0.4732 2.1206 0.4715 3.0733-0.0039l17.5088-8.7383c0.7601-0.3794 1.1649-1.079 1.1396-1.8037-0.0253-0.7235-0.4765-1.3955-1.2568-1.7325-0.6999-0.3024-0.8964-0.968-0.6065-1.4697z"/>
+  </symbol>
+  <symbol id="i-dash" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-4 4V5z"/></symbol>
+  <symbol id="i-runs" viewBox="0 0 24 24"><path d="M3 12h4l3 7 4-16 3 9h4"/></symbol>
+  <symbol id="i-reps" viewBox="0 0 24 24"><path d="M12 21s7-6.5 7-11a7 7 0 1 0-14 0c0 4.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+  <symbol id="i-conn" viewBox="0 0 24 24"><path d="M9 3v5M15 3v5M7 8h10v3a5 5 0 0 1-10 0V8zM12 16v5"/></symbol>
+  <symbol id="i-know" viewBox="0 0 24 24"><path d="M6 4h10a2 2 0 0 1 2 2v14H8a2 2 0 0 1-2-2V4zM6 17h12"/></symbol>
+  <symbol id="i-listen" viewBox="0 0 24 24"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6zM10 20a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M16 5.4a3.2 3.2 0 0 1 0 5.4"/><path d="M20.5 20a5.5 5.5 0 0 0-4-5.3"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2 2M16.4 16.4l2 2M18.4 5.6l-2 2M7.6 16.4l-2 2"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 8v5M12 16.5v.5"/><path d="M12 3l9 16H3z"/></symbol>
+</svg>
+
+<div class="toggle">
+  <button id="tDark" class="on" onclick="setTheme('dark')">Dark</button>
+  <button id="tLight" onclick="setTheme('light')">Light</button>
+</div>
+
+<div class="board">
+
+  <!-- COVER -->
+  <header class="cover">
+    <div>
+      <div class="brandline">
+        <svg class="mark" style="width:30px;height:30px"><use href="#ccmark"/></svg>
+        <div class="wm">Cascade Clarity<small>Enterprise AI Integrators</small></div>
+      </div>
+      <h1>Cascade Enterprise Agent<br><span class="grad">Admin Storyboard</span></h1>
+      <p class="sub">The admin user's route through the agent workspace — login to connectors to a human-approved run — drawn on the Cowork pattern, in our brand, grounded in the Construgypsum deployment. Happy paths and the not-so-happy paths, side by side.</p>
+    </div>
+    <div class="metabox">
+      <div><span>Prepared by</span><span>David De los Reyes</span></div>
+      <div><span>For</span><span>John Cuellar</span></div>
+      <div><span>Date</span><span>Jul 17, 2026</span></div>
+      <div><span>User</span><span>Administrator</span></div>
+      <div><span>Tenant</span><span>Construgypsum</span></div>
+      <div><span>Version</span><span class="mono">v0.1 · draft</span></div>
+    </div>
+  </header>
+
+  <p class="lead">A <b>storyboard</b> is a UI/UX artifact that walks the journey a user takes through an application, frame by frame — the screen they land on, the action they take, the state they end in. This one follows the <b>administrator</b>. Every app frame carries the three things John flagged as missing from a bare dashboard: a <b>menu</b> to navigate, <b>transactions</b> (not only reporting), and <b>error states</b> shown next to the happy path so the system knows what to build when things break. Toggle <b>Light / Dark</b> top-right — the whole board flips on one token layer, the same argument for the design system.</p>
+
+  <!-- LEGEND -->
+  <div class="shead"><span class="n">A</span><h2>How to read this board</h2><span class="h-sub">notation + element vocabulary</span></div>
+  <div class="legend">
+    <div class="lg"><div class="k"><span class="dot" style="background:var(--ok)"></span>Happy path</div>The intended, frictionless route to the outcome.</div>
+    <div class="lg"><div class="k"><span class="dot" style="background:var(--critical)"></span>Error / unhappy path</div>Where the system blocks or fails — with the message and the recovery.</div>
+    <div class="lg"><div class="k"><span class="dot" style="background:var(--gold)"></span>Approval gate</div>The human sign-off. The agent proposes; a person approves before anything writes.</div>
+    <div class="lg"><div class="k"><span class="dot" style="background:var(--purple)"></span>Transaction</div>A run that changes an outside system (Odoo, WhatsApp), not just a report.</div>
+  </div>
+  <div class="vocab">
+    <b>Element vocabulary:</b>
+    <span class="vc"><span class="p">atoms</span>button, input, pill</span><span class="vsep">›</span>
+    <span class="vc"><span class="p">molecules</span>stat, form field, connector card</span><span class="vsep">›</span>
+    <span class="vc"><span class="p">organisms</span>nav, dashboard grid, list-detail</span><span class="vsep">›</span>
+    <span class="vc"><span class="p">templates</span>the app shell</span><span class="vsep">›</span>
+    <span class="vc"><span class="p">pages</span>the frames below</span>
+  </div>
+
+  <!-- FLOW MAP -->
+  <div class="shead"><span class="n">B</span><h2>The route</h2><span class="h-sub">admin user · happy path + branches</span></div>
+  <div class="flow">
+    <div class="flowrow">
+      <span class="node start"><span class="num">01</span>Login</span><span class="arr">→</span>
+      <span class="node"><span class="num">02</span>Dashboard</span><span class="arr">→</span>
+      <span class="node"><span class="num">03</span>Connectors</span><span class="arr">→</span>
+      <span class="node"><span class="num">04</span>Ask Cascade</span><span class="arr">→</span>
+      <span class="node"><span class="num">05</span>Runs</span><span class="arr">→</span>
+      <span class="node"><span class="num">06</span>Run detail · approve</span><span class="arr">→</span>
+      <span class="node"><span class="num">07</span>Field reps</span><span class="arr">→</span>
+      <span class="node"><span class="num">08</span>Listeners</span>
+    </div>
+    <div class="flowrow err">
+      <span class="branchlbl"><svg class="ico" style="width:14px;height:14px;color:var(--critical)"><use href="#i-alert"/></svg>Branches</span>
+      <span class="arr">↳</span>
+      <span class="node errnode"><span class="num">01b</span>Bad credentials</span>
+      <span class="node errnode"><span class="num">03b</span>Connector token expired</span>
+      <span class="node errnode"><span class="num">06b</span>Run rejected · with reason</span>
+    </div>
+  </div>
+
+  <!-- ===================== FRAME 01 · LOGIN (HAPPY) ===================== -->
+  <article class="frame" id="f01">
+    <div class="frame-head"><span class="fn">01</span><h3>Login — the front door</h3>
+      <div class="tags"><span class="tag happy">Happy path</span><span class="tag">Single-tenant</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">construgypsum.cascade.app/sign-in</div></div>
+        <div class="login">
+          <div class="hero">
+            <div class="brandline"><svg class="mark"><use href="#ccmark"/></svg><div class="wm" style="color:#fff">Cascade Enterprise<small>Agent workspace</small></div></div>
+            <div>
+              <h2>Catch it upstream. <span class="k">Then act with sign-off.</span></h2>
+              <p>Your agents, your data, one isolated workspace. Connected to Odoo and the field, waiting for your say-so.</p>
+              <div class="steps"><span>Connect</span><span>Review</span><span>Approve</span></div>
+            </div>
+          </div>
+          <div class="form">
+            <div class="eyebrow">Sign in to Construgypsum</div>
+            <div><label class="fl">Work email</label><div class="inp">francisco@construgypsum.com</div></div>
+            <div><label class="fl">Password</label><div class="inp ph">••••••••••••</div></div>
+            <div class="btn p" style="justify-content:center">Sign in</div>
+            <div class="divider">or</div>
+            <div class="ssobtn"><svg class="ico" style="color:var(--link)"><use href="#i-conn"/></svg>Continue with Google Workspace</div>
+            <div class="subtle" style="text-align:center;margin-top:4px">Isolated DigitalOcean droplet · access is logged</div>
+          </div>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>The entry point. Every sale gets its <b>own copy</b> of this workspace — single-tenant — so the URL, the data, and the droplet are the client's.</p>
+        <ul>
+          <li><b>Left rail</b> sets the promise in the brand voice: connect → review → approve.</li>
+          <li><b>SSO</b> matters for enterprise: no new password to manage.</li>
+          <li>Gold is spent <b>once</b> per view — here, the arc of light in the headline gradient.</li>
+          <li>Branches to <b>01b</b> when credentials fail.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- ===================== FRAME 01b · LOGIN (ERROR) ===================== -->
+  <article class="frame" id="f01b">
+    <div class="frame-head"><span class="fn">01b</span><h3>Login — error state</h3>
+      <div class="tags"><span class="tag err">Unhappy path</span><span class="tag">Recovery</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">construgypsum.cascade.app/sign-in</div></div>
+        <div class="login">
+          <div class="hero">
+            <div class="brandline"><svg class="mark"><use href="#ccmark"/></svg><div class="wm" style="color:#fff">Cascade Enterprise<small>Agent workspace</small></div></div>
+            <div>
+              <h2>Catch it upstream. <span class="k">Then act with sign-off.</span></h2>
+              <p>Your agents, your data, one isolated workspace. Connected to Odoo and the field, waiting for your say-so.</p>
+              <div class="steps"><span>Connect</span><span>Review</span><span>Approve</span></div>
+            </div>
+          </div>
+          <div class="form">
+            <div class="eyebrow">Sign in to Construgypsum</div>
+            <div class="err-msg"><svg class="ico" style="width:15px;height:15px;color:var(--critical)"><use href="#i-alert"/></svg>
+              <div><b>We couldn't verify those details.</b> Check your email and password, or reset access below. After 5 tries we lock the account and email your admin.</div></div>
+            <div><label class="fl">Work email</label><div class="inp bad">francisco@construgypsum.com</div></div>
+            <div><label class="fl">Password</label><div class="inp bad ph">••••••••</div></div>
+            <div class="btn p" style="justify-content:center">Sign in</div>
+            <div class="subtle" style="text-align:center"><span style="color:var(--link)">Reset access</span> · <span style="color:var(--link)">Email the workspace admin</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>John's point: a UI/UX builder shows <b>how it errors</b>, not only how it works — so the build knows what to say when it breaks.</p>
+        <ul>
+          <li>The message <b>names the problem and the fix</b>, never a raw code.</li>
+          <li>Fields go critical; the copy offers a <b>way out</b> (reset, email admin).</li>
+          <li>States the lockout rule up front, so there are no surprises.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- ===================== FRAME 02 · DASHBOARD ===================== -->
+  <article class="frame" id="f02">
+    <div class="frame-head"><span class="fn">02</span><h3>Dashboard — the wrapper</h3>
+      <div class="tags"><span class="tag happy">Happy path</span><span class="tag">Menu · Cards · Chat · Files</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">construgypsum.cascade.app/dashboard</div></div>
+        <div class="app">
+          <!-- NAV -->
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Cascade<small>Enterprise</small></b></div>
+            <a class="nav-item active"><svg class="ico"><use href="#i-dash"/></svg>Dashboard</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Ask Cascade</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-runs"/></svg>Runs<span class="badge">3</span></a>
+            <a class="nav-item"><svg class="ico"><use href="#i-reps"/></svg>Field Reps</a>
+            <div class="ng">Admin</div>
+            <a class="nav-item"><svg class="ico"><use href="#i-conn"/></svg>Connectors</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-know"/></svg>Knowledge</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-listen"/></svg>Listeners</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-users"/></svg>Users &amp; Roles</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-gear"/></svg>Customize</a>
+            <div class="navfoot"><div class="avatar">DR</div><div class="who"><b>David R.</b><span>Administrator</span></div></div>
+          </aside>
+          <!-- MAIN -->
+          <section class="appmain">
+            <div class="topbar"><h4>Good morning, Francisco</h4>
+              <span class="env"><i></i>Production</span>
+              <div class="right"><span class="subtle">Thu · Jul 17</span></div></div>
+            <div class="content">
+              <div class="grid g4" style="margin-bottom:12px">
+                <div class="card stat"><div class="lbl">Reps in field</div><div class="v">8/9</div><div class="d">1 not yet checked in</div></div>
+                <div class="card stat"><div class="lbl">Visits logged today</div><div class="v">47</div><div class="d">of ~90 expected</div></div>
+                <div class="card stat"><div class="lbl">Catalog coverage</div><div class="v">62%</div><div class="d">lines offered per visit</div></div>
+                <div class="card stat flag"><div class="lbl">Awaiting approval</div><div class="v">3</div><div class="d">needs your decision</div></div>
+              </div>
+              <div class="grid g2">
+                <div class="card">
+                  <h5>Coverage by line <span class="r">this week</span></h5>
+                  <div class="bar"><span class="bl">Gypsum board</span><div class="track"><div class="fill" style="width:91%"></div></div><span class="pc">91%</span></div>
+                  <div class="bar"><span class="bl">Joint compound</span><div class="track"><div class="fill mid" style="width:44%"></div></div><span class="pc">44%</span></div>
+                  <div class="bar"><span class="bl">Paint</span><div class="track"><div class="fill mid" style="width:31%"></div></div><span class="pc">31%</span></div>
+                  <div class="bar"><span class="bl">Yale deadbolts</span><div class="track"><div class="fill low" style="width:6%"></div></div><span class="pc">6%</span></div>
+                </div>
+                <div class="card">
+                  <h5>Needs your decision <span class="r">3 items</span></h5>
+                  <div class="q"><div class="qi" style="background:var(--gold)"><svg class="ico" style="width:15px;height:15px"><use href="#i-runs"/></svg></div>
+                    <div class="qt"><b>Midday field report → Odoo</b><span>47 visits compiled from WhatsApp</span></div><span class="pill warn">Review</span></div>
+                  <div class="q"><div class="qi" style="background:var(--purple)"><svg class="ico" style="width:15px;height:15px"><use href="#i-conn"/></svg></div>
+                    <div class="qt"><b>CRM pipeline hygiene</b><span>2 stage fixes + 1 Perdido reason</span></div><span class="pill warn">Review</span></div>
+                  <div class="q"><div class="qi" style="background:var(--info)"><svg class="ico" style="width:15px;height:15px"><use href="#i-reps"/></svg></div>
+                    <div class="qt"><b>Yale nudge to 3 reps</b><span>drafted, not sent</span></div><span class="pill warn">Review</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="chatbar"><svg class="mark" style="width:18px;height:18px"><use href="#ccmark"/></svg>
+              <span>Ask Cascade to pull a report, run a check, or update Odoo…</span>
+              <div class="send"><svg class="ico" style="width:15px;height:15px;stroke:#fff"><use href="#i-send"/></svg></div></div>
+          </section>
+          <!-- PANEL -->
+          <aside class="panel">
+            <div class="ph"><svg class="ico" style="width:13px;height:13px"><use href="#i-know"/></svg>Knowledge base</div>
+            <div class="file"><div class="fi">MD</div><div><b>buffer_report.md</b><span>13-mo sales velocity</span></div></div>
+            <div class="file"><div class="fi">MD</div><div><b>odoo_crm_map.md</b><span>stages · fields</span></div></div>
+            <div class="file"><div class="fi">MD</div><div><b>rep_playbook.md</b><span>lines to offer</span></div></div>
+            <div class="file"><div class="fi">MD</div><div><b>accounts_360.md</b><span>~100 stores</span></div></div>
+            <div class="file"><div class="fi">CSV</div><div><b>client_list.csv</b><span>semester data</span></div></div>
+            <div class="pnote">Fed by David's repo (GitHub connector). The agent reads these to orient itself.</div>
+          </aside>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>This is the wrapper John pointed to in Cowork — rebuilt as <b>the agent</b>, in our brand. Three columns: <b>menu</b> left, <b>chat</b> center-bottom, <b>files</b> right.</p>
+        <ul>
+          <li>The <b>menu</b> is the fix for "there's no way to navigate this thing." Each item is a route in this storyboard.</li>
+          <li>Cards summarize — this is the <b>reporting</b> layer. Transactions live one click deeper (Runs, Field Reps).</li>
+          <li>Gold appears <b>once</b>: "Awaiting approval." The queue is the bridge into the approval gate.</li>
+          <li>Right panel is the <b>knowledge base</b> — the MD/CSV feed the agent reasons over.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- ===================== FRAME 03 · CONNECTORS ===================== -->
+  <article class="frame" id="f03">
+    <div class="frame-head"><span class="fn">03</span><h3>Connectors — the admin panel</h3>
+      <div class="tags"><span class="tag happy">Happy path</span><span class="tag err">+ error state</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">construgypsum.cascade.app/connectors</div></div>
+        <div class="app no-panel">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Cascade<small>Enterprise</small></b></div>
+            <a class="nav-item"><svg class="ico"><use href="#i-dash"/></svg>Dashboard</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Ask Cascade</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-runs"/></svg>Runs<span class="badge">3</span></a>
+            <a class="nav-item"><svg class="ico"><use href="#i-reps"/></svg>Field Reps</a>
+            <div class="ng">Admin</div>
+            <a class="nav-item active"><svg class="ico"><use href="#i-conn"/></svg>Connectors</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-know"/></svg>Knowledge</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-listen"/></svg>Listeners</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-users"/></svg>Users &amp; Roles</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-gear"/></svg>Customize</a>
+            <div class="navfoot"><div class="avatar">DR</div><div class="who"><b>David R.</b><span>Administrator</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Connectors</h4><span class="env"><i></i>Production</span>
+              <div class="right"><span class="btn g sm"><svg class="ico" style="width:14px;height:14px"><use href="#i-conn"/></svg>Add connector</span></div></div>
+            <div class="content">
+              <p class="subtle" style="margin:0 0 13px">One protocol in and out (MCP). A new system is a new connector — nothing gets rewired.</p>
+              <div class="grid g2">
+                <div class="conn"><div class="logo" style="background:#714B67">Od</div>
+                  <div class="ct"><b>Odoo — REST API</b><span>invoices · inventory · CRM · v15</span></div><span class="pill ok">Connected</span></div>
+                <div class="conn"><div class="logo" style="background:#25D366">Wa</div>
+                  <div class="ct"><b>WhatsApp Cloud API</b><span>field reports · rep nudges</span></div><span class="pill ok">Connected</span></div>
+                <div class="conn"><div class="logo" style="background:#1A73E8">GD</div>
+                  <div class="ct"><b>Google Drive — procurement</b><span>buffer &amp; PowerBI source</span></div><span class="pill ok">Connected</span></div>
+                <div class="conn"><div class="logo" style="background:#24292F">Gh</div>
+                  <div class="ct"><b>GitHub — knowledge repo</b><span>David's MD feed</span></div><span class="pill ok">Connected</span></div>
+                <div class="conn bad"><div class="logo" style="background:#F2C037;color:#0B223A">Pb</div>
+                  <div class="ct"><b>Odoo GL sync — token</b><span>authentication failed · token expired</span></div><span class="pill crit">Error</span></div>
+                <div class="conn"><div class="logo" style="background:var(--grad-main)">Pw</div>
+                  <div class="ct"><b>PowerBI</b><span>not connected</span></div><span class="pill muted">Connect</span></div>
+              </div>
+              <div class="err-msg" style="margin-top:13px"><svg class="ico" style="width:15px;height:15px;color:var(--critical)"><use href="#i-alert"/></svg>
+                <div><b>Odoo GL sync stopped 41 min ago.</b> The access token expired. Runs that write to the general ledger are paused until you reconnect. <span style="color:var(--critical);text-decoration:underline">Reconnect now →</span></div></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>The admin section John asked for: <b>connect the systems.</b> For Construgypsum that's Odoo, WhatsApp, Drive, GitHub — generic connectors for Huffmaster, different targets, same panel.</p>
+        <ul>
+          <li>Each card is a <b>molecule</b>: logo, name, scope, status pill, manage.</li>
+          <li>Shows the <b>happy state</b> (Connected) and the <b>error state</b> (token expired) together.</li>
+          <li>The error <b>names the blast radius</b> — "runs that write to the GL are paused" — and the one action to fix it.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- ===================== FRAME 04 · ASK CASCADE ===================== -->
+  <article class="frame" id="f04">
+    <div class="frame-head"><span class="fn">04</span><h3>Ask Cascade — the natural-language surface</h3>
+      <div class="tags"><span class="tag happy">Happy path</span><span class="tag gate">Proposes → you approve</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">construgypsum.cascade.app/ask</div></div>
+        <div class="app">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Cascade<small>Enterprise</small></b></div>
+            <a class="nav-item"><svg class="ico"><use href="#i-dash"/></svg>Dashboard</a>
+            <a class="nav-item active"><svg class="ico"><use href="#i-chat"/></svg>Ask Cascade</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-runs"/></svg>Runs<span class="badge">3</span></a>
+            <a class="nav-item"><svg class="ico"><use href="#i-reps"/></svg>Field Reps</a>
+            <div class="ng">Admin</div>
+            <a class="nav-item"><svg class="ico"><use href="#i-conn"/></svg>Connectors</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-know"/></svg>Knowledge</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-listen"/></svg>Listeners</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-users"/></svg>Users &amp; Roles</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-gear"/></svg>Customize</a>
+            <div class="navfoot"><div class="avatar">DR</div><div class="who"><b>David R.</b><span>Administrator</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Ask Cascade</h4><span class="env"><i></i>Production</span>
+              <div class="right"><span class="subtle">Context: Construgypsum</span></div></div>
+            <div class="content">
+              <div class="conv">
+                <div class="msg u">Which reps didn't offer the Yale line on their visits this week?</div>
+                <div class="msg a">
+                  <div class="who"><svg class="mark" style="width:14px;height:14px"><use href="#ccmark"/></svg>Cascade</div>
+                  <div class="body">
+                    Across 214 visits this week, <b>three reps</b> logged zero Yale deadbolt offers: <b>Luis Ramírez, Karina Ortega, Diego Salas</b>. All three sit above 85% concentration in gypsum board. Yale is a new line, so this is likely habit, not demand.
+                    <div class="propose">
+                      <div class="pt">Proposed action · not sent</div>
+                      <div class="pd">Draft a WhatsApp nudge to the 3 reps with the two Yale talking points from the playbook, for your review.</div>
+                      <div class="gate acts"><span class="btn p sm"><svg class="ico" style="width:13px;height:13px;stroke:#fff"><use href="#i-check"/></svg>Approve &amp; draft</span><span class="btn g sm">Edit</span><span class="btn g sm">Dismiss</span></div>
+                    </div>
+                    <div class="src">source · rep_playbook.md · odoo:crm:visits(7d)</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="chatbar"><svg class="mark" style="width:18px;height:18px"><use href="#ccmark"/></svg>
+              <span>Reply, or ask for the numbers behind this…</span>
+              <div class="send"><svg class="ico" style="width:15px;height:15px;stroke:#fff"><use href="#i-send"/></svg></div></div>
+          </section>
+          <aside class="panel">
+            <div class="ph"><svg class="ico" style="width:13px;height:13px"><use href="#i-know"/></svg>Sources used</div>
+            <div class="file on"><div class="fi">MD</div><div><b>rep_playbook.md</b><span>Yale talking points</span></div></div>
+            <div class="file"><div class="fi">MD</div><div><b>odoo_crm_map.md</b><span>visit fields</span></div></div>
+            <div class="file"><div class="fi">MD</div><div><b>buffer_report.md</b><span>Yale = new line</span></div></div>
+            <div class="pnote">The agent cites what it read. Nothing leaves the workspace without the approval below.</div>
+          </aside>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>The message box at the bottom of Cowork, made the <b>primary surface</b>. Plain language in; a grounded answer and a <b>proposed action</b> out.</p>
+        <ul>
+          <li>Agents <b>propose, never act alone</b> — the nudge is drafted, not sent, until Approve.</li>
+          <li>It <b>cites its sources</b> from the knowledge base — auditable, not a black box.</li>
+          <li>Same three-column shell as the dashboard: consistency is the template doing its job.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- ===================== FRAME 05 · RUNS ===================== -->
+  <article class="frame" id="f05">
+    <div class="frame-head"><span class="fn">05</span><h3>Runs — transactions, not just reports</h3>
+      <div class="tags"><span class="tag happy">Happy path</span><span class="tag">List → detail</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">construgypsum.cascade.app/runs</div></div>
+        <div class="app no-panel">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Cascade<small>Enterprise</small></b></div>
+            <a class="nav-item"><svg class="ico"><use href="#i-dash"/></svg>Dashboard</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Ask Cascade</a>
+            <a class="nav-item active"><svg class="ico"><use href="#i-runs"/></svg>Runs<span class="badge">3</span></a>
+            <a class="nav-item"><svg class="ico"><use href="#i-reps"/></svg>Field Reps</a>
+            <div class="ng">Admin</div>
+            <a class="nav-item"><svg class="ico"><use href="#i-conn"/></svg>Connectors</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-know"/></svg>Knowledge</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-listen"/></svg>Listeners</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-users"/></svg>Users &amp; Roles</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-gear"/></svg>Customize</a>
+            <div class="navfoot"><div class="avatar">DR</div><div class="who"><b>David R.</b><span>Administrator</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Runs</h4><span class="env"><i></i>Production</span>
+              <div class="right"><span class="pill muted">All</span><span class="pill warn">Needs review · 3</span><span class="pill ok">Healthy</span></div></div>
+            <div class="content" style="padding:0">
+              <table class="tb">
+                <thead><tr><th>Run</th><th>Type</th><th>Started</th><th>Result</th><th>Status</th></tr></thead>
+                <tbody>
+                  <tr class="rowsel"><td><b>CRM pipeline hygiene</b></td><td class="m">Odoo CRM · write</td><td class="m">08:15</td><td>2 stage fixes + 1 Perdido reason</td><td><span class="pill warn">Needs review</span></td></tr>
+                  <tr><td><b>Midday field report compile</b></td><td class="m">WhatsApp → Odoo</td><td class="m">12:30</td><td>47 visits · 6 quotes · $2,140</td><td><span class="pill warn">Needs review</span></td></tr>
+                  <tr><td><b>Yale nudge to 3 reps</b></td><td class="m">WhatsApp · send</td><td class="m">12:34</td><td>3 messages drafted</td><td><span class="pill warn">Needs review</span></td></tr>
+                  <tr><td><b>Inventory buffer check</b></td><td class="m">Odoo · read</td><td class="m">06:00</td><td>no stock-outs · 2 overstock flags</td><td><span class="pill ok">Complete</span></td></tr>
+                  <tr><td><b>Yale line coverage</b></td><td class="m">Analytics</td><td class="m">07:40</td><td>6% coverage · 3 reps at zero</td><td><span class="pill ok">Complete</span></td></tr>
+                  <tr><td><b>Odoo GL sync</b></td><td class="m">Odoo GL · write</td><td class="m">11:35</td><td>halted — token expired</td><td><span class="pill crit">Failed</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>John's core note: a dashboard reports, but the app also needs <b>transactions</b> — "go update the CRM, show me what you did." Every agent action is a <b>run</b> with a status.</p>
+        <ul>
+          <li>The <b>list-detail</b> pattern: this list, then one row opens the detail (Frame 06).</li>
+          <li>Status is honest — <b>Needs review</b>, <b>Complete</b>, <b>Failed</b> (the expired GL token from Frame 03 shows up here).</li>
+          <li>Filter chips let the admin cut to what's waiting on them.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- ===================== FRAME 06 · RUN DETAIL / APPROVAL ===================== -->
+  <article class="frame" id="f06">
+    <div class="frame-head"><span class="fn">06</span><h3>Run detail — the approval gate</h3>
+      <div class="tags"><span class="tag gate">Approval gate</span><span class="tag err">Reject branch</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">construgypsum.cascade.app/runs/crm-hygiene</div></div>
+        <div class="app no-panel">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Cascade<small>Enterprise</small></b></div>
+            <a class="nav-item"><svg class="ico"><use href="#i-dash"/></svg>Dashboard</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Ask Cascade</a>
+            <a class="nav-item active"><svg class="ico"><use href="#i-runs"/></svg>Runs<span class="badge">3</span></a>
+            <a class="nav-item"><svg class="ico"><use href="#i-reps"/></svg>Field Reps</a>
+            <div class="ng">Admin</div>
+            <a class="nav-item"><svg class="ico"><use href="#i-conn"/></svg>Connectors</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-know"/></svg>Knowledge</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-listen"/></svg>Listeners</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-users"/></svg>Users &amp; Roles</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-gear"/></svg>Customize</a>
+            <div class="navfoot"><div class="avatar">DR</div><div class="who"><b>David R.</b><span>Administrator</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>CRM pipeline hygiene</h4><span class="pill warn">Needs review</span>
+              <div class="right"><span class="subtle mono">run:crm-hygiene:2026-07-17T0815</span></div></div>
+            <div class="content">
+              <div class="card" style="margin-bottom:12px">
+                <h5>What the agent found <span class="r">plain language</span></h5>
+                <p style="margin:0;font-size:12.5px;color:var(--text)">Two open opportunities have <b>no pipeline stage</b>, and one was closed with <b>no “Perdido” reason</b>. Left as-is, they distort the weekly forecast. The agent proposes writing the fixes below to Odoo CRM.</p>
+              </div>
+              <div class="card" style="margin-bottom:12px;padding:0">
+                <table class="tb">
+                  <thead><tr><th>Account</th><th>Field</th><th>Current</th><th>Proposed</th></tr></thead>
+                  <tbody>
+                    <tr><td><b>Ferretería El Constructor</b></td><td class="m">stage</td><td><span class="pill crit">— none —</span></td><td class="m"><b>Cotización</b></td></tr>
+                    <tr><td><b>Depósito San Rafael</b></td><td class="m">stage</td><td><span class="pill crit">— none —</span></td><td class="m"><b>Negociación</b></td></tr>
+                    <tr><td><b>Materiales La Unión</b></td><td class="m">perdido_reason</td><td><span class="pill crit">empty</span></td><td class="m"><b>Precio competidor</b></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="gate">
+                <div class="grule"></div>
+                <div class="gbody">
+                  <h5>Apply 3 updates to Odoo CRM?</h5>
+                  <p>The agent will write these three changes through the REST connector. You can reject any single row. This is reversible from the run log.</p>
+                  <div class="acts">
+                    <span class="btn p"><svg class="ico" style="width:14px;height:14px;stroke:#fff"><use href="#i-check"/></svg>Approve &amp; apply</span>
+                    <span class="btn crit">Reject with reason</span>
+                    <span class="audit">signed by David R. · logged</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>The heart of the platform: <b>expected vs. actual, then a human signs off.</b> This is "show me what you did" made concrete before anything writes.</p>
+        <ul>
+          <li><b>States its consequences before asking</b> — "the agent will write these changes" — then Approve.</li>
+          <li><b>Reject with a reason</b> is a first-class path (branch 06b), so the agent learns Francisco's corrections.</li>
+          <li>The <b>audit line</b> (mono run id, signed-by) makes every action reproducible.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- ===================== FRAME 07 · FIELD REPS ===================== -->
+  <article class="frame" id="f07">
+    <div class="frame-head"><span class="fn">07</span><h3>Field Reps — list &amp; detail</h3>
+      <div class="tags"><span class="tag happy">Happy path</span><span class="tag">The 360 view</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">construgypsum.cascade.app/reps/luis-ramirez</div></div>
+        <div class="app no-panel">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Cascade<small>Enterprise</small></b></div>
+            <a class="nav-item"><svg class="ico"><use href="#i-dash"/></svg>Dashboard</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Ask Cascade</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-runs"/></svg>Runs<span class="badge">3</span></a>
+            <a class="nav-item active"><svg class="ico"><use href="#i-reps"/></svg>Field Reps</a>
+            <div class="ng">Admin</div>
+            <a class="nav-item"><svg class="ico"><use href="#i-conn"/></svg>Connectors</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-know"/></svg>Knowledge</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-listen"/></svg>Listeners</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-users"/></svg>Users &amp; Roles</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-gear"/></svg>Customize</a>
+            <div class="navfoot"><div class="avatar">DR</div><div class="who"><b>David R.</b><span>Administrator</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Field Reps</h4><span class="env"><i></i>Production</span>
+              <div class="right"><span class="subtle">9 reps · 7 provinces</span></div></div>
+            <div class="content">
+              <div class="split">
+                <div class="replist">
+                  <div class="repitem on">Luis Ramírez<span>Azuay · in field</span></div>
+                  <div class="repitem">Karina Ortega<span>Guayas · in field</span></div>
+                  <div class="repitem">Diego Salas<span>Pichincha · in field</span></div>
+                  <div class="repitem">Marta Vera<span>Manabí · in field</span></div>
+                  <div class="repitem">Jorge Núñez<span>Azuay · off</span></div>
+                </div>
+                <div>
+                  <div class="grid g3" style="margin-bottom:12px">
+                    <div class="card stat"><div class="lbl">Visits today</div><div class="v">7</div><div class="d">of 9 planned</div></div>
+                    <div class="card stat"><div class="lbl">Quota · collected</div><div class="v">73%</div><div class="d">commission on collected</div></div>
+                    <div class="card stat flag"><div class="lbl">Yale offers</div><div class="v">0</div><div class="d">flagged this week</div></div>
+                  </div>
+                  <div class="card" style="margin-bottom:12px">
+                    <h5>Line coverage <span class="r">Luis · this week</span></h5>
+                    <div class="bar"><span class="bl">Gypsum board</span><div class="track"><div class="fill" style="width:88%"></div></div><span class="pc">88%</span></div>
+                    <div class="bar"><span class="bl">Joint compound</span><div class="track"><div class="fill mid" style="width:35%"></div></div><span class="pc">35%</span></div>
+                    <div class="bar"><span class="bl">Paint</span><div class="track"><div class="fill mid" style="width:22%"></div></div><span class="pc">22%</span></div>
+                    <div class="bar"><span class="bl">Yale deadbolts</span><div class="track"><div class="fill low" style="width:0%"></div></div><span class="pc">0%</span></div>
+                  </div>
+                  <div class="card">
+                    <h5>Last WhatsApp report <span class="r">11:52 · today</span></h5>
+                    <p style="margin:0;font-size:12px;color:var(--text)">Ferretería El Constructor — “Dejé cotización de planchas. No ofrecí Yale.” Photo + GPS logged. <span class="pill info" style="margin-left:4px">2 lines offered</span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>Francisco's original ask — <b>"I want to know where the sellers are and what happened with the visit."</b> The list-detail organism gives every rep a 360 view.</p>
+        <ul>
+          <li><b>List</b> on the left, <b>detail</b> on the right — select a rep, drill into their day.</li>
+          <li>Ties the threads together: the <b>Yale = 0</b> flag here is what the agent surfaced in Frame 04.</li>
+          <li>The last WhatsApp report is the raw field signal, straight off the phone.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- ===================== FRAME 08 · LISTENERS ===================== -->
+  <article class="frame" id="f08">
+    <div class="frame-head"><span class="fn">08</span><h3>Listeners — configure what the agent waits for</h3>
+      <div class="tags"><span class="tag happy">Happy path</span><span class="tag">Config</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">construgypsum.cascade.app/listeners</div></div>
+        <div class="app no-panel">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Cascade<small>Enterprise</small></b></div>
+            <a class="nav-item"><svg class="ico"><use href="#i-dash"/></svg>Dashboard</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Ask Cascade</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-runs"/></svg>Runs<span class="badge">3</span></a>
+            <a class="nav-item"><svg class="ico"><use href="#i-reps"/></svg>Field Reps</a>
+            <div class="ng">Admin</div>
+            <a class="nav-item"><svg class="ico"><use href="#i-conn"/></svg>Connectors</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-know"/></svg>Knowledge</a>
+            <a class="nav-item active"><svg class="ico"><use href="#i-listen"/></svg>Listeners</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-users"/></svg>Users &amp; Roles</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-gear"/></svg>Customize</a>
+            <div class="navfoot"><div class="avatar">DR</div><div class="who"><b>David R.</b><span>Administrator</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Listeners</h4><span class="env"><i></i>Production</span>
+              <div class="right"><span class="btn g sm"><svg class="ico" style="width:14px;height:14px"><use href="#i-listen"/></svg>New listener</span></div></div>
+            <div class="content">
+              <p class="subtle" style="margin:0 0 13px">The agent listens for triggers and runs. Each one proposes; the approval gate still applies to anything that writes out.</p>
+              <div class="lrow"><span class="sw"></span><div class="lt"><b>After a scheduled visit → message the rep</b><span>asks how it went, which lines were offered, quotes &amp; closes · via WhatsApp</span></div><span class="pill ok">Fired 47× today</span></div>
+              <div class="lrow"><span class="sw"></span><div class="lt"><b>Daily 12:30 &amp; 16:30 → compile field report to Odoo</b><span>replaces the manual IT compilation</span></div><span class="pill warn">Next 16:30</span></div>
+              <div class="lrow"><span class="sw"></span><div class="lt"><b>Stock below buffer → alert Panchito</b><span>13-mo velocity vs Chayabamba stock</span></div><span class="pill ok">Armed</span></div>
+              <div class="lrow"><span class="sw"></span><div class="lt"><b>New “Perdido” with no reason → ask for one</b><span>pipeline hygiene, aligned to v18 upgrade</span></div><span class="pill ok">Armed</span></div>
+              <div class="lrow"><span class="sw off"></span><div class="lt"><b>Competitor mention in a report → log it</b><span>out of scope for first 3 months</span></div><span class="pill muted">Off</span></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>John: "you're going to configure listeners… it's going to be listening for things." This is the admin turning the agent's behaviors on and off.</p>
+        <ul>
+          <li>Each listener is a <b>trigger → run</b>. The toggle is the simplest transaction on the board.</li>
+          <li>Grounded in the real Construgypsum scope: the WhatsApp visit loop, the 12:30/16:30 compile, the buffer alert.</li>
+          <li>The last one is <b>off on purpose</b> — competitor intel is named out of scope, visible but disarmed.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- CLOSING -->
+  <div class="closing">
+    <h2>Where this goes next</h2>
+    <p>This is the storyboard, not the build. It fixes the vocabulary and the routes so the next step — turning these frames into real, reusable components — has something to aim at. The whole board already runs on the brand's token layer, so re-skinning it for Huffmaster is a stylesheet swap, not a rebuild.</p>
+    <div class="cols">
+      <div>
+        <h4>Storyboard → Storybook</h4>
+        <ul>
+          <li>Each element here maps to an atom / molecule / organism.</li>
+          <li>Storybook is the workshop where those components get built and stress-tested in isolation.</li>
+          <li>The frames become the "pages" that assemble the components.</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Open questions for John</h4>
+        <ul>
+          <li>Is "Ask Cascade" a separate route, or the dashboard's chat bar expanded?</li>
+          <li>How much of Connectors is self-serve for the client vs. set up by us?</li>
+          <li>Do reps ever log in, or is this admin-only for v1?</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">Cascade Clarity · Enterprise Agent · Admin Storyboard v0.1 · Construgypsum tenant · built on Brand System Vol. 2</div>
+</div>
+
+<script>
+function setTheme(t){
+  document.documentElement.dataset.theme=t;
+  document.getElementById('tDark').classList.toggle('on',t==='dark');
+  document.getElementById('tLight').classList.toggle('on',t==='light');
+}
+</script>
+</body>
+</html>

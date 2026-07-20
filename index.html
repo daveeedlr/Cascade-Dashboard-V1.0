@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cascade Dashboard V1.0 · Enterprise Agent Storyboards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --grad-main:linear-gradient(135deg,#625FED 0%,#5DB9DB 100%);
+  --grad-hero:linear-gradient(110deg,#5BF7CF 0%,#5DB9DB 50%,#625FED 100%);
+  --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;--r:12px;
+}
+:root,[data-theme="dark"]{
+  --bg-grad:radial-gradient(1200px 700px at 15% -8%,rgba(98,95,237,.20),transparent 60%),radial-gradient(1000px 600px at 100% 0,rgba(93,185,219,.14),transparent 55%),#0B223A;
+  --surface:#0F3259;--surface-2:#0C2846;--inset:#081A2E;
+  --border:rgba(143,163,177,.16);--border-2:rgba(143,163,177,.30);--hover:rgba(255,255,255,.05);
+  --text:rgba(255,255,255,.85);--text-strong:#fff;--muted:#8FA3B1;
+  --accent:#5BF7CF;--link:#5DB9DB;--gold:#F5B455;--purple:#625FED;
+  --ok:#5BF7CF;--info:#5DB9DB;--critical:#FF6B7A;
+  --note-bg:rgba(8,26,46,.55);
+}
+[data-theme="light"]{
+  --bg-grad:radial-gradient(1200px 700px at 12% -10%,rgba(98,95,237,.12),transparent 60%),radial-gradient(1000px 600px at 100% 0,rgba(93,185,219,.12),transparent 55%),#EAF0F6;
+  --surface:#fff;--surface-2:#F5F8FB;--inset:#F0F4F8;
+  --border:rgba(11,34,58,.12);--border-2:rgba(11,34,58,.20);--hover:rgba(11,34,58,.04);
+  --text:rgba(11,34,58,.86);--text-strong:#0B223A;--muted:#5C6B7A;
+  --accent:#0F8F79;--link:#2C6FB0;--gold:#B8791E;--purple:#5049C9;
+  --ok:#0F8F79;--info:#2C6FB0;--critical:#C24338;
+  --note-bg:rgba(255,255,255,.72);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg-grad);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh}
+h1,h2,h3,h4{color:var(--text-strong);margin:0;line-height:1.14;font-weight:700;letter-spacing:-.015em}
+a{color:inherit;text-decoration:none}
+.mono{font-family:var(--mono)}
+svg.mark{width:26px;height:26px;display:block}
+.board{max-width:1120px;margin:0 auto;padding:52px 26px 90px}
+.toggle{position:fixed;top:18px;right:20px;z-index:50;display:flex;gap:4px;padding:4px;border:1px solid var(--border-2);border-radius:999px;background:var(--surface)}
+.toggle button{border:0;background:transparent;color:var(--muted);font-family:var(--font);font-size:12px;font-weight:600;padding:5px 13px;border-radius:999px;cursor:pointer}
+.toggle button.on{background:var(--grad-main);color:#fff}
+.brandline{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+.brandline .wm{font-weight:600;font-size:15px;color:var(--text-strong);line-height:1.05}
+.brandline .wm small{display:block;font-weight:500;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.hero h1{font-size:46px;letter-spacing:-.03em;margin-bottom:14px}
+.hero .grad{background:var(--grad-hero);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{font-size:16.5px;max-width:700px;margin:0}
+.hero p b{color:var(--text-strong)}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.chip{font-size:11px;font-weight:600;letter-spacing:.04em;padding:5px 12px;border-radius:999px;border:1px solid var(--border-2);color:var(--muted);background:var(--note-bg)}
+.chip.on{color:var(--accent);border-color:var(--accent)}
+.rule{height:1px;background:var(--border);margin:44px 0 30px}
+.seclbl{font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+.feature{display:block;border:1px solid var(--border-2);background:var(--note-bg);border-radius:var(--r);padding:26px 28px;margin-bottom:30px;position:relative;overflow:hidden;transition:border-color .15s,transform .15s}
+.feature:hover{border-color:var(--accent);transform:translateY(-2px)}
+.feature::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:var(--grad-hero)}
+.feature .ft{display:flex;align-items:center;gap:12px;margin-bottom:9px;flex-wrap:wrap}
+.feature h2{font-size:23px}
+.feature .tagp{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);border:1px solid var(--purple);border-radius:999px;padding:3px 10px}
+.feature p{margin:0;font-size:14.5px;max-width:760px}
+.feature .go{margin-top:14px;display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.card{display:block;border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r);padding:20px 21px;transition:border-color .15s,transform .15s;height:100%}
+.card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.card .n{font-family:var(--mono);font-size:11.5px;font-weight:600;color:#fff;background:var(--grad-main);padding:3px 9px;border-radius:5px;display:inline-block;margin-bottom:11px}
+.card h3{font-size:17px;margin-bottom:4px}
+.card .who{font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);margin-bottom:9px}
+.card p{margin:0;font-size:13px;color:var(--text)}
+.card .frames{margin-top:12px;padding-top:11px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);font-family:var(--mono)}
+.docrow{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
+.doc{display:flex;align-items:center;gap:10px;border:1px solid var(--border);background:var(--note-bg);border-radius:9px;padding:12px 15px;font-size:13px;flex:1;min-width:230px;transition:border-color .15s}
+.doc:hover{border-color:var(--accent)}
+.doc .ext{font-family:var(--mono);font-size:9.5px;font-weight:700;color:var(--info);border:1px solid var(--info);border-radius:4px;padding:2px 6px;flex:none}
+.doc b{color:var(--text-strong);font-weight:600;display:block;font-size:13px}
+.doc span{color:var(--muted);font-size:11px}
+.how{border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r);padding:22px 24px;margin-top:34px}
+.how h3{font-size:16px;margin-bottom:10px}
+.how ol{margin:0;padding-left:19px;font-size:13.5px}
+.how li{margin-bottom:7px}
+.how b{color:var(--text-strong)}
+.footer{margin-top:44px;padding-top:22px;border-top:1px solid var(--border);text-align:center;color:var(--muted);font-size:11.5px;font-family:var(--mono);line-height:1.9}
+@media(max-width:720px){.hero h1{font-size:32px}.board{padding:36px 20px 70px}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ccmark" viewBox="-0.7 -0.3 49.4 49.5">
+    <defs><linearGradient id="ccg" x1="0" y1="-0.3" x2="0" y2="49.2" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#625FED"/><stop offset=".62" stop-color="#5DB9DB"/><stop offset="1" stop-color="#5BF7CF"/></linearGradient></defs>
+    <path fill="url(#ccg)" d="M2.06789 18.0362c-2.75719-1.7103-2.75719-5.3619 0-7.0722l19.19821-10.19893c1.6445-1.02009 3.8231-1.02009 5.4677-0.00007l19.1982 10.199c2.6709 1.6568 2.7547 5.1352 0.2509 6.9059l-0.2509 0.1663-19.1982 10.199c-1.5932 0.9882-3.6874 1.0186-5.3119 0.0921l-0.1558-0.0921-19.19821-10.199z m2.27852-4.1256c-0.45954 0.285-0.45954 0.894 0 1.1791l19.19809 10.1989c0.274 0.1698 0.6368 0.1698 0.9108 0l19.1982-10.1989c0.4595-0.2851 0.4595-0.8941 0-1.1791l-19.1982-10.19895c-0.274-0.16981-0.6368-0.16981-0.9108 0l-19.19809 10.19895z"/>
+    <path fill="url(#ccg)" d="M42.874 22.1494c0.3206-0.5537 1.1641-0.8331 1.8926-0.5185 1.7915 0.7738 2.6814 2.2245 2.7314 3.6572 0.05 1.4315-0.7352 2.9218-2.4648 3.7851l-17.5098 8.7383c-1.8336 0.9151-4.1001 0.9177-5.9365 0.0069l-18.81542-9.3321c-1.61862-0.8029-2.33402-2.1958-2.26757-3.5215 0.06669-1.3274 0.92218-2.6678 2.62207-3.3496 0.74139-0.2971 1.5717 0.0055 1.87109 0.5625 0.27157 0.5057 0.05504 1.1693-0.66016 1.4561-0.65157 0.2615-1.04373 0.814-1.07421 1.4219-0.03043 0.6098 0.30751 1.1972 0.9375 1.5097l18.8144 9.3321h0.001c0.9545 0.4732 2.1206 0.4715 3.0733-0.0039l17.5088-8.7383c0.7601-0.3794 1.1649-1.079 1.1396-1.8037-0.0253-0.7235-0.4765-1.3955-1.2568-1.7325-0.6999-0.3024-0.8964-0.968-0.6065-1.4697z"/>
+    <path fill="url(#ccg)" transform="translate(0,10.04)" d="M42.874 22.1494c0.3206-0.5537 1.1641-0.8331 1.8926-0.5185 1.7915 0.7738 2.6814 2.2245 2.7314 3.6572 0.05 1.4315-0.7352 2.9218-2.4648 3.7851l-17.5098 8.7383c-1.8336 0.9151-4.1001 0.9177-5.9365 0.0069l-18.81542-9.3321c-1.61862-0.8029-2.33402-2.1958-2.26757-3.5215 0.06669-1.3274 0.92218-2.6678 2.62207-3.3496 0.74139-0.2971 1.5717 0.0055 1.87109 0.5625 0.27157 0.5057 0.05504 1.1693-0.66016 1.4561-0.65157 0.2615-1.04373 0.814-1.07421 1.4219-0.03043 0.6098 0.30751 1.1972 0.9375 1.5097l18.8144 9.3321h0.001c0.9545 0.4732 2.1206 0.4715 3.0733-0.0039l17.5088-8.7383c0.7601-0.3794 1.1649-1.079 1.1396-1.8037-0.0253-0.7235-0.4765-1.3955-1.2568-1.7325-0.6999-0.3024-0.8964-0.968-0.6065-1.4697z"/>
+  </symbol>
+</svg>
+
+<div class="toggle">
+  <button id="tDark" class="on" onclick="setTheme('dark')">Dark</button>
+  <button id="tLight" onclick="setTheme('light')">Light</button>
+</div>
+
+<div class="board">
+
+  <div class="brandline">
+    <svg class="mark" style="width:32px;height:32px"><use href="#ccmark"/></svg>
+    <div class="wm">Cascade Clarity<small>Enterprise AI Integrators</small></div>
+  </div>
+
+  <div class="hero">
+    <h1>Cascade Dashboard <span class="grad">V1.0</span></h1>
+    <p>UI/UX storyboards for the <b>Cascade Enterprise Agent</b> — the browser-based, single-tenant agent workspace. Four user journeys and one system diagram, drawn on the Cowork pattern, in the Cascade brand, grounded in the Construgypsum deployment. Every board shows the happy path <b>and</b> what happens when it breaks.</p>
+    <div class="meta">
+      <span class="chip on">4 user storyboards</span>
+      <span class="chip on">1 architecture diagram</span>
+      <span class="chip">~28 annotated frames</span>
+      <span class="chip">Dark + light on one token layer</span>
+      <span class="chip">Brand System Vol. 2</span>
+    </div>
+  </div>
+
+  <div class="rule"></div>
+
+  <div class="seclbl">Start here</div>
+  <a class="feature" href="Cascade_Agents_Decision_Architecture.html">
+    <div class="ft"><h2>Global decision architecture</h2><span class="tagp">System-wide</span></div>
+    <p>The whole platform on one page. From a connected system to a real-world action, through seven gates — each a decision with a <b>yes</b> and a <b>no</b>. Follow the green line and you reach an action; every red line stops somewhere safe and says why. This is the page to put in front of a buyer who asks what stops the agent doing something stupid.</p>
+    <span class="go">Open the diagram →</span>
+  </a>
+
+  <div class="seclbl">The storyboards · one per user</div>
+  <div class="grid">
+    <a class="card" href="Cascade_Enterprise_Agent_Storyboard.html">
+      <span class="n">01</span>
+      <h3>Admin — steady state</h3>
+      <div class="who">Administrator</div>
+      <p>A workspace already running. Login, dashboard, connectors, the chat surface, runs, and the run-detail approval gate where a human signs off before anything writes.</p>
+      <div class="frames">9 frames · 3 error branches</div>
+    </a>
+    <a class="card" href="Cascade_Enterprise_Agent_Storyboard_02_Onboarding.html">
+      <span class="n">02</span>
+      <h3>Admin — onboarding</h3>
+      <div class="who">Administrator · day one</div>
+      <p>The empty room. Connecting Odoo, a failed connection with a real diagnosis, permission scopes, roles, suggested listeners, and a first read-only run.</p>
+      <div class="frames">7 frames · 2 error branches</div>
+    </a>
+    <a class="card" href="Cascade_Enterprise_Agent_Storyboard_03_Operator.html">
+      <span class="n">03</span>
+      <h3>Operator — inventory</h3>
+      <div class="who">Panchito · Chayabamba</div>
+      <p>Starts on WhatsApp, not in the app. One stock-out from the morning digest to an approved replenishment, plus the week the agent got it wrong and was corrected.</p>
+      <div class="frames">6 frames · 2 error branches</div>
+    </a>
+    <a class="card" href="Cascade_Enterprise_Agent_Storyboard_04_Executive.html">
+      <span class="n">04</span>
+      <h3>Executive — the business</h3>
+      <div class="who">Francisco · Gerente General</div>
+      <p>Four numbers, a 360 view of each store, a weekly narrative that takes a position, and the one request we deliberately said no to.</p>
+      <div class="frames">5 frames · 1 scope guard</div>
+    </a>
+  </div>
+
+  <div class="rule"></div>
+
+  <div class="seclbl">Background</div>
+  <div class="docrow">
+    <a class="doc" href="Storyboard_and_Storybook_Primer.md">
+      <span class="ext">MD</span>
+      <div><b>Storyboard &amp; Storybook primer</b><span>what the two terms mean and how they connect</span></div>
+    </a>
+  </div>
+
+  <div class="how">
+    <h3>How to read these</h3>
+    <ol>
+      <li><b>Start with the architecture diagram.</b> It's the system underneath all four boards — the gates every request passes through.</li>
+      <li><b>Then pick a user.</b> Each board follows one person end to end, frame by frame, with a note beside every screen explaining the design decision.</li>
+      <li><b>Watch the error states.</b> They sit next to the happy path on purpose — a storyboard that only shows the ideal case hides the parts the build has to get right.</li>
+      <li><b>Toggle light and dark</b> on any page. The whole set flips on one token layer, which is why re-skinning for another client is a stylesheet swap, not a rebuild.</li>
+    </ol>
+  </div>
+
+  <div class="footer">
+    Cascade Clarity · Enterprise Agent storyboards · v1.0 draft<br>
+    Prepared by David De los Reyes for John Cuellar · July 2026 · built on Brand System Vol. 2
+  </div>
+</div>
+
+<script>
+function setTheme(t){
+  document.documentElement.dataset.theme=t;
+  document.getElementById('tDark').classList.toggle('on',t==='dark');
+  document.getElementById('tLight').classList.toggle('on',t==='light');
+}
+</script>
+</body>
+</html>
