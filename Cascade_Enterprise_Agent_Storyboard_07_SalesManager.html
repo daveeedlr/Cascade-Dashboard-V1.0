@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cascade Enterprise Agent · Storyboard 07 · Sales Manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Storyboard 07 — Sales Manager · Andrea (Construgypsum). Same token layer as 01–06. */
+:root{
+  --grad-main:linear-gradient(135deg,#625FED 0%,#5DB9DB 100%);
+  --grad-hero:linear-gradient(110deg,#5BF7CF 0%,#5DB9DB 50%,#625FED 100%);
+  --font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;--r:12px;
+}
+:root,[data-theme="dark"]{
+  --bg-grad:radial-gradient(1200px 600px at 15% -5%,rgba(98,95,237,.16),transparent 60%),radial-gradient(1000px 500px at 100% 0,rgba(93,185,219,.12),transparent 55%),#0B223A;
+  --surface:#0F3259;--surface-2:#0C2846;--inset:#081A2E;--topbar:rgba(8,26,46,.72);
+  --border:rgba(143,163,177,.16);--border-2:rgba(143,163,177,.30);--hover:rgba(255,255,255,.04);
+  --text:rgba(255,255,255,.85);--text-strong:#fff;--muted:#8FA3B1;
+  --accent:#5BF7CF;--link:#5DB9DB;--gold:#F5B455;--purple:#625FED;
+  --critical:#FF6B7A;--warn:#F5B455;--ok:#5BF7CF;--info:#5DB9DB;
+  --critical-bg:rgba(255,107,122,.12);--warn-bg:rgba(245,180,85,.13);--ok-bg:rgba(91,247,207,.12);--info-bg:rgba(93,185,219,.12);
+  --note-bg:rgba(8,26,46,.55);
+}
+[data-theme="light"]{
+  --bg-grad:radial-gradient(1200px 600px at 12% -8%,rgba(98,95,237,.10),transparent 60%),radial-gradient(1000px 500px at 100% 0,rgba(93,185,219,.10),transparent 55%),#EAF0F6;
+  --surface:#fff;--surface-2:#F5F8FB;--inset:#F0F4F8;--topbar:rgba(255,255,255,.82);
+  --border:rgba(11,34,58,.12);--border-2:rgba(11,34,58,.20);--hover:rgba(11,34,58,.035);
+  --text:rgba(11,34,58,.86);--text-strong:#0B223A;--muted:#5C6B7A;
+  --accent:#0F8F79;--link:#2C6FB0;--gold:#B8791E;--purple:#5049C9;
+  --critical:#C24338;--warn:#B8791E;--ok:#0F8F79;--info:#2C6FB0;
+  --critical-bg:rgba(194,67,56,.10);--warn-bg:rgba(184,121,30,.12);--ok-bg:rgba(15,143,121,.10);--info-bg:rgba(44,111,176,.10);
+  --note-bg:rgba(255,255,255,.7);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg-grad);color:var(--text);font-family:var(--font);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{color:var(--text-strong);margin:0;line-height:1.15;font-weight:700;letter-spacing:-.01em}
+.mono{font-family:var(--mono);font-variant-numeric:lining-nums tabular-nums}
+.eyebrow{font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+svg.mark{width:26px;height:26px;display:block}
+svg.ico{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.board{max-width:1200px;margin:0 auto;padding:38px 26px 90px}
+.cover{display:flex;flex-wrap:wrap;gap:26px;align-items:flex-end;justify-content:space-between;padding-bottom:26px;border-bottom:1px solid var(--border);margin-bottom:30px}
+.brandline{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.brandline .wm{font-weight:600;font-size:15px;color:var(--text-strong);line-height:1.05}
+.brandline .wm small{display:block;font-weight:500;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+/* tenant tag system */
+.tenant-tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;padding:5px 13px 5px 11px;border-radius:999px;border:1px solid var(--border-2);background:var(--note-bg);margin-bottom:16px}
+.tenant-tag .dot{width:9px;height:9px;border-radius:50%;flex:none}
+.tenant-tag .sub{color:var(--muted);font-weight:500;letter-spacing:.03em;text-transform:none;font-size:11px}
+.tt-construgypsum{border-color:rgba(93,185,219,.55)}.tt-construgypsum .dot{background:#5DB9DB}
+.tt-huffmaster{border-color:rgba(122,107,224,.6)}.tt-huffmaster .dot{background:#8A86F0}
+.tt-cascade{border-color:rgba(91,247,207,.5)}.tt-cascade .dot{background:linear-gradient(135deg,#625FED,#5DB9DB 55%,#5BF7CF)}
+.cover h1{font-size:37px;letter-spacing:-.025em}
+.cover .grad{background:var(--grad-hero);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cover .sub{margin-top:10px;font-size:15.5px;max-width:660px}
+.metabox{border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r);padding:16px 18px;min-width:230px}
+.metabox div{display:flex;justify-content:space-between;gap:18px;font-size:12.5px;padding:3px 0}
+.metabox div span:first-child{color:var(--muted)}
+.metabox div span:last-child{color:var(--text-strong);font-weight:500}
+.toggle{position:fixed;top:18px;right:20px;z-index:50;display:flex;gap:4px;padding:4px;border:1px solid var(--border-2);border-radius:999px;background:var(--surface)}
+.toggle button{border:0;background:transparent;color:var(--muted);font-family:var(--font);font-size:12px;font-weight:600;padding:5px 13px;border-radius:999px;cursor:pointer}
+.toggle button.on{background:var(--grad-main);color:#fff}
+.lead{max-width:840px;margin:0 0 30px;font-size:15.5px}
+.lead b{color:var(--text-strong)}
+.shead{display:flex;align-items:baseline;gap:14px;margin:46px 0 16px}
+.shead .n{font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:600}
+.shead h2{font-size:20px}
+.shead .h-sub{color:var(--muted);font-size:13px;margin-left:auto}
+.flow{border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r);padding:20px 18px;overflow-x:auto}
+.flowrow{display:flex;align-items:center;gap:8px;min-width:max-content}
+.node{display:flex;align-items:center;gap:8px;padding:9px 13px;border-radius:999px;border:1px solid var(--border-2);background:var(--surface);font-size:12.5px;font-weight:600;color:var(--text-strong);white-space:nowrap}
+.node .num{font-family:var(--mono);font-size:11px;color:var(--accent)}
+.node.start{background:var(--grad-main);color:#fff;border:0}.node.start .num{color:rgba(255,255,255,.8)}
+.arr{color:var(--muted);font-size:15px;flex:none}
+.flowrow.err{margin-top:12px}
+.node.errnode{border-color:var(--critical);color:var(--critical);background:var(--critical-bg)}
+.node.errnode .num{color:var(--critical)}
+.branchlbl{font-size:11px;color:var(--critical);font-weight:600;display:inline-flex;align-items:center;gap:6px}
+.frame{margin-top:40px}
+.frame-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.frame-head .fn{font-family:var(--mono);font-size:12px;font-weight:600;color:#fff;background:var(--grad-main);padding:4px 10px;border-radius:6px}
+.frame-head h3{font-size:18px}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin-left:auto}
+.tag{font-size:10.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid var(--border-2);color:var(--muted)}
+.tag.happy{color:var(--ok);border-color:var(--ok);background:var(--ok-bg)}
+.tag.err{color:var(--critical);border-color:var(--critical);background:var(--critical-bg)}
+.tag.gate{color:var(--gold);border-color:var(--gold);background:var(--warn-bg)}
+.frame-body{display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start}
+.note{border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r);padding:16px 17px;position:sticky;top:20px}
+.note .eyebrow{margin-bottom:8px}
+.note p{margin:0 0 10px;font-size:13px}
+.note ul{margin:0;padding-left:16px;font-size:12.5px}
+.note li{margin-bottom:6px}.note li b,.note p b{color:var(--text-strong)}
+.win{border:1px solid var(--border-2);border-radius:var(--r);overflow:hidden;background:var(--surface-2);box-shadow:0 24px 60px -30px rgba(0,0,0,.55)}
+.win-bar{display:flex;align-items:center;gap:8px;padding:9px 13px;background:var(--inset);border-bottom:1px solid var(--border)}
+.win-bar .lights{display:flex;gap:6px}
+.win-bar .lights i{width:10px;height:10px;border-radius:50%;display:block}
+.win-bar .url{flex:1;text-align:center;font-family:var(--mono);font-size:11px;color:var(--muted);background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:3px 10px;max-width:380px;margin:0 auto}
+.app{display:grid;grid-template-columns:200px 1fr;min-height:500px;background:var(--surface-2)}
+.nav{background:var(--inset);border-right:1px solid var(--border);padding:14px 12px;display:flex;flex-direction:column;gap:3px}
+.nav .navbrand{display:flex;align-items:center;gap:9px;padding:4px 6px 14px;margin-bottom:6px;border-bottom:1px solid var(--border)}
+.nav .navbrand b{font-size:13px;color:var(--text-strong);font-weight:600;line-height:1.05}
+.nav .navbrand b small{display:block;font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.nav .ng{font-size:9px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding:12px 8px 5px}
+.nav-item{display:flex;align-items:center;gap:9px;padding:7px 9px;border-radius:8px;font-size:12.5px;font-weight:500;color:var(--text)}
+.nav-item .ico{width:16px;height:16px;color:var(--muted)}
+.nav-item.active{background:rgba(98,95,237,.18);color:var(--text-strong);font-weight:600}
+.nav-item.active .ico{color:var(--accent)}
+.nav-item .badge{margin-left:auto;font-family:var(--mono);font-size:10px;font-weight:600;color:#0B223A;background:var(--gold);border-radius:999px;padding:1px 6px}
+.tenantflag{margin:10px 6px 0;padding:8px 9px;border:1px dashed var(--border-2);border-radius:8px;font-size:10px;color:var(--muted);line-height:1.4}
+.tenantflag b{color:var(--accent);display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px}
+.navfoot{margin-top:auto;display:flex;align-items:center;gap:9px;padding:9px 6px 2px;border-top:1px solid var(--border)}
+.avatar{width:26px;height:26px;border-radius:50%;background:var(--grad-main);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}
+.navfoot .who{font-size:11.5px;line-height:1.1}.navfoot .who b{color:var(--text-strong);font-size:12px;display:block}
+.navfoot .who span{color:var(--muted);font-size:10.5px}
+.appmain{display:flex;flex-direction:column;min-width:0}
+.topbar{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--border);background:var(--topbar)}
+.topbar h4{font-size:14.5px}
+.env{font-family:var(--mono);font-size:10.5px;color:var(--ok);border:1px solid var(--ok);background:var(--ok-bg);border-radius:999px;padding:2px 9px;display:inline-flex;align-items:center;gap:6px}
+.env i{width:6px;height:6px;border-radius:50%;background:var(--ok);display:block}
+.topbar .right{margin-left:auto;display:flex;align-items:center;gap:10px;color:var(--muted)}
+.content{padding:18px;flex:1}
+.subtle{color:var(--muted);font-size:12px}
+.grid{display:grid;gap:12px}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:13px 14px}
+.card h5{font-size:12.5px;color:var(--text-strong);margin-bottom:11px;display:flex;align-items:center;gap:8px}
+.card h5 .r{margin-left:auto;font-size:10px;color:var(--muted);font-weight:500}
+.stat .lbl{font-size:9.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+.stat .v{font-size:22px;font-weight:700;color:var(--text-strong);margin-top:4px;font-variant-numeric:lining-nums tabular-nums}
+.stat .d{font-size:10.5px;color:var(--muted);margin-top:2px}
+.stat.flag{border-color:var(--gold);background:var(--warn-bg)}.stat.flag .v,.stat.flag .lbl{color:var(--gold)}
+.stat.good{border-color:var(--ok);background:var(--ok-bg)}.stat.good .v,.stat.good .lbl{color:var(--ok)}
+.stat.bad{border-color:var(--critical);background:var(--critical-bg)}.stat.bad .v,.stat.bad .lbl{color:var(--critical)}
+.pill{font-size:10px;font-weight:600;padding:2px 9px;border-radius:999px;text-transform:uppercase;white-space:nowrap}
+.pill.ok{color:var(--ok);background:var(--ok-bg);border:1px solid var(--ok)}
+.pill.warn{color:var(--gold);background:var(--warn-bg);border:1px solid var(--gold)}
+.pill.crit{color:var(--critical);background:var(--critical-bg);border:1px solid var(--critical)}
+.pill.info{color:var(--info);background:var(--info-bg);border:1px solid var(--info)}
+.pill.muted{color:var(--muted);border:1px solid var(--border-2)}
+.btn{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;border-radius:8px;padding:8px 14px;border:1px solid transparent}
+.btn.p{background:var(--grad-main);color:#fff}
+.btn.g{background:transparent;border-color:var(--border-2);color:var(--text-strong)}
+.btn.crit{background:transparent;border-color:var(--critical);color:var(--critical)}
+.btn.sm{padding:5px 11px;font-size:11px}
+table.tb{width:100%;border-collapse:collapse;font-size:12px}
+table.tb th{text-align:left;font-size:9px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);padding:8px 10px;background:var(--inset);border-bottom:1px solid var(--border)}
+table.tb td{padding:9px 10px;border-bottom:1px solid var(--border)}
+table.tb tr:last-child td{border-bottom:0}
+table.tb td b{color:var(--text-strong)}
+table.tb .m{font-family:var(--mono);font-size:11px}
+.rowsel{background:rgba(98,95,237,.10)}
+.bar{display:flex;align-items:center;gap:10px;margin-bottom:9px;font-size:11.5px}
+.bar .bl{width:118px;flex:none}
+.bar .track{flex:1;height:7px;border-radius:4px;background:var(--hover);overflow:hidden}
+.bar .fill{height:100%;border-radius:4px;background:var(--grad-main)}
+.bar .fill.low{background:var(--critical)}.bar .fill.mid{background:var(--gold)}
+.bar .pc{width:44px;text-align:right;font-family:var(--mono);color:var(--text-strong);font-weight:600;flex:none}
+.q{display:flex;align-items:center;gap:12px;padding:11px 13px;border:1px solid var(--border);border-radius:9px;background:var(--surface);margin-bottom:9px}
+.q .qi{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex:none;color:#fff}
+.q .qt{flex:1;min-width:0}.q .qt b{color:var(--text-strong);font-size:12.5px;font-weight:600;display:block}
+.q .qt span{color:var(--muted);font-size:11px}
+.narr{border-left:2px solid var(--accent);padding:2px 0 2px 14px;margin-bottom:12px}
+.narr p{margin:0 0 8px;font-size:12.5px}.narr p:last-child{margin:0}.narr b{color:var(--text-strong)}
+.conv{display:flex;flex-direction:column;gap:12px}
+.msg{max-width:80%;font-size:12.5px;line-height:1.5}
+.msg.u{align-self:flex-end;background:var(--grad-main);color:#fff;border-radius:14px 14px 4px 14px;padding:9px 13px}
+.msg.a{align-self:flex-start}
+.msg.a .who{display:flex;align-items:center;gap:7px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.msg.a .body{background:var(--surface);border:1px solid var(--border);border-radius:4px 14px 14px 14px;padding:11px 13px}
+.propose{margin-top:9px;border:1px dashed var(--gold);border-radius:8px;padding:10px 11px;background:var(--warn-bg)}
+.propose .pt{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:4px}
+.propose .pd{font-size:12px;color:var(--text-strong);margin-bottom:9px}
+.closing{margin-top:52px;border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r);padding:22px 24px}
+.closing h2{font-size:19px;margin-bottom:10px}
+.closing p{max-width:840px;font-size:14px}
+.closing .cols{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:16px}
+.closing h4{font-size:13px;margin-bottom:7px}
+.closing ul{margin:0;padding-left:17px;font-size:13px}.closing li{margin-bottom:6px}
+.footer{margin-top:34px;text-align:center;color:var(--muted);font-size:11.5px;font-family:var(--mono)}
+@media(max-width:880px){.frame-body{grid-template-columns:1fr}.note{position:static}.app{grid-template-columns:1fr}.nav{display:none}.cover h1{font-size:29px}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ccmark" viewBox="-0.7 -0.3 49.4 49.5">
+    <defs><linearGradient id="ccg" x1="0" y1="-0.3" x2="0" y2="49.2" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#625FED"/><stop offset=".62" stop-color="#5DB9DB"/><stop offset="1" stop-color="#5BF7CF"/></linearGradient></defs>
+    <path fill="url(#ccg)" d="M2.06789 18.0362c-2.75719-1.7103-2.75719-5.3619 0-7.0722l19.19821-10.19893c1.6445-1.02009 3.8231-1.02009 5.4677-0.00007l19.1982 10.199c2.6709 1.6568 2.7547 5.1352 0.2509 6.9059l-0.2509 0.1663-19.1982 10.199c-1.5932 0.9882-3.6874 1.0186-5.3119 0.0921l-0.1558-0.0921-19.19821-10.199z m2.27852-4.1256c-0.45954 0.285-0.45954 0.894 0 1.1791l19.19809 10.1989c0.274 0.1698 0.6368 0.1698 0.9108 0l19.1982-10.1989c0.4595-0.2851 0.4595-0.8941 0-1.1791l-19.1982-10.19895c-0.274-0.16981-0.6368-0.16981-0.9108 0l-19.19809 10.19895z"/>
+    <path fill="url(#ccg)" d="M42.874 22.1494c0.3206-0.5537 1.1641-0.8331 1.8926-0.5185 1.7915 0.7738 2.6814 2.2245 2.7314 3.6572 0.05 1.4315-0.7352 2.9218-2.4648 3.7851l-17.5098 8.7383c-1.8336 0.9151-4.1001 0.9177-5.9365 0.0069l-18.81542-9.3321c-1.61862-0.8029-2.33402-2.1958-2.26757-3.5215 0.06669-1.3274 0.92218-2.6678 2.62207-3.3496 0.74139-0.2971 1.5717 0.0055 1.87109 0.5625 0.27157 0.5057 0.05504 1.1693-0.66016 1.4561-0.65157 0.2615-1.04373 0.814-1.07421 1.4219-0.03043 0.6098 0.30751 1.1972 0.9375 1.5097l18.8144 9.3321h0.001c0.9545 0.4732 2.1206 0.4715 3.0733-0.0039l17.5088-8.7383c0.7601-0.3794 1.1649-1.079 1.1396-1.8037-0.0253-0.7235-0.4765-1.3955-1.2568-1.7325-0.6999-0.3024-0.8964-0.968-0.6065-1.4697z"/>
+    <path fill="url(#ccg)" transform="translate(0,10.04)" d="M42.874 22.1494c0.3206-0.5537 1.1641-0.8331 1.8926-0.5185 1.7915 0.7738 2.6814 2.2245 2.7314 3.6572 0.05 1.4315-0.7352 2.9218-2.4648 3.7851l-17.5098 8.7383c-1.8336 0.9151-4.1001 0.9177-5.9365 0.0069l-18.81542-9.3321c-1.61862-0.8029-2.33402-2.1958-2.26757-3.5215 0.06669-1.3274 0.92218-2.6678 2.62207-3.3496 0.74139-0.2971 1.5717 0.0055 1.87109 0.5625 0.27157 0.5057 0.05504 1.1693-0.66016 1.4561-0.65157 0.2615-1.04373 0.814-1.07421 1.4219-0.03043 0.6098 0.30751 1.1972 0.9375 1.5097l18.8144 9.3321h0.001c0.9545 0.4732 2.1206 0.4715 3.0733-0.0039l17.5088-8.7383c0.7601-0.3794 1.1649-1.079 1.1396-1.8037-0.0253-0.7235-0.4765-1.3955-1.2568-1.7325-0.6999-0.3024-0.8964-0.968-0.6065-1.4697z"/>
+  </symbol>
+  <symbol id="i-dash" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="i-people" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M16 5.4a3.2 3.2 0 0 1 0 5.4"/><path d="M20.5 20a5.5 5.5 0 0 0-4-5.3"/></symbol>
+  <symbol id="i-pipe" viewBox="0 0 24 24"><path d="M3 6h18M6 6v13M18 6v13M6 12h12M6 19h12"/></symbol>
+  <symbol id="i-cash" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/></symbol>
+  <symbol id="i-coach" viewBox="0 0 24 24"><path d="M12 3l2.5 5 5.5.8-4 3.9 1 5.5-5-2.7-5 2.7 1-5.5-4-3.9 5.5-.8z"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-4 4V5z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-11"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 8v5M12 16.5v.5"/><path d="M12 3l9 16H3z"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/></symbol>
+</svg>
+
+<div class="toggle">
+  <button id="tDark" class="on" onclick="setTheme('dark')">Dark</button>
+  <button id="tLight" onclick="setTheme('light')">Light</button>
+</div>
+
+<div class="board">
+
+  <header class="cover">
+    <div>
+      <div class="brandline">
+        <svg class="mark" style="width:30px;height:30px"><use href="#ccmark"/></svg>
+        <div class="wm">Cascade Clarity<small>Enterprise AI Integrators</small></div>
+      </div>
+      <div class="tenant-tag tt-construgypsum"><span class="dot"></span>Construgypsum<span class="sub">· client tenant</span></div>
+      <h1>Storyboard 07 —<br><span class="grad">Sales manager · the team</span></h1>
+      <p class="sub">The role that has been sitting unassigned in the Users table since Storyboard 02. Andrea runs the nine reps. She is the one the agent escalates to when a rep goes quiet, the one who approves the CRM cleanups, and the one who decides when the agent has judged a person unfairly.</p>
+    </div>
+    <div class="metabox">
+      <div><span>Prepared by</span><span>David De los Reyes</span></div>
+      <div><span>For</span><span>John Cuellar</span></div>
+      <div><span>Date</span><span>Jul 17, 2026</span></div>
+      <div><span>User</span><span>Andrea · Gerente Comercial</span></div>
+      <div><span>Role</span><span>Manager</span></div>
+      <div><span>Version</span><span class="mono">v0.1 · draft</span></div>
+    </div>
+  </header>
+
+  <p class="lead">Boards 03 to 05 all quietly hand something up to this person. The operator escalates a stock decision; the field rep who stops replying becomes a coaching item; the executive's coverage gap has to be worked by someone. <b>The sales manager is where the agent's findings turn into conversations with people</b> — which makes this the board where tone matters most. Every screen here is designed to help Andrea manage <b>fairly</b>: the agent surfaces patterns and drafts the outreach, but a human always decides what to say to another human, and can always tell the agent it got a person wrong.</p>
+
+  <div class="shead"><span class="n">A</span><h2>The route</h2><span class="h-sub">sales manager · the weekly people-and-pipeline loop</span></div>
+  <div class="flow">
+    <div class="flowrow">
+      <span class="node start"><span class="num">01</span>Team dashboard</span><span class="arr">→</span>
+      <span class="node"><span class="num">02</span>Coaching item</span><span class="arr">→</span>
+      <span class="node"><span class="num">03</span>Pipeline approval</span><span class="arr">→</span>
+      <span class="node"><span class="num">04</span>Collections watch</span><span class="arr">→</span>
+      <span class="node"><span class="num">05</span>Correct an unfair flag</span>
+    </div>
+    <div class="flowrow err">
+      <span class="branchlbl"><svg class="ico" style="width:14px;height:14px;color:var(--critical)"><use href="#i-alert"/></svg>Branch</span>
+      <span class="arr">↳</span>
+      <span class="node errnode"><span class="num">05</span>Agent misjudged a rep → manager overrides, model learns</span>
+    </div>
+  </div>
+
+  <!-- FRAME 01 -->
+  <article class="frame" id="f01">
+    <div class="frame-head"><span class="fn">01</span><h3>Team dashboard — where the escalations land</h3>
+      <div class="tags"><span class="tag happy">Happy path</span><span class="tag">People + numbers</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">construgypsum.cascade.app/equipo</div></div>
+        <div class="app">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Cascade<small>Enterprise</small></b></div>
+            <a class="nav-item active"><svg class="ico"><use href="#i-people"/></svg>Equipo</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-pipe"/></svg>Pipeline<span class="badge">2</span></a>
+            <a class="nav-item"><svg class="ico"><use href="#i-cash"/></svg>Cobranzas</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-coach"/></svg>Coaching<span class="badge">1</span></a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Preguntar</a>
+            <div class="tenantflag"><b>Manager</b>Andrea approves field &amp; CRM runs, sees reps &amp; pipeline. No connectors, no inventory — her role sets the menu.</div>
+            <div class="navfoot"><div class="avatar">AS</div><div class="who"><b>Andrea S.</b><span>Gerente Comercial</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Mi equipo · semana 29</h4><span class="env"><i></i>Al día</span>
+              <div class="right"><span class="subtle">9 vendedores</span></div></div>
+            <div class="content">
+              <div class="grid g4" style="margin-bottom:12px">
+                <div class="card stat good"><div class="lbl">Cuota del equipo</div><div class="v">78%</div><div class="d">a 3 días del cierre</div></div>
+                <div class="card stat"><div class="lbl">Cobrado</div><div class="v">76%</div><div class="d">comisión sobre cobrado</div></div>
+                <div class="card stat flag"><div class="lbl">Cobertura media</div><div class="v">2.4</div><div class="d">líneas por visita · meta 4</div></div>
+                <div class="card stat"><div class="lbl">Para revisar</div><div class="v">3</div><div class="d">1 coaching · 2 pipeline</div></div>
+              </div>
+              <div class="card" style="padding:0;margin-bottom:12px">
+                <table class="tb">
+                  <thead><tr><th>Vendedor</th><th>Cuota</th><th>Cobertura</th><th>Reportes</th><th>Señal</th></tr></thead>
+                  <tbody>
+                    <tr><td><b>Marta Vera</b><br><span class="subtle">Manabí</span></td><td class="m">104%</td><td class="m">4.1</td><td class="m">96%</td><td><span class="pill ok">Fuerte</span></td></tr>
+                    <tr><td><b>Karina Ortega</b><br><span class="subtle">Guayas</span></td><td class="m">91%</td><td class="m">3.2</td><td class="m">90%</td><td><span class="pill ok">Bien</span></td></tr>
+                    <tr><td><b>Diego Salas</b><br><span class="subtle">Pichincha</span></td><td class="m">83%</td><td class="m">2.0</td><td class="m">84%</td><td><span class="pill info">Estable</span></td></tr>
+                    <tr class="rowsel"><td><b>Luis Ramírez</b><br><span class="subtle">Azuay</span></td><td class="m">72%</td><td class="m">1.4</td><td class="m" style="color:var(--gold)">54%</td><td><span class="pill warn">Apoyo</span></td></tr>
+                    <tr><td><b>Jorge Núñez</b><br><span class="subtle">Azuay</span></td><td class="m">61%</td><td class="m">1.2</td><td class="m">62%</td><td><span class="pill muted">Ver contexto</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="q"><div class="qi" style="background:var(--gold)"><svg class="ico" style="width:15px;height:15px"><use href="#i-coach"/></svg></div>
+                <div class="qt"><b>Luis lleva 2 semanas por debajo del 60% de reportes</b><span>escalado desde el hilo de WhatsApp · sugiere un 1:1</span></div><span class="pill warn">Revisar</span></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>The manager's home is <b>people first, numbers as support</b>. The table is ranked, but the language is "Apoyo / Ver contexto," not a red-and-green shaming board.</p>
+        <ul>
+          <li>The <b>coaching flag on Luis is the escalation from Storyboard 05</b> — the reply-rate threshold firing exactly where it was designed to.</li>
+          <li>"Reportes 54%" is the same number the field-rep board protects. Here it becomes a <b>reason to check in</b>, not a strike.</li>
+          <li>Jorge reads "Ver contexto," not "low." That deliberate softness sets up Frame 05.</li>
+          <li>Same shell, cards and table as every other tenant board.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- FRAME 02 -->
+  <article class="frame" id="f02">
+    <div class="frame-head"><span class="fn">02</span><h3>Coaching item — the agent drafts, the manager decides</h3>
+      <div class="tags"><span class="tag happy">Happy path</span><span class="tag gate">She approves the outreach</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">construgypsum.cascade.app/coaching/luis-ramirez</div></div>
+        <div class="app">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Cascade<small>Enterprise</small></b></div>
+            <a class="nav-item"><svg class="ico"><use href="#i-people"/></svg>Equipo</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-pipe"/></svg>Pipeline<span class="badge">2</span></a>
+            <a class="nav-item"><svg class="ico"><use href="#i-cash"/></svg>Cobranzas</a>
+            <a class="nav-item active"><svg class="ico"><use href="#i-coach"/></svg>Coaching</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Preguntar</a>
+            <div class="navfoot"><div class="avatar">AS</div><div class="who"><b>Andrea S.</b><span>Gerente Comercial</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Coaching · Luis Ramírez</h4><span class="pill warn">Sugerencia · no enviada</span>
+              <div class="right"><span class="subtle">Azuay · desde 2021</span></div></div>
+            <div class="content">
+              <div class="grid g3" style="margin-bottom:12px">
+                <div class="card stat"><div class="lbl">Cuota</div><div class="v">72%</div><div class="d">estable, no cayendo</div></div>
+                <div class="card stat flag"><div class="lbl">Reportes</div><div class="v">54%</div><div class="d">bajó hace 2 semanas</div></div>
+                <div class="card stat flag"><div class="lbl">Cobertura</div><div class="v">1.4</div><div class="d">casi solo planchas</div></div>
+              </div>
+              <div class="card" style="margin-bottom:12px">
+                <h5>Lo que ve el agente <span class="r">sin conclusiones</span></h5>
+                <p style="margin:0;font-size:12.5px">Luis <b>sigue cerrando</b> — su cuota está estable. Lo que cambió hace dos semanas es que dejó de responder los reportes y su cobertura bajó. <b>Puede ser muchas cosas.</b> No sé cuál. Por eso te lo paso a ti, no le escribo yo.</p>
+              </div>
+              <div class="card" style="border-color:var(--gold)">
+                <h5 style="color:var(--gold)"><svg class="ico" style="width:14px;height:14px"><use href="#i-heart"/></svg>¿Cómo quieres acercarte?</h5>
+                <p style="margin:0 0 11px;font-size:12px">El agente preparó tres opciones. Ninguna se envía hasta que tú elijas y la revises.</p>
+                <div class="propose" style="margin-top:0;margin-bottom:9px">
+                  <div class="pt">Opción sugerida · 1:1</div>
+                  <div class="pd">Agendar 15 min con Luis. "Vi que la semana estuvo pesada — ¿todo bien? ¿en qué te ayudo con la ruta?" Sin cifras, primero la persona.</div>
+                </div>
+                <div style="display:flex;gap:9px;align-items:center;flex-wrap:wrap">
+                  <span class="btn p"><svg class="ico" style="width:14px;height:14px;stroke:#fff"><use href="#i-check"/></svg>Agendar 1:1</span>
+                  <span class="btn g">Mandarle un mensaje de apoyo</span>
+                  <span class="btn g">Solo observar otra semana</span>
+                  <span class="subtle" style="margin-left:auto">tú decides qué se dice</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>This is the most sensitive screen in the whole set, so it is the most careful. The agent <b>describes, never diagnoses</b> a person.</p>
+        <ul>
+          <li>"Puede ser muchas cosas. No sé cuál." — the agent explicitly <b>refuses to guess why</b> a human behaves a certain way.</li>
+          <li>The suggested move is a <b>1:1 that leads with the person</b>, not the metrics. "Sin cifras, primero la persona."</li>
+          <li>Every option is drafted; <b>nothing sends until Andrea chooses and reviews</b>. The agent never messages a rep about performance on its own.</li>
+          <li>"Solo observar otra semana" is a first-class choice. Not every dip needs an intervention.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- FRAME 03 -->
+  <article class="frame" id="f03">
+    <div class="frame-head"><span class="fn">03</span><h3>Pipeline approval — the manager is the CRM approver</h3>
+      <div class="tags"><span class="tag gate">Approval gate</span><span class="tag">Role from SB02</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">construgypsum.cascade.app/pipeline/revision</div></div>
+        <div class="app">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Cascade<small>Enterprise</small></b></div>
+            <a class="nav-item"><svg class="ico"><use href="#i-people"/></svg>Equipo</a>
+            <a class="nav-item active"><svg class="ico"><use href="#i-pipe"/></svg>Pipeline<span class="badge">2</span></a>
+            <a class="nav-item"><svg class="ico"><use href="#i-cash"/></svg>Cobranzas</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-coach"/></svg>Coaching</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Preguntar</a>
+            <div class="navfoot"><div class="avatar">AS</div><div class="who"><b>Andrea S.</b><span>Gerente Comercial</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Higiene de pipeline</h4><span class="pill warn">Requiere tu visto bueno</span>
+              <div class="right"><span class="subtle mono">run:crm-hygiene · 5 cambios</span></div></div>
+            <div class="content">
+              <div class="card" style="margin-bottom:12px">
+                <h5>Qué encontró el agente <span class="r">lenguaje claro</span></h5>
+                <p style="margin:0;font-size:12.5px">Cinco oportunidades distorsionan el pronóstico: <b>3 sin etapa</b> y <b>2 cerradas como perdidas sin motivo</b>. El agente propone escribir estos cambios en Odoo CRM. Tú apruebas porque el pipeline es tuyo, no del administrador.</p>
+              </div>
+              <div class="card" style="margin-bottom:12px;padding:0">
+                <table class="tb">
+                  <thead><tr><th>Cuenta</th><th>Vendedor</th><th>Campo</th><th>Actual</th><th>Propuesto</th></tr></thead>
+                  <tbody>
+                    <tr><td><b>El Constructor</b></td><td class="m">Luis</td><td class="m">etapa</td><td><span class="pill crit">— vacía —</span></td><td class="m"><b>Cotización</b></td></tr>
+                    <tr><td><b>San Rafael</b></td><td class="m">Jorge</td><td class="m">etapa</td><td><span class="pill crit">— vacía —</span></td><td class="m"><b>Negociación</b></td></tr>
+                    <tr><td><b>La Unión</b></td><td class="m">Diego</td><td class="m">motivo perdido</td><td><span class="pill crit">vacío</span></td><td class="m"><b>Precio competidor</b></td></tr>
+                    <tr><td><b>Ferrehogar</b></td><td class="m">Karina</td><td class="m">etapa</td><td><span class="pill crit">— vacía —</span></td><td class="m"><b>Propuesta</b></td></tr>
+                    <tr><td><b>Distic Sur</b></td><td class="m">Marta</td><td class="m">motivo perdido</td><td><span class="pill crit">vacío</span></td><td class="m"><b>Sin stock</b></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="card" style="border-color:var(--gold)">
+                <h5 style="color:var(--gold)">¿Aplicar los 5 cambios en Odoo?</h5>
+                <p style="margin:0 0 12px;font-size:12px">El agente escribirá estos cambios por el conector REST. Puedes rechazar cualquier fila. Reversible desde el registro.</p>
+                <div style="display:flex;gap:9px;align-items:center">
+                  <span class="btn p"><svg class="ico" style="width:14px;height:14px;stroke:#fff"><use href="#i-check"/></svg>Aprobar los 5</span>
+                  <span class="btn g">Revisar uno por uno</span>
+                  <span class="btn crit">Rechazar con motivo</span>
+                  <span class="subtle mono" style="margin-left:auto">firmado por Andrea S.</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>Storyboard 01 showed this same run approved by the <b>admin</b>. Here it is the <b>manager's</b> job, because the role model in Storyboard 02 gave Manager approval over field &amp; CRM runs.</p>
+        <ul>
+          <li>Identical approval-gate component — <b>the gate does not care who the approver is</b>, only that they hold the role.</li>
+          <li>The list is <b>across her reps</b>, which is what makes it a manager view rather than an admin one.</li>
+          <li>Confirms the platform claim from the other direction: same run, different seat, appropriate person.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- FRAME 04 -->
+  <article class="frame" id="f04">
+    <div class="frame-head"><span class="fn">04</span><h3>Collections — commission is paid on what's collected</h3>
+      <div class="tags"><span class="tag happy">Happy path</span><span class="tag gate">Approve the reminders</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">construgypsum.cascade.app/cobranzas</div></div>
+        <div class="app">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Cascade<small>Enterprise</small></b></div>
+            <a class="nav-item"><svg class="ico"><use href="#i-people"/></svg>Equipo</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-pipe"/></svg>Pipeline<span class="badge">2</span></a>
+            <a class="nav-item active"><svg class="ico"><use href="#i-cash"/></svg>Cobranzas</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-coach"/></svg>Coaching</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Preguntar</a>
+            <div class="navfoot"><div class="avatar">AS</div><div class="who"><b>Andrea S.</b><span>Gerente Comercial</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Cobranzas</h4><span class="env"><i></i>Al día</span>
+              <div class="right"><span class="subtle">comisión sobre cobrado</span></div></div>
+            <div class="content">
+              <div class="grid g3" style="margin-bottom:12px">
+                <div class="card stat"><div class="lbl">Facturado (mes)</div><div class="v">$742k</div><div class="d">todo el equipo</div></div>
+                <div class="card stat flag"><div class="lbl">Por cobrar</div><div class="v">$178k</div><div class="d">24% pendiente</div></div>
+                <div class="card stat bad"><div class="lbl">Vencido +30d</div><div class="v">$61k</div><div class="d">4 cuentas</div></div>
+              </div>
+              <div class="card" style="margin-bottom:12px;padding:0">
+                <table class="tb">
+                  <thead><tr><th>Cuenta</th><th>Vendedor</th><th>Monto</th><th>Días</th><th>Estado</th></tr></thead>
+                  <tbody>
+                    <tr><td><b>Materiales La Unión</b></td><td class="m">Diego</td><td class="m">$24,100</td><td class="m">47</td><td><span class="pill crit">Vencido</span></td></tr>
+                    <tr><td><b>Depósito San Rafael</b></td><td class="m">Jorge</td><td class="m">$18,400</td><td class="m">39</td><td><span class="pill crit">Vencido</span></td></tr>
+                    <tr><td><b>Ferrehogar</b></td><td class="m">Karina</td><td class="m">$11,900</td><td class="m">33</td><td><span class="pill warn">Por vencer</span></td></tr>
+                    <tr><td><b>El Constructor</b></td><td class="m">Luis</td><td class="m">$6,700</td><td class="m">21</td><td><span class="pill info">Al día</span></td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="card" style="border-color:var(--gold)">
+                <h5 style="color:var(--gold)">Enviar 3 recordatorios de cobro?</h5>
+                <p style="margin:0 0 12px;font-size:12px">El agente redactó un recordatorio amable por WhatsApp para cada vendedor, con el monto y los días, para que ellos lo reenvíen al cliente. <b style="color:var(--text-strong)">No se manda nada al cliente directamente.</b></p>
+                <div style="display:flex;gap:9px;align-items:center">
+                  <span class="btn p"><svg class="ico" style="width:14px;height:14px;stroke:#fff"><use href="#i-check"/></svg>Aprobar y enviar a los vendedores</span>
+                  <span class="btn g">Ver los textos</span>
+                  <span class="subtle mono" style="margin-left:auto">run:cobranza:0233</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>Discovery detail turned into a screen: <b>commission is paid on collected sales, not invoiced</b>. So collections is a manager's daily concern, not an afterthought.</p>
+        <ul>
+          <li>The reminders go <b>to the reps, not the clients</b> — the agent respects the relationship the rep owns.</li>
+          <li>Another approval gate, another run id. The write here is "send messages," so a human confirms.</li>
+          <li>Ties collections to the rep who owns the account, keeping it a coaching tool as much as a finance one.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <!-- FRAME 05 -->
+  <article class="frame" id="f05">
+    <div class="frame-head"><span class="fn">05</span><h3>Correcting an unfair flag — the human overrules the agent</h3>
+      <div class="tags"><span class="tag err">Agent misjudged a person</span><span class="tag">Fairness loop</span></div></div>
+    <div class="frame-body">
+      <div class="win">
+        <div class="win-bar"><div class="lights"><i style="background:#FF6B7A"></i><i style="background:#F5B455"></i><i style="background:#5BF7CF"></i></div>
+          <div class="url">construgypsum.cascade.app/coaching/jorge-nunez</div></div>
+        <div class="app">
+          <aside class="nav">
+            <div class="navbrand"><svg class="mark" style="width:22px;height:22px"><use href="#ccmark"/></svg><b>Cascade<small>Enterprise</small></b></div>
+            <a class="nav-item"><svg class="ico"><use href="#i-people"/></svg>Equipo</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-pipe"/></svg>Pipeline</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-cash"/></svg>Cobranzas</a>
+            <a class="nav-item active"><svg class="ico"><use href="#i-coach"/></svg>Coaching</a>
+            <a class="nav-item"><svg class="ico"><use href="#i-chat"/></svg>Preguntar</a>
+            <div class="navfoot"><div class="avatar">AS</div><div class="who"><b>Andrea S.</b><span>Gerente Comercial</span></div></div>
+          </aside>
+          <section class="appmain">
+            <div class="topbar"><h4>Coaching · Jorge Núñez</h4><span class="pill muted">Marcado por el agente</span>
+              <div class="right"><span class="subtle">Azuay · desde 2018</span></div></div>
+            <div class="content">
+              <div class="card" style="border-color:var(--gold);margin-bottom:12px">
+                <h5 style="color:var(--gold)">Lo que marcó el agente</h5>
+                <p style="margin:0;font-size:12.5px">Jorge aparece último en cuota (61%) y cobertura (1.2). El agente lo señaló como candidato a coaching, igual que a Luis.</p>
+              </div>
+              <div class="card" style="border-color:var(--info);margin-bottom:12px">
+                <h5 style="color:var(--info)">Lo que Andrea sabe y el agente no</h5>
+                <div style="background:var(--inset);border-radius:8px;padding:10px 12px;font-size:12px;margin-bottom:4px">
+                  <b style="color:var(--text-strong)">Andrea:</b> "Jorge cubrió la zona de Marta tres semanas mientras ella estuvo de licencia. Tomó rutas nuevas donde no lo conocen. Su 61% es con el doble de territorio. No es bajo rendimiento — es que le pedí que ayudara."</div>
+              </div>
+              <div class="card" style="border-color:var(--ok)">
+                <h5 style="color:var(--ok)"><svg class="ico" style="width:14px;height:14px"><use href="#i-check"/></svg>Corregir cómo se lo mide</h5>
+                <p style="margin:0 0 11px;font-size:12px">Marca la cobertura ampliada de Jorge y descártalo de la cola de coaching por 4 semanas. El agente ajustará su meta por el territorio extra y lo recordará para el resto del equipo.</p>
+                <div style="display:flex;gap:9px;align-items:center;flex-wrap:wrap">
+                  <span class="btn p"><svg class="ico" style="width:14px;height:14px;stroke:#fff"><use href="#i-check"/></svg>Guardar la corrección</span>
+                  <span class="btn g">Reconocer el apoyo a Jorge</span>
+                  <span class="subtle mono" style="margin-left:auto">→ modelo de conocimiento</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="note">
+        <div class="eyebrow">Frame note</div>
+        <p>The board's most important screen. The agent judged a person on a number and <b>got the story wrong</b>. Andrea has the context, and the system is built to let her win.</p>
+        <ul>
+          <li>Same "agent was wrong" loop as boards 03 and 04 — but here the stakes are a <b>person's standing</b>, so the correction has to be easy and dignified.</li>
+          <li>The fix is <b>saved as a rule</b>: cross-territory coverage now adjusts the metric for everyone, so no rep is punished for helping a colleague.</li>
+          <li>"Reconocer el apoyo a Jorge" turns a false flag into <b>recognition</b> — the opposite of what a naive dashboard would do.</li>
+          <li>This is the knowledge model learning <b>fairness</b>, which is worth more to a client than any metric.</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+
+  <div class="closing">
+    <h2>What this board settles</h2>
+    <p>The sales manager is where the agent's numbers become conversations, so this board is governed by one rule: <b>the agent surfaces patterns and drafts words, a human decides what to say to another human.</b> It never messages a rep about performance on its own, it leads with the person before the metric, and — most importantly — it can be told it judged someone unfairly, and it learns. Frame 05 is the whole thesis of the platform aimed at people instead of data: a human always has the last word, and being corrected is how the system earns the right to be trusted with a team.</p>
+    <div class="cols">
+      <div><h4>Components this adds</h4>
+        <ul><li>Team roster with supportive signal language</li><li>Coaching item with drafted-not-sent outreach options</li><li>Manager-seat approval gate (same component)</li><li>Collections watch + reminder run</li><li>Fairness override → knowledge model</li></ul></div>
+      <div><h4>Open questions for John</h4>
+        <ul><li>Does the manager see individual reply rates, or only the flags derived from them?</li><li>Should coaching history be visible to the rep, for transparency?</li><li>Who sets a rep's quota when territory changes — Andrea, or Francisco?</li></ul></div>
+    </div>
+  </div>
+
+  <div class="footer">Cascade Clarity · Enterprise Agent · Storyboard 07 · Sales manager · v0.1 · built on Brand System Vol. 2</div>
+</div>
+
+<script>
+function setTheme(t){
+  document.documentElement.dataset.theme=t;
+  document.getElementById('tDark').classList.toggle('on',t==='dark');
+  document.getElementById('tLight').classList.toggle('on',t==='light');
+}
+</script>
+</body>
+</html>

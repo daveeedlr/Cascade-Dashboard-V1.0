@@ -52,17 +52,34 @@ svg.mark{width:26px;height:26px;display:block}
 .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
 .chip{font-size:11px;font-weight:600;letter-spacing:.04em;padding:5px 12px;border-radius:999px;border:1px solid var(--border-2);color:var(--muted);background:var(--note-bg)}
 .chip.on{color:var(--accent);border-color:var(--accent)}
-.rule{height:1px;background:var(--border);margin:44px 0 30px}
+.rule{height:1px;background:var(--border);margin:40px 0 26px}
 .seclbl{font-size:10.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
-.feature{display:block;border:1px solid var(--border-2);background:var(--note-bg);border-radius:var(--r);padding:26px 28px;margin-bottom:30px;position:relative;overflow:hidden;transition:border-color .15s,transform .15s}
+/* tenant tag dot palette */
+.dot{width:9px;height:9px;border-radius:50%;flex:none;display:inline-block}
+.d-cascade{background:linear-gradient(135deg,#625FED,#5DB9DB 55%,#5BF7CF)}
+.d-construgypsum{background:#5DB9DB}
+.d-huffmaster{background:#8A86F0}
+/* filter bar */
+.filterbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:24px}
+.filterbar .flabel{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-right:4px}
+.fbtn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font);font-size:12.5px;font-weight:600;color:var(--text);
+  border:1px solid var(--border-2);background:var(--note-bg);border-radius:999px;padding:7px 14px;cursor:pointer;transition:border-color .15s,background .15s}
+.fbtn:hover{border-color:var(--accent)}
+.fbtn.on{background:var(--grad-main);color:#fff;border-color:transparent}
+.fbtn .count{font-family:var(--mono);font-size:10.5px;opacity:.7}
+/* tenant tag chip on cards */
+.ttag{display:inline-flex;align-items:center;gap:7px;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  padding:4px 10px 4px 8px;border-radius:999px;border:1px solid var(--border-2);color:var(--muted);margin-bottom:12px}
+/* feature (architecture) */
+.feature{display:block;border:1px solid var(--border-2);background:var(--note-bg);border-radius:var(--r);padding:24px 28px;margin-bottom:26px;position:relative;overflow:hidden;transition:border-color .15s,transform .15s}
 .feature:hover{border-color:var(--accent);transform:translateY(-2px)}
 .feature::before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:var(--grad-hero)}
 .feature .ft{display:flex;align-items:center;gap:12px;margin-bottom:9px;flex-wrap:wrap}
 .feature h2{font-size:23px}
 .feature .tagp{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);border:1px solid var(--purple);border-radius:999px;padding:3px 10px}
-.feature p{margin:0;font-size:14.5px;max-width:760px}
+.feature p{margin:0;font-size:14.5px;max-width:800px}
 .feature .go{margin-top:14px;display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:var(--accent)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
 .card{display:block;border:1px solid var(--border);background:var(--note-bg);border-radius:var(--r);padding:20px 21px;transition:border-color .15s,transform .15s;height:100%}
 .card:hover{border-color:var(--accent);transform:translateY(-2px)}
 .card .n{font-family:var(--mono);font-size:11.5px;font-weight:600;color:#fff;background:var(--grad-main);padding:3px 9px;border-radius:5px;display:inline-block;margin-bottom:11px}
@@ -70,6 +87,7 @@ svg.mark{width:26px;height:26px;display:block}
 .card .who{font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);margin-bottom:9px}
 .card p{margin:0;font-size:13px;color:var(--text)}
 .card .frames{margin-top:12px;padding-top:11px;border-top:1px solid var(--border);font-size:11px;color:var(--muted);font-family:var(--mono)}
+.empty-note{color:var(--muted);font-size:13px;padding:8px 2px;display:none}
 .docrow{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
 .doc{display:flex;align-items:center;gap:10px;border:1px solid var(--border);background:var(--note-bg);border-radius:9px;padding:12px 15px;font-size:13px;flex:1;min-width:230px;transition:border-color .15s}
 .doc:hover{border-color:var(--accent)}
@@ -111,73 +129,94 @@ svg.mark{width:26px;height:26px;display:block}
 
   <div class="hero">
     <h1>Cascade Dashboard <span class="grad">V1.0</span></h1>
-    <p>UI/UX storyboards for the <b>Cascade Enterprise Agent</b> — the browser-based, single-tenant agent workspace. Four user journeys and one system diagram, drawn on the Cowork pattern, in the Cascade brand, grounded in the Construgypsum deployment. Every board shows the happy path <b>and</b> what happens when it breaks.</p>
+    <p>UI/UX storyboards for the <b>Cascade Enterprise Agent</b> — the browser-based, single-tenant agent workspace. Seven user journeys and one system diagram, drawn on the Cowork pattern, in the Cascade brand. Each board is <b>tagged by the account it references</b> so the set stays legible as it grows. Every board shows the happy path <b>and</b> what happens when it breaks.</p>
     <div class="meta">
-      <span class="chip on">6 storyboards</span>
+      <span class="chip on">7 storyboards</span>
       <span class="chip on">1 architecture diagram</span>
-      <span class="chip on">2 tenants</span>
-      <span class="chip">~38 annotated frames</span>
+      <span class="chip on">3 accounts</span>
+      <span class="chip">~43 annotated frames</span>
       <span class="chip">Dark + light on one token layer</span>
-      <span class="chip">Brand System Vol. 2</span>
     </div>
   </div>
 
   <div class="rule"></div>
 
-  <div class="seclbl">Start here</div>
-  <a class="feature" href="Cascade_Agents_Decision_Architecture.html">
-    <div class="ft"><h2>Global decision architecture</h2><span class="tagp">System-wide</span></div>
+  <div class="seclbl">Filter by account</div>
+  <div class="filterbar">
+    <button class="fbtn on" onclick="filterAcct('all',this)">All <span class="count">8</span></button>
+    <button class="fbtn" onclick="filterAcct('cascade',this)"><span class="dot d-cascade"></span>Cascade · Platform <span class="count">1</span></button>
+    <button class="fbtn" onclick="filterAcct('construgypsum',this)"><span class="dot d-construgypsum"></span>Construgypsum <span class="count">6</span></button>
+    <button class="fbtn" onclick="filterAcct('huffmaster',this)"><span class="dot d-huffmaster"></span>Huffmaster <span class="count">1</span></button>
+  </div>
+
+  <!-- ARCHITECTURE (Cascade platform) -->
+  <a class="feature" href="Cascade_Agents_Decision_Architecture.html" data-tenant="cascade">
+    <div class="ft"><h2>Global decision architecture</h2>
+      <span class="ttag" style="border-color:rgba(91,247,207,.5);margin-bottom:0"><span class="dot d-cascade"></span>Cascade · Platform</span></div>
     <p>The whole platform on one page. From a connected system to a real-world action, through seven gates — each a decision with a <b>yes</b> and a <b>no</b>. Follow the green line and you reach an action; every red line stops somewhere safe and says why. This is the page to put in front of a buyer who asks what stops the agent doing something stupid.</p>
     <span class="go">Open the diagram →</span>
   </a>
 
-  <div class="seclbl">Tenant one · Construgypsum — one board per user</div>
-  <div class="grid">
-    <a class="card" href="Cascade_Enterprise_Agent_Storyboard.html">
+  <div class="seclbl">The storyboards · one per user</div>
+  <div class="empty-note" id="emptyNote">No boards for this account yet.</div>
+  <div class="grid" id="cardgrid">
+    <a class="card" href="Cascade_Enterprise_Agent_Storyboard.html" data-tenant="construgypsum">
+      <span class="ttag" style="border-color:rgba(93,185,219,.55)"><span class="dot d-construgypsum"></span>Construgypsum</span>
       <span class="n">01</span>
       <h3>Admin — steady state</h3>
       <div class="who">Administrator</div>
       <p>A workspace already running. Login, dashboard, connectors, the chat surface, runs, and the run-detail approval gate where a human signs off before anything writes.</p>
       <div class="frames">9 frames · 3 error branches</div>
     </a>
-    <a class="card" href="Cascade_Enterprise_Agent_Storyboard_02_Onboarding.html">
+    <a class="card" href="Cascade_Enterprise_Agent_Storyboard_02_Onboarding.html" data-tenant="construgypsum">
+      <span class="ttag" style="border-color:rgba(93,185,219,.55)"><span class="dot d-construgypsum"></span>Construgypsum</span>
       <span class="n">02</span>
       <h3>Admin — onboarding</h3>
       <div class="who">Administrator · day one</div>
       <p>The empty room. Connecting Odoo, a failed connection with a real diagnosis, permission scopes, roles, suggested listeners, and a first read-only run.</p>
       <div class="frames">7 frames · 2 error branches</div>
     </a>
-    <a class="card" href="Cascade_Enterprise_Agent_Storyboard_03_Operator.html">
+    <a class="card" href="Cascade_Enterprise_Agent_Storyboard_03_Operator.html" data-tenant="construgypsum">
+      <span class="ttag" style="border-color:rgba(93,185,219,.55)"><span class="dot d-construgypsum"></span>Construgypsum</span>
       <span class="n">03</span>
       <h3>Operator — inventory</h3>
       <div class="who">Panchito · Chayabamba</div>
       <p>Starts on WhatsApp, not in the app. One stock-out from the morning digest to an approved replenishment, plus the week the agent got it wrong and was corrected.</p>
       <div class="frames">6 frames · 2 error branches</div>
     </a>
-    <a class="card" href="Cascade_Enterprise_Agent_Storyboard_04_Executive.html">
+    <a class="card" href="Cascade_Enterprise_Agent_Storyboard_04_Executive.html" data-tenant="construgypsum">
+      <span class="ttag" style="border-color:rgba(93,185,219,.55)"><span class="dot d-construgypsum"></span>Construgypsum</span>
       <span class="n">04</span>
       <h3>Executive — the business</h3>
       <div class="who">Francisco · Gerente General</div>
       <p>Four numbers, a 360 view of each store, a weekly narrative that takes a position, and the one request we deliberately said no to.</p>
       <div class="frames">5 frames · 1 scope guard</div>
     </a>
-    <a class="card" href="Cascade_Enterprise_Agent_Storyboard_05_FieldRep.html">
+    <a class="card" href="Cascade_Enterprise_Agent_Storyboard_05_FieldRep.html" data-tenant="construgypsum">
+      <span class="ttag" style="border-color:rgba(93,185,219,.55)"><span class="dot d-construgypsum"></span>Construgypsum</span>
       <span class="n">05</span>
       <h3>Field rep — WhatsApp only</h3>
       <div class="who">Luis · Vendedor</div>
       <p>No login, no app, no dashboard. Two questions after each visit, messy words parsed into a clean CRM record, and the privacy boundary that decides whether reps actually reply.</p>
       <div class="frames">5 frames · 1 error branch</div>
     </a>
+    <a class="card" href="Cascade_Enterprise_Agent_Storyboard_07_SalesManager.html" data-tenant="construgypsum">
+      <span class="ttag" style="border-color:rgba(93,185,219,.55)"><span class="dot d-construgypsum"></span>Construgypsum</span>
+      <span class="n">07</span>
+      <h3>Sales manager — the team</h3>
+      <div class="who">Andrea · Gerente Comercial</div>
+      <p>Where the agent's numbers become conversations with people. Team roster, the coaching escalation from board 05, pipeline approval, collections, and overruling the agent when it judged a rep unfairly.</p>
+      <div class="frames">5 frames · fairness override</div>
+    </a>
+    <a class="card" href="Cascade_Enterprise_Agent_Storyboard_06_Huffmaster.html" data-tenant="huffmaster">
+      <span class="ttag" style="border-color:rgba(122,107,224,.6)"><span class="dot d-huffmaster"></span>Huffmaster</span>
+      <span class="n">06</span>
+      <h3>Huffmaster — Project Sword</h3>
+      <div class="who">Second tenant · Sword</div>
+      <p>A US strike-staffing operation instead of a materials distributor: Bullhorn, UKG, Zoho, NetSuite, Essium. Hire-to-deploy orchestration, a compliance gate, and a termination that closes a still-billing hotel. Same shell, different connectors — the platform argument.</p>
+      <div class="frames">5 frames · 2 error branches</div>
+    </a>
   </div>
-
-  <div class="rule"></div>
-
-  <div class="seclbl">Tenant two · the platform argument</div>
-  <a class="feature" href="Cascade_Enterprise_Agent_Storyboard_06_Huffmaster.html">
-    <div class="ft"><h2>Huffmaster — Project Sword</h2><span class="tagp">Second tenant</span></div>
-    <p>A US strike-staffing operation instead of an Ecuadorian materials distributor: Bullhorn, UKG, Zoho, NetSuite, Essium. Hire-to-deploy orchestration, a compliance gate on a rehire's expired I-9, and the termination that closes a hotel still billing after three months. <b>Same shell, same cards, same approval gate</b> — only the connectors and the vocabulary changed. That's the difference between a platform with tenants and a bespoke integration project.</p>
-    <span class="go">Open the Huffmaster board →</span>
-  </a>
 
   <div class="rule"></div>
 
@@ -192,7 +231,8 @@ svg.mark{width:26px;height:26px;display:block}
   <div class="how">
     <h3>How to read these</h3>
     <ol>
-      <li><b>Start with the architecture diagram.</b> It's the system underneath all four boards — the gates every request passes through.</li>
+      <li><b>Every board is tagged by account.</b> Cascade · Platform is the system itself; Construgypsum and Huffmaster are client tenants. Use the filter above to see one account at a time.</li>
+      <li><b>Start with the architecture diagram.</b> It's the system underneath all the user boards — the gates every request passes through.</li>
       <li><b>Then pick a user.</b> Each board follows one person end to end, frame by frame, with a note beside every screen explaining the design decision.</li>
       <li><b>Watch the error states.</b> They sit next to the happy path on purpose — a storyboard that only shows the ideal case hides the parts the build has to get right.</li>
       <li><b>Toggle light and dark</b> on any page. The whole set flips on one token layer, which is why re-skinning for another client is a stylesheet swap, not a rebuild.</li>
@@ -210,6 +250,15 @@ function setTheme(t){
   document.documentElement.dataset.theme=t;
   document.getElementById('tDark').classList.toggle('on',t==='dark');
   document.getElementById('tLight').classList.toggle('on',t==='light');
+}
+function filterAcct(t,btn){
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('[data-tenant]').forEach(el=>{
+    el.style.display=(t==='all'||el.dataset.tenant===t)?'':'none';
+  });
+  var vis=document.querySelectorAll('#cardgrid [data-tenant]:not([style*="display: none"])').length;
+  document.getElementById('emptyNote').style.display=vis?'none':'block';
 }
 </script>
 </body>

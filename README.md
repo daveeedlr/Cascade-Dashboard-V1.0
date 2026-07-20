@@ -2,23 +2,32 @@
 
 UI/UX storyboards for the **Cascade Enterprise Agent** — the browser-based, single-tenant agent workspace built by [Cascade Clarity](https://cascadeclarity.ai).
 
-Four user journeys and one system diagram, drawn on the Cowork interaction pattern, in the Cascade Clarity brand (Brand System Vol. 2), grounded in the Construgypsum deployment. Every board shows the happy path **and** the error states beside it.
+Seven user journeys and one system diagram, drawn on the Cowork interaction pattern, in the Cascade Clarity brand (Brand System Vol. 2). Every board is **tagged by the account it references** and shows the happy path **and** the error states beside it.
 
 **▶ [View the storyboards](https://daveeedlr.github.io/Cascade-Dashboard-V1.0/)**
 
 ---
 
+## Account tags
+
+Every board carries a tag so it is clear which account it references:
+
+- 🟦 **Cascade · Platform** — the system itself, applies to all tenants
+- 🔵 **Construgypsum** — client tenant (Ecuadorian building-materials distributor, Odoo + WhatsApp)
+- 🟣 **Huffmaster** — client tenant / Project Sword (US strike-staffing, Bullhorn + UKG + more)
+
 ## Contents
 
-| | Board | User | What it covers |
-|---|---|---|---|
-| — | [Global decision architecture](Cascade_Agents_Decision_Architecture.html) | System-wide | The whole platform on one page: seven gates, each a yes/no decision, from connected system to real-world action |
-| 01 | [Admin — steady state](Cascade_Enterprise_Agent_Storyboard.html) | Administrator | Login, dashboard, connectors, chat surface, runs, run-detail approval gate |
-| 02 | [Admin — onboarding](Cascade_Enterprise_Agent_Storyboard_02_Onboarding.html) | Administrator, day one | Empty workspace, connecting Odoo, failed connection, permission scopes, roles, first run |
-| 03 | [Operator — inventory](Cascade_Enterprise_Agent_Storyboard_03_Operator.html) | Panchito, Chayabamba | WhatsApp digest entry point, stock-out to approved replenishment, weekly accuracy correction |
-| 04 | [Executive — the business](Cascade_Enterprise_Agent_Storyboard_04_Executive.html) | Francisco, Gerente General | Business dashboard, account 360, natural-language questions, weekly narrative, scope guard |
-| 05 | [Field rep — WhatsApp only](Cascade_Enterprise_Agent_Storyboard_05_FieldRep.html) | Luis, Vendedor | Visit prompt, free text parsed into a CRM record, no-reply branch, coaching nudge, privacy boundary |
-| 06 | [Huffmaster — Project Sword](Cascade_Enterprise_Agent_Storyboard_06_Huffmaster.html) | Second tenant | Deployment view, hire-to-deploy orchestration, compliance gate, termination closing open spend, a different connector stack |
+| | Board | Account | User | What it covers |
+|---|---|---|---|---|
+| — | [Global decision architecture](Cascade_Agents_Decision_Architecture.html) | Cascade · Platform | System-wide | The whole platform on one page: seven gates, each a yes/no decision, from connected system to real-world action |
+| 01 | [Admin — steady state](Cascade_Enterprise_Agent_Storyboard.html) | Construgypsum | Administrator | Login, dashboard, connectors, chat surface, runs, run-detail approval gate |
+| 02 | [Admin — onboarding](Cascade_Enterprise_Agent_Storyboard_02_Onboarding.html) | Construgypsum | Administrator, day one | Empty workspace, connecting Odoo, failed connection, permission scopes, roles, first run |
+| 03 | [Operator — inventory](Cascade_Enterprise_Agent_Storyboard_03_Operator.html) | Construgypsum | Panchito, Chayabamba | WhatsApp digest entry point, stock-out to approved replenishment, weekly accuracy correction |
+| 04 | [Executive — the business](Cascade_Enterprise_Agent_Storyboard_04_Executive.html) | Construgypsum | Francisco, Gerente General | Business dashboard, account 360, natural-language questions, weekly narrative, scope guard |
+| 05 | [Field rep — WhatsApp only](Cascade_Enterprise_Agent_Storyboard_05_FieldRep.html) | Construgypsum | Luis, Vendedor | Visit prompt, free text parsed into a CRM record, no-reply branch, coaching nudge, privacy boundary |
+| 06 | [Huffmaster — Project Sword](Cascade_Enterprise_Agent_Storyboard_06_Huffmaster.html) | Huffmaster | Second tenant | Deployment view, hire-to-deploy orchestration, compliance gate, termination closing open spend, a different connector stack |
+| 07 | [Sales manager — the team](Cascade_Enterprise_Agent_Storyboard_07_SalesManager.html) | Construgypsum | Andrea, Gerente Comercial | Team roster, coaching escalation from board 05, pipeline approval, collections, overruling an unfair flag |
 
 Background reading: [Storyboard & Storybook primer](Storyboard_and_Storybook_Primer.md).
 
